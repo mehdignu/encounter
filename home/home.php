@@ -14,20 +14,38 @@ if(!isset($_SESSION['username'])){
 
     <link rel="stylesheet" type="text/css" href="../css/home.css">
     <meta name="description" content="Mehdi Dridi. I'm a software engineer obsessed with code quality, software architecture, and building experiences.">
+    <script src="../js/home.js"></script>
+
     <title>home</title>
 </head>
 <body>
+
 <div class="topnav">
+    <div class="boo">
     <a class="active" href="#home">Home</a>
     <a href="#news">News</a>
     <a href="#contact">Contact</a>
     <a href="#about">About</a>
+    </div>
+    <div class="dropdown">
+        <a onclick="dropMenu()" class="dropbtn">Settings</a>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="#home">Profile </a>
+            <a href="../php/logout.php">Logout</a>
+        </div>
+    </div>
+
 </div>
+
 
 <div style="padding-left:16px">
     <h2>Top Navigation Example</h2>
     <p>Some content..</p>
+    <a class="button button5" href="create.php">Create an encounter</a>
+    <a class="button button5">Find an encounter</a>
 </div>
+
+
 </body>
 </html>
 
