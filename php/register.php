@@ -1,5 +1,6 @@
 <?php
 $connection = mysqli_connect('localhost', 'mehdi', 'toor');
+$connection->query('SET NAMES utf8');
 if (!$connection){
     die("Database Connection Failed" . mysqli_error($connection));
 }

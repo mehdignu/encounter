@@ -22,10 +22,10 @@ if(!isset($_SESSION['username'])){
 
 <div class="topnav">
     <div class="boo">
-    <a class="active" href="#home">Home</a>
-    <a href="#news">News</a>
-    <a href="#contact">Contact</a>
-    <a href="#about">About</a>
+        <a class="active" href="#home">Home</a>
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
     </div>
     <div class="dropdown">
         <a onclick="dropMenu()" class="dropbtn">Settings</a>
@@ -41,7 +41,7 @@ if(!isset($_SESSION['username'])){
 <div style="padding-left:16px">
     <h2>Top Navigation Example</h2>
     <p>Some content..</p>
-    <a class="button button5" href="create.php">Create an encounter</a>
+    <a class="button button5" href="create.html">Create an encounter</a>
     <a class="button button5">Find an encounter</a>
 </div>
 
