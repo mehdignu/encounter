@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $connection = mysqli_connect('localhost', 'mehdi', 'toor');
 $connection->query('SET NAMES utf8');
 if (!$connection){
@@ -20,9 +22,17 @@ if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['loca
     $age = $_POST['age'];
     $age1 = $_POST['age1'];
 
+    //add the eevent to the scheduled table
+    $user = $_SESSION['username'];
+    $query = "INSERT INTO `scheduled` (`Title`, `Description`,`Location`,`Date`,`Time`,`Max`,`Age`,`Age1`,`owner`) VALUES ('$title', '$description', '$location', '$date', '$time', '$max', '$age', '$age1',(SELECT `id` FROM `users` WHERE `UserName` = '$user'))";
 
-    $query = "INSERT INTO `scheduled` (Title, Description,Location,Date,Time,Max,Age,Age1) VALUES ('$title', '$description', '$location', '$date', '$time', '$max', '$age', '$age1')";
     $result = mysqli_query($connection, $query);
+    if (!$result)
+    {
+        echo("Error description: " . mysqli_error($connection));
+    }
+
+
     if($result){
         $smsg = "User Created Successfully.";
     }else{

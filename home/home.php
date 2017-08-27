@@ -4,6 +4,10 @@ if(!isset($_SESSION['username'])){
     header("Location: ../index.html");
 }
 //echo 'success redirected' . $_SESSION['username'];
+
+include_once '../php/show.php';
+
+
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +32,7 @@ if(!isset($_SESSION['username'])){
         <a href="#about">About</a>
     </div>
     <div class="dropdown">
-        <a onclick="dropMenu()" class="dropbtn">Settings</a>
+        <a onclick="dropMenu(this.id,nr)" id="navSec" class="dropbtn">Settings</a>
         <div id="myDropdown" class="dropdown-content">
             <a href="#home">Profile </a>
             <a href="../php/logout.php">Logout</a>
@@ -43,8 +47,69 @@ if(!isset($_SESSION['username'])){
     <p>Some content..</p>
     <a class="button button5" href="create.html">Create an encounter</a>
     <a class="button button5">Find an encounter</a>
+<br />
+<!--    <a class="button button6">some event</a> -->
+
+    <?php
+
+    $result = eventsArray();
+    while ($row = mysqli_fetch_assoc($result)) {
+    ?>
+    <div class="eventwrapper">
+        <button onclick="dropMenu(this.id,nr)" id="" class="eventbtn"><?php printf ("%s\n", $row["Title"]); ?></button>
+        <div id="myDropdown" class="event-details">
+
+            <div class="wrp">
+
+                <div class="details">
+                    <h4>Description:</h4>
+                    is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                </div>
+
+                <h4>Date/Time: <span class="timing">10/12/2017 - 18:15pm</span></h4>
+
+                <h4>Attenders <span class="timing">1 of 5</span></h4>
+
+
+                <div class="joining">
+                    <a class="button button5">Ask to Join</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <?php
+
+    }
+
+     ?>
+
+
 </div>
 
+<script>
+
+    //getting the number of elemnts inside the page as global variable
+    if(document.querySelectorAll('.eventbtn').length > 0){
+        nr = document.querySelectorAll('.eventbtn').length;
+    } else {
+        nr =0;
+    }
+
+    //make the id's name different
+    var buttons = document.querySelectorAll('.eventbtn');
+    for (var i=0; i<buttons.length; i++) {
+        buttons[i].id = buttons[i].id + i;
+    }
+    var buttons = document.querySelectorAll('.event-details');
+    for (var i=0; i<buttons.length; i++) {
+        buttons[i].id = buttons[i].id + i;
+    }
+
+</script>
 
 </body>
 </html>

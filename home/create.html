@@ -30,7 +30,8 @@ if(!isset($_SESSION['username'])){
 
 <div class="topnav">
     <div class="boo">
-        <a class="active" href="#home">Home</a>
+        <!-- class="active" when selected -->
+        <a href="home.php">Home</a>
         <a href="#news">News</a>
         <a href="#contact">Contact</a>
         <a href="#about">About</a>
@@ -53,7 +54,7 @@ if(!isset($_SESSION['username'])){
         <input type="text" placeholder="Title" name="title" required><br />
 
         <label><b>Description</b></label>
-        <textarea placeholder="Description" class="text" cols="35" rows ="5" name="description"></textarea><br />
+        <textarea placeholder="Description" class="text" cols="35" rows ="5" maxlength="150" name="description"></textarea><br />
 
         <label><b>location</b></label>
         Location: <input type="text" id="us3-address" name="location" style="width: 200px" required />
