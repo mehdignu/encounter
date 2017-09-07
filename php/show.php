@@ -13,8 +13,17 @@ if (!$select_db){
 
 function eventsArray(){
     $result =mysqli_query($GLOBALS['connection'],"SELECT * FROM `scheduled`");
-
     return $result;
 
+}
+
+function getOwner($id){
+
+    $result =mysqli_query($GLOBALS['connection'],"SELECT `UserName` FROM `users` where `id` = '$id'");
+    while($row = mysqli_fetch_assoc($result)){
+        $ownerName =$row['UserName'];
+        break;
+    }
+    return $ownerName;
 }
 
