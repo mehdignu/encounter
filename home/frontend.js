@@ -64,15 +64,60 @@ $(function () {
         var eventId = $('#eventid'+id).val();
         var buttonText =$('#reqText'+id).text();
 
-        alert($('#reqText').val());
-        connection.send(owner); //send
+        connection.send(owner); //send to server
+
+        if(buttonText==='requested'){
+
+            //cancel request from database
+            var dataString = { "eventid": eventId, "owner": owner, "username": userName };
+
+            $('#reqText'+id).text('Ask To Join');
 
 
-        //save request to database
-      /*  var dataString = { "eventid": eventId, "owner": owner, "username": userName };
+            $.ajax({
+                type: "POST",
+                url: "cancelRequest.php",
+                data: {'request': JSON.stringify(dataString)},
+                cache: false,
+
+                success: function(html)
+                {
+                    //alert(html);
+                }
+            });
+
+
+        } else if(buttonText==='Ask To Join') {
+
+            //save request to database
+            var dataString = { "eventid": eventId, "owner": owner, "username": userName };
+            $('#reqText'+id).text('requested');
+
+
+            $.ajax({
+                type: "POST",
+                url: "request.php",
+                data: {'request': JSON.stringify(dataString)},
+                cache: false,
+
+                success: function(html)
+                {
+                    //alert(html);
+                }
+            });
+
+        }
+    });
+
+
+    $('.acceptReq').bind("click",function(){
+        var id = $(this).attr('id');
+        var reqID = $('#reqID'+id).val(); // requestID
+        var dataString = { "eventid": reqID};
+
         $.ajax({
             type: "POST",
-            url: "request.php",
+            url: "acceptRequest.php",
             data: {'request': JSON.stringify(dataString)},
             cache: false,
 
@@ -80,9 +125,27 @@ $(function () {
             {
                 //alert(html);
             }
-        });*/
-
+        });
     });
+
+    $('.denyReq').bind("click",function(){
+        var id = $(this).attr('id');
+        var reqID = $('#reqID'+id).val(); // requestID
+
+        var dataString = { "eventid": reqID};
+        $.ajax({
+            type: "POST",
+            url: "denyRequest.php",
+            data: {'request': JSON.stringify(dataString)},
+            cache: false,
+
+            success: function(html)
+            {
+                //alert(html);
+            }
+        });
+    });
+
 
 });
 

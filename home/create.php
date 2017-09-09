@@ -24,11 +24,19 @@ if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['loca
         echo("Error description: " . mysqli_error($connection));
     }
 
+    $lastEventId = mysqli_insert_id($connection);
+
+    $query = "INSERT INTO `participations` (EventID, MemberID) VALUES ('$lastEventId', (SELECT `id` FROM `users` WHERE `UserName` = '$user'))";
+    $result = mysqli_query($connection, $query);
+    if (!$result)
+    {
+        echo("Error description: " . mysqli_error($connection));
+    }
 
     if($result){
-        $smsg = "User Created Successfully.";
+        $smsg = "event Created Successfully.";
     }else{
-        $fmsg ="User Registration Failed";
+        $fmsg ="event creation Failed";
     }
 }
 

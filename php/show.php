@@ -1,14 +1,7 @@
 <?php
 
-$connection = mysqli_connect('localhost', 'mehdi', 'toor');
-$connection->query('SET NAMES utf8');
-if (!$connection) {
-    die("Database Connection Failed" . mysqli_error($connection));
-}
-$select_db = mysqli_select_db($connection, 'encounter');
-if (!$select_db) {
-    die("Database Selection Failed" . mysqli_error($connection));
-}
+include("config.php");
+
 
 /*
  * get the available events
@@ -43,7 +36,7 @@ function getRequests($userName = '')
 
     //get requested events form the username and the requester
     $result = mysqli_query($GLOBALS['connection'], "
-        SELECT k.UserName as 'requester', d.Title
+        SELECT k.UserName as 'requester', d.Title, s.requestID
     FROM users u
         inner join requests s on u.id = s.owner
             inner join scheduled d on d.id = s.eventID
@@ -51,9 +44,11 @@ function getRequests($userName = '')
     WHERE u.UserName = '$userName'
         ");
 
+    $rows = array();
     while ($row = $result->fetch_array()) {
         $rows[] = $row;
     }
+
 
     return $rows;
 
