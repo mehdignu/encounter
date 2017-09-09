@@ -1,13 +1,6 @@
 <?php
-$connection = mysqli_connect('localhost', 'mehdi', 'toor');
-$connection->query('SET NAMES utf8');
-if (!$connection){
-    die("Database Connection Failed" . mysqli_error($connection));
-}
-$select_db = mysqli_select_db($connection, 'encounter');
-if (!$select_db){
-    die("Database Selection Failed" . mysqli_error($connection));
-}
+include("config.php");
+
 // If the values are posted, insert them into the database.
 if (isset($_POST['uname']) && isset($_POST['psw']) ){
     $firstname = $_POST['uname'];

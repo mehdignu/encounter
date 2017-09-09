@@ -3,7 +3,6 @@ session_start();
 if (!isset($_SESSION['username'])) {
     header("Location: ../index.html");
 }
-//echo 'success redirected' . $_SESSION['username'];
 
 include_once '../php/show.php';
 
@@ -15,7 +14,6 @@ include_once '../php/show.php';
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
 
     <script
             src="https://code.jquery.com/jquery-1.12.4.min.js"
@@ -40,6 +38,33 @@ include_once '../php/show.php';
         <a class="active" href="#home">Home</a>
         <a href="#news">News</a>
         <a href="#contact">Contact</a>
+
+        <a id="notification_li">
+            <span id="notification_count">3</span>
+            <a href="#" id="notificationLink">Notifications</a>
+
+            <div id="notificationContainer">
+                <div id="notificationTitle">Notifications</div>
+
+                <?php
+
+                $result = getRequests($_SESSION['username']);
+                foreach ($result as $r) {
+                    ?>
+                    <div id="notificationsBody" class="notifications">
+
+                        <?php print_r($r['requester']) ?> wants to join your encounter: <?php print_r($r['Title']) ?>
+
+                    </div>
+                    <?php
+                }
+                ?>
+
+                <div id="notificationFooter"><a href="#">See All</a></div>
+            </div>
+        </a>
+
+
         <a href="#about">username : <?php echo $_SESSION['username'] ?></a>
     </div>
     <div class="dropdown">
@@ -85,12 +110,25 @@ include_once '../php/show.php';
 
                     <h4>Attenders <span class="timing">1 of 5</span></h4>
 
-                    <?php $owner = getOwner($row['owner'])?>
+                    <?php $owner = getOwner($row['owner']) ?>
+                    <?php $isRequested = isRequested($_SESSION['username'], $row['id']) ?>
 
+                    <div class="joining">
+                        <!-- compare owner of the event with the session user if they are the same notify the user that someone want's to join the event -->
 
-                    <div class="joining"> <!-- compare owner of the event with the session user if they are the same notify the user that someone want's to join the event -->
-                        <a class="button button5" id="boo" >Ask to Join</a>
-                        <input type="hidden" id="owner" value="<?php echo $owner ?>">
+                        <a class="button button5 ask" id=""> <?php if ($isRequested == true) { ?>
+
+                                <span id="reqText"><?php echo 'requested'; ?></span>
+
+                            <?php } else { ?>
+
+                                <span id="reqText"><?php echo 'Ask To Join'; ?></span>
+
+                            <?php } ?></a>
+
+                        <input type="hidden" class="own" id="owner" value="<?php echo $owner ?>">
+                        <input type="hidden" class="evn" id="eventid" value="<?php echo $row['id'] ?>">
+
                     </div>
 
                 </div>
@@ -106,12 +144,28 @@ include_once '../php/show.php';
     ?>
 
 
-
 </div>
 
 
 <script>
+    $(document).ready(function () {
+        $("#notificationLink").click(function () {
+            $("#notificationContainer").fadeToggle(300);
+            $("#notification_count").fadeOut("slow");
+            return false;
+        });
 
+//Document Click hiding the popup
+        $(document).click(function () {
+            $("#notificationContainer").hide();
+        });
+
+//Popup on click
+        $("#notificationContainer").click(function () {
+            return false;
+        });
+
+    });
 
     //getting the number of elemnts inside the page as global variable
     if (document.querySelectorAll('.eventbtn').length > 0) {
@@ -130,6 +184,28 @@ include_once '../php/show.php';
         buttons[i].id = buttons[i].id + i;
     }
 
+    //make the id's name different for ask button
+    var buttons = document.querySelectorAll('.ask');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].id = buttons[i].id + i;
+    }
+
+    //make the id's name different for ask button
+    var buttons = document.querySelectorAll('.own');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].id = buttons[i].id + i;
+    }
+
+    //make the id's name different for event id's
+    var buttons = document.querySelectorAll('.evn');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].id = buttons[i].id + i;
+    }
+    //make the id's name different for button texts id's
+    var buttons = document.querySelectorAll('#reqText');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].id = buttons[i].id + i;
+    }
 
 
 </script>

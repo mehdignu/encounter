@@ -1,15 +1,7 @@
 <?php
 session_start();
 
-$connection = mysqli_connect('localhost', 'mehdi', 'toor');
-$connection->query('SET NAMES utf8');
-if (!$connection){
-    die("Database Connection Failed" . mysqli_error($connection));
-}
-$select_db = mysqli_select_db($connection, 'encounter');
-if (!$select_db){
-    die("Database Selection Failed" . mysqli_error($connection));
-}
+include("../php/config.php");
 
 if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['location']) && isset($_POST['hour']) && isset($_POST['min']) && isset($_POST['max'])&& isset($_POST['date'])&& isset($_POST['age'])&& isset($_POST['age1']) ){
     $title = strip_tags($_POST['title']);

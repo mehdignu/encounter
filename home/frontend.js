@@ -1,5 +1,6 @@
 $(function () {
 
+
     "use strict";
     // for better performance - to avoid searching in DOM
     //declare variables
@@ -48,16 +49,39 @@ $(function () {
 
         if (json.type === 'notify') {
             var x = json.data;
-            alert(x);
+            if(x!==userName)
+                alert(x); //supposed to be notification alert used instead x is username of requester
         }
 
 
     };
 
 
-    $('#boo').bind("click",function(){
-        var owner = $('#owner').val();
-        connection.send(owner);
+    $('.ask').bind("click",function(){
+        //get creator of the event to send him a request notification
+        var id = $(this).attr('id');
+        var owner = $('#owner'+id).val();
+        var eventId = $('#eventid'+id).val();
+        var buttonText =$('#reqText'+id).text();
+
+        alert($('#reqText').val());
+        connection.send(owner); //send
+
+
+        //save request to database
+      /*  var dataString = { "eventid": eventId, "owner": owner, "username": userName };
+        $.ajax({
+            type: "POST",
+            url: "request.php",
+            data: {'request': JSON.stringify(dataString)},
+            cache: false,
+
+            success: function(html)
+            {
+                //alert(html);
+            }
+        });*/
+
     });
 
 });
