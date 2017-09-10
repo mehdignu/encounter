@@ -46,30 +46,11 @@ include_once '../php/show.php';
             <div id="notificationContainer">
                 <div id="notificationTitle">Notifications</div>
 
-                <?php
+                <div id="notificationsBody" class="notifications">
 
-                $result = getRequests($_SESSION['username']);
-                $c =count($result);
-                if(!empty($result)){
-                foreach ($result as $r) {
-                    ?>
-                    <div id="notificationsBody" class="notifications">
 
-                        User: <?php  print_r($r['requester']) ?> ,wants to join your encounter Title : <?php print_r($r['Title']) ?>
-                        <br />
-                        <button id="" class="acceptReq">accept</button>
-                        <button id="" class="denyReq">deny</button>
-                        <input type="hidden" id="reqID" value="<?php echo $r['requestID'] ?>">
+                </div>
 
-                    </div>
-                    <?php
-                }
-                } else { ?>
-                    <br />
-                <h4>No encounters yet</h4>
-                <?php
-                }
-                ?>
 
                 <div id="notificationFooter"><a href="#">See All</a></div>
             </div>
@@ -218,23 +199,7 @@ include_once '../php/show.php';
         buttons[i].id = buttons[i].id + i;
     }
 
-    //make the id's name different for button texts id's
-    var buttons = document.querySelectorAll('.acceptReq');
-    for (var i = 0; i < buttons.length; i++) {
-        buttons[i].id = buttons[i].id + i;
-    }
 
-    //make the id's name different for button texts id's
-    var buttons = document.querySelectorAll('.denyReq');
-    for (var i = 0; i < buttons.length; i++) {
-        buttons[i].id = buttons[i].id + i;
-    }
-
-    //make the id's name different for button texts id's
-    var buttons = document.querySelectorAll('#reqID');
-    for (var i = 0; i < buttons.length; i++) {
-        buttons[i].id = buttons[i].id + i;
-    }
 </script>
 </body>
 </html>

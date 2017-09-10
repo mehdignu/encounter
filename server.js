@@ -89,10 +89,33 @@ wsServer.on('request', function (request) {
                 }
 
             } else {
-                var owner = htmlEntities(message.utf8Data);
 
-                var json = JSON.stringify({type: 'notify', data: userName});
-                    clients[owner].sendUTF(json);
+                try {
+                    var json = JSON.parse(message.utf8Data);
+                } catch (e) {
+                    console.log('Invalid JSON: ', message.utf8Data);
+                    return;
+                }
+
+                /*console.log(json.type);
+
+                var owner = htmlEntities(message.utf8Data);
+*/
+
+                if(json.type=='ask'){
+                    var jsonToSend = JSON.stringify({type: 'notify', data: userName});
+                    var owner = json.owner;
+                    clients[owner].sendUTF(jsonToSend);
+                }
+
+                if(json.type=='accepted'){
+                    var jsonToSend = JSON.stringify({type: 'notify', data: userName});
+                    var requester = json.requester;
+                    clients[requester].sendUTF(jsonToSend);
+                }
+
+
+
             }
 
         }
