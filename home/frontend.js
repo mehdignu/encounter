@@ -49,7 +49,7 @@ $(function () {
 
         if (json.type === 'notify') {
             var x = json.data;
-            if(x!==userName)
+            if (x !== userName)
                 alert(x); //supposed to be notification alert used instead x is username of requester
 
         }
@@ -58,26 +58,26 @@ $(function () {
     };
 
 
-    $('.ask').bind("click",function(){
+    $('.ask').bind("click", function () {
         //get creator of the event to send him a request notification
         var id = $(this).attr('id');
-        var owner = $('#owner'+id).val();
-        var eventId = $('#eventid'+id).val();
-        var buttonText =$('#reqText'+id).text();
+        var owner = $('#owner' + id).val();
+        var eventId = $('#eventid' + id).val();
+        var buttonText = $('#reqText' + id).text();
 
 
-        var dataString = { "type": 'ask', "owner": owner};
-        var notifyAsk =JSON.stringify(dataString);
+        var dataString = {"type": 'ask', "owner": owner};
+        var notifyAsk = JSON.stringify(dataString);
         connection.send(notifyAsk);
 
-      //  connection.send(owner); //send to server to notify user that someone want to ask to join event
+        //  connection.send(owner); //send to server to notify user that someone want to ask to join event
 
-        if(buttonText==='requested'){
+        if (buttonText === 'requested') {
 
             //cancel request from database
-            var dataString = { "eventid": eventId, "owner": owner, "username": userName };
+            var dataString = {"eventid": eventId, "owner": owner, "username": userName};
 
-            $('#reqText'+id).text('Ask To Join');
+            $('#reqText' + id).text('Ask To Join');
 
 
             $.ajax({
@@ -86,18 +86,17 @@ $(function () {
                 data: {'request': JSON.stringify(dataString)},
                 cache: false,
 
-                success: function(html)
-                {
+                success: function (html) {
                     //alert(html);
                 }
             });
 
 
-        } else if(buttonText==='Ask To Join') {
+        } else if (buttonText === 'Ask To Join') {
 
             //save request to database
-            var dataString = { "eventid": eventId, "owner": owner, "username": userName };
-            $('#reqText'+id).text('requested');
+            var dataString = {"eventid": eventId, "owner": owner, "username": userName};
+            $('#reqText' + id).text('requested');
 
             $.ajax({
                 type: "POST",
@@ -105,8 +104,7 @@ $(function () {
                 data: {'request': JSON.stringify(dataString)},
                 cache: false,
 
-                success: function(html)
-                {
+                success: function (html) {
                     //alert(html);
                 }
             });
@@ -115,11 +113,11 @@ $(function () {
     });
 
 
-    $('#notificationsBody').on( "click", ".denyReq", function() {
+    $('#notificationsBody').on("click", ".acceptReq", function () {
         var id = $(this).attr('id');
-        var reqID = $('#reqID'+id).val(); // requestID
-        var requester = $('#requester'+id).val();
-        var dataString = { "eventid": reqID};
+        var reqID = $('#reqID' + id).val(); // requestID
+        var requester = $('#requester' + id).val();
+        var dataString = {"eventid": reqID};
 
         $.ajax({
             type: "POST",
@@ -127,52 +125,50 @@ $(function () {
             data: {'request': JSON.stringify(dataString)},
             cache: false,
 
-            success: function(html)
-            {
+            success: function (html) {
                 //alert(html);
             }
         });
 
         //notify user that request is accepted
-        var data = { "type": 'accepted', "requester": requester};
-        var notifyAccept =JSON.stringify(data);
+        var data = {"type": 'accepted', "requester": requester};
+        var notifyAccept = JSON.stringify(data);
         connection.send(notifyAccept); //send notification that the request is accepted
 
 
-        $('#requestElm'+id).remove(); //remove element from dom
+        $('#requestElm' + id).remove(); //remove element from dom
 
     });
 
-    $('#notificationsBody').on( "click", ".denyReq", function() {
+    $('#notificationsBody').on("click", ".denyReq", function () {
 
         var id = $(this).attr('id');
-        var reqID = $('#reqID'+id).val(); // requestID
+        var reqID = $('#reqID' + id).val(); // requestID
 
-        var dataString = { "eventid": reqID};
+        var dataString = {"eventid": reqID};
         $.ajax({
             type: "POST",
             url: "denyRequest.php",
             data: {'request': JSON.stringify(dataString)},
             cache: false,
 
-            success: function(html)
-            {
+            success: function (html) {
                 //alert(html);
             }
         });
 
-         $('#elm'+id).remove(); //remove element from dom
-
+        $('#elm' + id).remove(); //remove element from dom
 
 
     });
 
     //when notification menu is clicked, reset notifications count to zero
-    $('.acceptReq').bind("click",function(){
-        alert('bio');
-    });
+     $('#notificationLink').bind("click",function(){
+     //    alert($('#notification_count').text());
+     });
 
 
+    //showing the requests dynamically
     function ajaxCall() {
 
         var buttons = document.querySelectorAll('#requestElm');
@@ -182,7 +178,7 @@ $(function () {
             buttons[i].id = buttons[i].id + i;
         }
 
-        var dataString = { "userName": userName};
+        var dataString = {"userName": userName};
 
         $.ajax({
             type: "POST",
@@ -196,7 +192,7 @@ $(function () {
 
     };
     ajaxCall(); // To output when the page loads
-    setInterval(ajaxCall, (14 * 1000));
+    setInterval(ajaxCall, (2 * 1000));
 
 });
 
