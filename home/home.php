@@ -39,6 +39,28 @@ include_once '../php/show.php';
         <a href="#news">News</a>
         <a href="#contact">Contact</a>
 
+        <!-- encounters -->
+
+        <a id="messages_li">
+            <span id="messages_count">3</span>
+            <a href="#" id="messagesLink">encounters</a>
+
+            <div id="messagesContainer">
+                <div id="messagesTitle">encounters</div>
+
+                <div id="messagessBody" class="messagess">
+
+
+                </div>
+
+
+                <div id="messagesFooter"><a href="#">See All</a></div>
+            </div>
+        </a>
+
+
+        <!-- encounter requests -->
+
         <a id="notification_li">
             <span id="notification_count">3</span>
             <a href="#" id="notificationLink">Notifications</a>
@@ -142,6 +164,7 @@ include_once '../php/show.php';
 <script>
     $(document).ready(function () {
         $("#notificationLink").click(function () {
+            $("#messagesContainer").hide();
             $("#notificationContainer").fadeToggle(300);
             $("#notification_count").fadeOut("slow");
             return false;
@@ -150,13 +173,29 @@ include_once '../php/show.php';
 //Document Click hiding the popup
         $(document).click(function () {
             $("#notificationContainer").hide();
+            $("#messagesContainer").hide();
         });
 
 //Popup on click
         $("#notificationContainer").click(function () {
             return false;
         });
+        
+        /* messages */
 
+        $("#messagesLink").click(function () {
+            $("#notificationContainer").hide();
+            $("#messagesContainer").fadeToggle(300);
+            $("#messages_count").fadeOut("slow");
+            return false;
+        });
+
+
+
+        //Popup on click
+        $("#messagesContainer").click(function () {
+            return false;
+        });
     });
 
     //getting the number of elemnts inside the page as global variable

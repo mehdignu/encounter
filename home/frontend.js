@@ -52,6 +52,7 @@ $(function () {
             if (x !== userName)
                 alert(x); //supposed to be notification alert used instead x is username of requester
 
+
         }
 
 
@@ -162,21 +163,14 @@ $(function () {
 
     });
 
-    //when notification menu is clicked, reset notifications count to zero
-     $('#notificationLink').bind("click",function(){
-     //    alert($('#notification_count').text());
-     });
+
+    $('#messagessBody').on('click', '#msgsGrp', function () {
+        window.location.href = "groupMessages.php";
+    });
 
 
     //showing the requests dynamically
-    function ajaxCall() {
-
-        var buttons = document.querySelectorAll('#requestElm');
-        console.log('boo');
-
-        for (var i = 0; i < buttons.length; i++) {
-            buttons[i].id = buttons[i].id + i;
-        }
+    function getRequests() {
 
         var dataString = {"userName": userName};
 
@@ -190,9 +184,21 @@ $(function () {
             })
         })
 
+        $.ajax({
+            type: "POST",
+            url: "../php/fetchEncounters.php",
+            data: {'request': JSON.stringify(dataString)},
+            cache: false,
+            success: (function (result) {
+                $("#messagessBody").html(result);
+            })
+        })
+
     };
-    ajaxCall(); // To output when the page loads
-    setInterval(ajaxCall, (2 * 1000));
+
+    getRequests(); // To output when the page loads
+    setInterval(getRequests, (2 * 1000));
+
 
 });
 

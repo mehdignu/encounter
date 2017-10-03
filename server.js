@@ -18,6 +18,7 @@ var history = [];
 // list of currently connected clients (users)
 //var clients = [];
 var clients = {};
+
 /**
  * Helper function for escaping input strings
  */
@@ -27,6 +28,7 @@ function htmlEntities(str) {
         .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+var userColor = false;
 // Array with some colors
 var colors = ['red', 'green', 'blue', 'magenta', 'purple', 'plum', 'orange'];
 // ... in random order
@@ -67,10 +69,9 @@ wsServer.on('request', function (request) {
     // (http://en.wikipedia.org/wiki/Same_origin_policy)
     var connection = request.accept(null, request.origin);
     // we need to know client index to remove them on 'close' event
-  //  var index = clients.push(connection) - 1;
+    //  var index = clients.push(connection) - 1;
     var userName = false;
     console.log((new Date()) + ' Connection accepted.');
-
 
 
     // user sent some message -- msg from client --
@@ -80,11 +81,19 @@ wsServer.on('request', function (request) {
                 // remember user name
                 userName = htmlEntities(message.utf8Data);
                 console.log(userName);
+                // get random color and send it back to the user
+                userColor = colors.shift();
+                connection.sendUTF(
+                    JSON.stringify({type: 'color', data: userColor}));
+
+                console.log((new Date()) + ' User is known as: ' + userName
+                    + ' with ' + userColor + ' color.');
+
                 //store connection infos in object
-                if(userName in clients){
+                if (userName in clients) {
                     delete clients[userName];
                     clients[userName] = connection;
-                } else{
+                } else {
                     clients[userName] = connection;
                 }
 
@@ -102,18 +111,17 @@ wsServer.on('request', function (request) {
                 var owner = htmlEntities(message.utf8Data);
 */
 
-                if(json.type=='ask'){
+                if (json.type == 'ask') {
                     var jsonToSend = JSON.stringify({type: 'notify', data: userName});
                     var owner = json.owner;
                     clients[owner].sendUTF(jsonToSend);
                 }
 
-                if(json.type=='accepted'){
+                if (json.type == 'accepted') {
                     var jsonToSend = JSON.stringify({type: 'notify', data: userName});
                     var requester = json.requester;
                     clients[requester].sendUTF(jsonToSend);
                 }
-
 
 
             }
@@ -125,7 +133,7 @@ wsServer.on('request', function (request) {
 
     // user disconnected
     connection.on('close', function (connection) {
-        if(userName !== false){
+        if (userName !== false) {
             delete clients[userName];
             var size = Object.size(clients);
         }
@@ -133,8 +141,7 @@ wsServer.on('request', function (request) {
 });
 
 
-
-Object.size = function(obj) {
+Object.size = function (obj) {
     var size = 0, key;
     for (key in obj) {
         if (obj.hasOwnProperty(key)) size++;

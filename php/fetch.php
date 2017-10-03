@@ -40,7 +40,7 @@ $userName = $data->userName;
             $x++;
         }
     } else {
-        $s .= "<br/> <h4>No encounters yet</h4>";
+        $s .= "<br/> <h4>No requests yet</h4>";
     }
 
     echo $s;
