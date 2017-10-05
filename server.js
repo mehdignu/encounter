@@ -76,11 +76,13 @@ wsServer.on('request', function (request) {
 
     // user sent some message -- msg from client --
     connection.on('message', function (message) {
+
         if (message.type === 'utf8') {
+
+
             if (userName === false) {
                 // remember user name
                 userName = htmlEntities(message.utf8Data);
-                console.log(userName);
                 // get random color and send it back to the user
                 userColor = colors.shift();
                 connection.sendUTF(
@@ -99,35 +101,50 @@ wsServer.on('request', function (request) {
 
             } else {
 
-                try {
-                    var json = JSON.parse(message.utf8Data);
-                } catch (e) {
-                    console.log('Invalid JSON: ', message.utf8Data);
-                    return;
+                if (JSON.parse(message.utf8Data).type === 'chatMsg') {
+
+
+                    // log and broadcast the message
+                    console.log((new Date()) + ' Received Message from '
+                        + userName + ': ' + message.utf8Data);
+
+                    // we want to keep history of all sent messages
+                    var obj = {
+                        time: (new Date()).getTime(),
+                        text: htmlEntities(message.utf8Data),
+                        author: userName,
+                        color: userColor
+                    };
+                    history.push(obj);
+                    history = history.slice(-100);
+                    // broadcast message to all connected clients
+                    var json = JSON.stringify({type: 'message', data: obj});
+
+
+                    for (var key in clients) {
+                        clients[key].sendUTF(json);
+                    }
+
+
+                } else {
+
+                    json = JSON.parse(message.utf8Data);
+                    if (json.type == 'ask') {
+                        var jsonToSend = JSON.stringify({type: 'notify', data: userName});
+                        var owner = json.owner;
+
+                        clients[owner].sendUTF(jsonToSend);
+                    }
+
+                    if (json.type == 'accepted') {
+                        var jsonToSend = JSON.stringify({type: 'notify', data: userName});
+                        var requester = json.requester;
+                        clients[requester].sendUTF(jsonToSend);
+                    }
                 }
-
-                /*console.log(json.type);
-
-                var owner = htmlEntities(message.utf8Data);
-*/
-
-                if (json.type == 'ask') {
-                    var jsonToSend = JSON.stringify({type: 'notify', data: userName});
-                    var owner = json.owner;
-                    clients[owner].sendUTF(jsonToSend);
-                }
-
-                if (json.type == 'accepted') {
-                    var jsonToSend = JSON.stringify({type: 'notify', data: userName});
-                    var requester = json.requester;
-                    clients[requester].sendUTF(jsonToSend);
-                }
-
-
             }
 
         }
-
     });
 
 

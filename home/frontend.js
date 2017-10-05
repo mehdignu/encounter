@@ -47,7 +47,11 @@ $(function () {
             return;
         }
 
+        console.log(json.data);
+
         if (json.type === 'notify') {
+
+
             var x = json.data;
             if (x !== userName)
                 alert(x); //supposed to be notification alert used instead x is username of requester

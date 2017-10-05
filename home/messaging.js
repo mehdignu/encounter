@@ -1,66 +1,50 @@
 $(function () {
-    "use strict";
 
+    //var status   = document.getElementById("status").innerHTML;
     // for better performance - to avoid searching in DOM
     var content = $('#content');
     var input = $('#input');
     var status = $('#status');
 
-    // my color assigned by the server
+// my color assigned by the server
     var myColor = false;
     // my name sent to the server
-    var myName = false;
+    var myName = document.getElementById("status").innerHTML;
+
 
     // if user is running mozilla then use it's built-in WebSocket
     window.WebSocket = window.WebSocket || window.MozWebSocket;
 
-    // if browser doesn't support WebSocket, just show
-    // some notification and exit
-    if (!window.WebSocket) {
-        content.html($('<p>',
-            {text: 'Sorry, but your browser doesn\'t support WebSocket.'}
-        ));
-        input.hide();
-        $('span').hide();
-        return;
-    }
-
-    // open connection
-    var connection = new WebSocket('ws://localhost:1337');
+    var connection = new WebSocket('ws://127.0.0.1:1337');
 
     connection.onopen = function () {
-        // first we want users to enter their names
-      //  input.removeAttr('disabled');
-       // status.text(userName);
+        // connection is opened and ready to use
+        //  connection.send(status);
+        //  myName = status; //assign username
+
+        connection.send(myName);
+
     };
 
     connection.onerror = function (error) {
-        // just in there were some problems with connection...
-        content.html($('<p>', {
-            text: 'Sorry, but there\'s some problem with your '
-            + 'connection or the server is down.'
-        }));
+        // an error occurred when sending/receiving data
     };
 
-    // most important part - incoming messages
     connection.onmessage = function (message) {
-        // try to parse JSON message. Because we know that the server
-        // always returns JSON this should work without any problem but
-        // we should make sure that the massage is not chunked or
-        // otherwise damaged.
+        // try to decode json (I assume that each message
+        // from server is json)
+
         try {
             var json = JSON.parse(message.data);
         } catch (e) {
-            console.log('Invalid JSON: ', message.data);
+            console.log('This doesn\'t look like a valid JSON: ',
+                message.data);
             return;
         }
 
-        // NOTE: if you're not sure about the JSON structure
-        // check the server source code above
-        // first response from the server with user's color
         if (json.type === 'color') {
             myColor = json.data;
-            status.text(userName + ': ').css('color', myColor);
+            status.text(myName + ': ').css('color', myColor);
             input.removeAttr('disabled').focus();
             // from now user can start sending messages
         } else if (json.type === 'history') { // entire message history
@@ -72,12 +56,19 @@ $(function () {
         } else if (json.type === 'message') { // it's a single message
             // let the user write another message
             input.removeAttr('disabled');
-            addMessage(json.data.author, json.data.text,
+
+
+            var text = JSON.parse(json.data.text.replace(/(&quot\;)/g,"\"")).message;
+
+            addMessage(json.data.author, text,
                 json.data.color, new Date(json.data.time));
         } else {
             console.log('Hmm..., I\'ve never seen JSON like this:', json);
         }
+
+        // handle incoming message
     };
+
 
     /**
      * Send message when user presses Enter key
@@ -88,19 +79,21 @@ $(function () {
             if (!msg) {
                 return;
             }
-            // send the message as an ordinary text
-            connection.send(msg);
+            // send the message
+            var dataString = {'type': 'chatMsg', 'message': msg};
+            var chatMessage = JSON.stringify(dataString);
+
+            connection.send(chatMessage);
+
+            //JSON.parse(message.utf8Data).type
             $(this).val('');
             // disable the input field to make the user wait until server
             // sends back response
             input.attr('disabled', 'disabled');
 
-            // we know that the first message sent from a user their name
-            if (myName === false) {
-                myName = msg;
-            }
         }
     });
+
 
     /**
      * This method is optional. If the server wasn't able to
@@ -119,6 +112,7 @@ $(function () {
      * Add message to the chat window
      */
     function addMessage(author, message, color, dt) {
+
         content.prepend('<p><span style="color:' + color + '">'
             + author + '</span> @ ' + (dt.getHours() < 10 ? '0'
                 + dt.getHours() : dt.getHours()) + ':'
@@ -126,4 +120,6 @@ $(function () {
                 ? '0' + dt.getMinutes() : dt.getMinutes())
             + ': ' + message + '</p>');
     }
+
+
 });
