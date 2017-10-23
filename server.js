@@ -125,21 +125,21 @@ wsServer.on('request', function (request) {
                         clients[key].sendUTF(json);
                     }
 
-
                 } else {
 
                     json = JSON.parse(message.utf8Data);
                     if (json.type == 'ask') {
-                        var jsonToSend = JSON.stringify({type: 'notify', data: userName});
+                        var jsonToSend = JSON.stringify({type: 'notifyRequest', data: userName});
                         var owner = json.owner;
 
                         clients[owner].sendUTF(jsonToSend);
                     }
 
                     if (json.type == 'accepted') {
-                        var jsonToSend = JSON.stringify({type: 'notify', data: userName});
+                        var jsonToSend = JSON.stringify({type: 'notifyAccepted', data: userName});
                         var requester = json.requester;
                         clients[requester].sendUTF(jsonToSend);
+                        console.log(requester);
                     }
                 }
             }

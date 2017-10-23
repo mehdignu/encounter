@@ -14,6 +14,19 @@ function eventsArray()
 }
 
 /*
+ * get the notifications count for the userName
+ */
+function getNotiCount($userName = ''){
+    $query = "select ReqCount from users where users.UserName = '$userName'";
+    $result = mysqli_query($GLOBALS['connection'], $query);
+
+    $row = mysqli_fetch_row($result);
+
+    $count = $row[0];
+    return $count;
+}
+
+/*
  * get the owner username of the event from the id
  */
 function getOwner($id)

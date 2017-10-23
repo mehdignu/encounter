@@ -23,3 +23,8 @@ if (!$result)
 
 }
 
+//increment user notiications count with each request
+$query = "UPDATE `users` SET ReqCount=ReqCount+1 WHERE `UserName`='$owner'";
+$result = mysqli_query($connection, $query);
+
+

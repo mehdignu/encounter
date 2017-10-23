@@ -41,6 +41,7 @@ include_once '../php/show.php';
 
         <!-- encounters -->
 
+
         <a id="messages_li">
             <span id="messages_count">3</span>
             <a href="#" id="messagesLink">encounters</a>
@@ -62,7 +63,9 @@ include_once '../php/show.php';
         <!-- encounter requests -->
 
         <a id="notification_li">
-            <span id="notification_count">3</span>
+
+            <span id="notification_count" value="<?php echo getNotiCount($_SESSION['username']) ?>"><?php echo getNotiCount($_SESSION['username']) ?></span>
+
             <a href="#" id="notificationLink">Notifications</a>
 
             <div id="notificationContainer">
@@ -163,20 +166,51 @@ include_once '../php/show.php';
 
 <script>
     $(document).ready(function () {
+
+
+        $("#notification_count").hide();
+
+        //notifications count
+        var count = document.getElementById("notification_count").innerText;
+        //alert(count);
+        if(count == 0){
+            $("#notification_count").hide();
+        } else {
+            $("#notification_count").show();
+
+        }
+
+
+
         $("#notificationLink").click(function () {
             $("#messagesContainer").hide();
             $("#notificationContainer").fadeToggle(300);
             $("#notification_count").fadeOut("slow");
+
+            var userName = document.getElementById("userName").value;
+            var dataString = {"type": 'NotifyRequestReset', "userName": userName};
+
+            $.ajax({
+                type: "POST",
+                url: "NotifyRequestReset.php",
+                data: {'NotifyRequestReset': JSON.stringify(dataString)},
+                cache: false,
+
+                success: function (html) {
+                    //alert(html);
+                }
+            });
+
             return false;
         });
 
-//Document Click hiding the popup
+        //Document Click hiding the popup
         $(document).click(function () {
             $("#notificationContainer").hide();
             $("#messagesContainer").hide();
         });
 
-//Popup on click
+        //Popup on click
         $("#notificationContainer").click(function () {
             return false;
         });

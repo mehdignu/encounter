@@ -37,3 +37,15 @@ if (!$result)
     echo("Error description: " . mysqli_error($connection));
 
 }
+
+$query = "select ReqCount from users where users.UserName = '$owner'";
+$result = mysqli_query($connection, $query);
+
+$row = mysqli_fetch_row($result);
+
+$count = $row[0];
+if($count != 0){
+    //decrement user notiications count when the request is canceled and the count is not 0
+    $query = "UPDATE `users` SET ReqCount=ReqCount-1 WHERE `UserName`='$owner'";
+    $result = mysqli_query($connection, $query);
+}

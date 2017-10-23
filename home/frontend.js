@@ -49,16 +49,23 @@ $(function () {
 
         console.log(json.data);
 
-        if (json.type === 'notify') {
+        if (json.type === 'notifyAccepted') {
 
 
             var x = json.data;
             if (x !== userName)
                 alert(x); //supposed to be notification alert used instead x is username of requester
 
-
         }
 
+        if (json.type === 'notifyRequest') {
+
+
+            var x = json.data;
+            if (x !== userName)
+                alert(x); //supposed to be notification alert used instead x is username of requester
+
+        }
 
     };
 
@@ -178,6 +185,28 @@ $(function () {
 
         var dataString = {"userName": userName};
 
+      /*  $.ajax({
+            type: "POST",
+            url: "../php/getReqNoti.php",
+            data: {'request': JSON.stringify(dataString)},
+            cache: false,
+            success: (function (result) {
+                $("#notificationsBody").html(result);
+            })
+        })
+*/
+
+        var countReq =  $("#notification_count").text();
+        if(countReq == 0){
+            $("#notification_count").hide();
+        } else {
+            $("#notification_count").show();
+        }
+
+
+
+        var dataString = {"userName": userName};
+
         $.ajax({
             type: "POST",
             url: "../php/fetch.php",
@@ -202,6 +231,7 @@ $(function () {
 
     getRequests(); // To output when the page loads
     setInterval(getRequests, (2 * 1000));
+
 
 
 });
