@@ -185,23 +185,23 @@ $(function () {
 
         var dataString = {"userName": userName};
 
-      /*  $.ajax({
+        $.ajax({
             type: "POST",
             url: "../php/getReqNoti.php",
             data: {'request': JSON.stringify(dataString)},
             cache: false,
             success: (function (result) {
-                $("#notificationsBody").html(result);
+                if(result == 0){
+                    $("#notification_count").hide();
+                } else {
+                    $("#notification_count").show();
+                }
+                $('#notification_count').val(result);
+                $("#notification_count").text(result);
+
             })
         })
-*/
 
-        var countReq =  $("#notification_count").text();
-        if(countReq == 0){
-            $("#notification_count").hide();
-        } else {
-            $("#notification_count").show();
-        }
 
 
 
