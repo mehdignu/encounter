@@ -192,12 +192,15 @@ $(function () {
             cache: false,
             success: (function (result) {
                 if(result == 0){
-                    $("#notification_count").hide();
+                    $("#notification_count").hide(); // hide and then change the value to zero
+                    $('#notification_count').val(result);
+                    $("#notification_count").text(result);
                 } else {
                     $("#notification_count").show();
+                    $('#notification_count').val(result);
+                    $("#notification_count").text(result);
                 }
-                $('#notification_count').val(result);
-                $("#notification_count").text(result);
+
 
             })
         })
