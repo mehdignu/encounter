@@ -9,6 +9,10 @@
 include("config.php");
 
 
+/*
+ * get the encounter requests from the database
+ */
+
 $data = json_decode($_POST['request']);
 $userName = $data->userName;
 

@@ -43,7 +43,8 @@ include_once '../php/show.php';
 
 
         <a id="messages_li">
-            <span id="messages_count">3</span>
+            <span id="messages_count" type="hidden" value="<?php echo getNotiEncCount($_SESSION['username']) ?>"><?php echo getNotiEncCount($_SESSION['username']) ?></span>
+
             <a href="#" id="messagesLink">encounters</a>
 
             <div id="messagesContainer">
@@ -64,7 +65,7 @@ include_once '../php/show.php';
 
         <a id="notification_li">
 
-            <span id="notification_count" value="<?php echo getNotiCount($_SESSION['username']) ?>"><?php echo getNotiCount($_SESSION['username']) ?></span>
+            <span id="notification_count" type="hidden" value="<?php echo getNotiCount($_SESSION['username']) ?>"><?php echo getNotiCount($_SESSION['username']) ?></span>
 
             <a href="#" id="notificationLink">Notifications</a>
 
@@ -129,11 +130,20 @@ include_once '../php/show.php';
 
                     <?php $owner = getOwner($row['owner']) ?>
                     <?php $isRequested = isRequested($_SESSION['username'], $row['id']) ?>
+                    <?php $isAccepted = isAccepted($_SESSION['username'], $row['id']) ?>
 
                     <div class="joining">
                         <!-- compare owner of the event with the session user if they are the same notify the user that someone want's to join the event -->
 
-                        <a class="button button5 ask" id=""> <?php if ($isRequested == true) { ?>
+                        <input type="hidden" id="evn" value="<?php echo $row['id'] ?>">
+
+                        <a class="button button5 ask" id=""> <?php if($isAccepted == TRUE) { ?>
+
+                                <span id="reqText" ><?php echo 'Enter encounter'; ?></span>
+
+                            <?php } else { ?>
+                            <?php if($isRequested == TRUE){ ?>
+
 
                                 <span id="reqText"><?php echo 'requested'; ?></span>
 
@@ -141,7 +151,7 @@ include_once '../php/show.php';
 
                                 <span id="reqText"><?php echo 'Ask To Join'; ?></span>
 
-                            <?php } ?></a>
+                            <?php } }?></a>
 
                         <input type="hidden" class="own" id="owner" value="<?php echo $owner ?>">
                         <input type="hidden" class="evn" id="eventid" value="<?php echo $row['id'] ?>">
@@ -168,15 +178,26 @@ include_once '../php/show.php';
     $(document).ready(function () {
 
 
-        $("#notification_count").hide();
+      //  $("#notification_count").hide();
+       // $("#messages_count").hide();
 
-        //notifications count
+        //notifications Requests count
         var count = document.getElementById("notification_count").innerText;
         //alert(count);
         if(count == 0){
             $("#notification_count").hide();
         } else {
             $("#notification_count").show();
+
+        }
+
+        //notifications Encounters count
+        var count = document.getElementById("messages_count").innerText;
+        //alert(count);
+        if(count == 0){
+            $("#messages_count").hide();
+        } else {
+            $("#messages_count").show();
 
         }
 
@@ -221,6 +242,23 @@ include_once '../php/show.php';
             $("#notificationContainer").hide();
             $("#messagesContainer").fadeToggle(300);
             $("#messages_count").fadeOut("slow");
+
+
+            var userName = document.getElementById("userName").value;
+            var dataString = {"type": 'NotifyEncounterReset', "userName": userName};
+
+            $.ajax({
+                type: "POST",
+                url: "NotifyEncounterReset.php",
+                data: {'NotifyEncounterReset': JSON.stringify(dataString)},
+                cache: false,
+
+                success: function (html) {
+                    //alert(html);
+                }
+            });
+
+
             return false;
         });
 
@@ -272,6 +310,12 @@ include_once '../php/show.php';
         buttons[i].id = buttons[i].id + i;
     }
 
+
+    //make the id's name different for button texts id's
+    var buttons = document.querySelectorAll('#evn');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].id = buttons[i].id + i;
+    }
 
 </script>
 </body>

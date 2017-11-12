@@ -35,6 +35,12 @@ if (!$result)
     echo("Error description: " . mysqli_error($connection));
 }
 
+//increment user encounter notifications count with each accepted request
+$query = "UPDATE `users` SET EncCount=EncCount+1 WHERE users.id='$requester'";
+$result = mysqli_query($connection, $query);
+
+
+
 //delete the request
 $query = "delete from requests where requests.requestID = '$eventID'";
 $result = mysqli_query($connection, $query);

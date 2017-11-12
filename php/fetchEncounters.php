@@ -9,6 +9,10 @@
 include("config.php");
 
 
+/*
+ * get the encounters from the database
+ */
+
 $data = json_decode($_POST['request']);
 $userName = $data->userName;
 
@@ -30,7 +34,8 @@ while ($row = $result->fetch_array()) {
 
 if(!empty($rows)){
     foreach ($result as $r) {
-        $s .= "<button id='msgsGrp'>".$r['Title']."</button>";
+
+        $s .= "<button class='msgsGrp' id='".$r['EventID']."'>".$r['Title']."</button>";
         $x++;
     }
 } else {

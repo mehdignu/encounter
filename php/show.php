@@ -14,10 +14,24 @@ function eventsArray()
 }
 
 /*
- * get the notifications count for the userName
+ * get the notifications requests count for the userName
  */
 function getNotiCount($userName = ''){
     $query = "select ReqCount from users where users.UserName = '$userName'";
+    $result = mysqli_query($GLOBALS['connection'], $query);
+
+    $row = mysqli_fetch_row($result);
+
+    $count = $row[0];
+    return $count;
+}
+
+
+/*
+ * get the notifications encounters count for the userName
+ */
+function getNotiEncCount($userName = ''){
+    $query = "select EncCount from users where users.UserName = '$userName'";
     $result = mysqli_query($GLOBALS['connection'], $query);
 
     $row = mysqli_fetch_row($result);
@@ -70,7 +84,7 @@ function getRequests($userName = '')
 /*
  * check if username already requested to join event
  */
-function isRequested($userName= '', $id){
+function isRequested($userName= '', $id=NULL){
 
     $userID = mysqli_query($GLOBALS['connection'], "SELECT `id` FROM `users` WHERE `UserName` = '$userName'");
     $userID = mysqli_fetch_assoc($userID);
@@ -87,5 +101,25 @@ function isRequested($userName= '', $id){
     }
 }
 
+
+/*
+ * check if username already accepted to the event
+ */
+function isAccepted($userName= '', $id=NULL){
+
+    $userID = mysqli_query($GLOBALS['connection'], "SELECT `id` FROM `users` WHERE `UserName` = '$userName'");
+    $userID = mysqli_fetch_assoc($userID);
+    $userID = $userID['id'];
+
+    $result = mysqli_query($GLOBALS['connection'], "
+        SELECT partID FROM `participations` WHERE EventID = '$id' AND MemberID = '$userID'
+        ");
+
+    if($result->num_rows === 0){
+        return false;
+    } else {
+        return true;
+    }
+}
 
 

@@ -121,6 +121,11 @@ $(function () {
                 }
             });
 
+        } else if (buttonText === 'Enter encounter') {
+
+            var id = $('#evn'+id).val();
+             window.location.href = "groupMessages.php?id="+id;
+
         }
     });
 
@@ -175,8 +180,11 @@ $(function () {
     });
 
 
-    $('#messagessBody').on('click', '#msgsGrp', function () {
-        window.location.href = "groupMessages.php";
+    $('#messagessBody').on('click', '.msgsGrp', function () {
+
+        var id  = this.id;
+
+        window.location.href = "groupMessages.php?id="+id;
     });
 
 
@@ -205,6 +213,26 @@ $(function () {
             })
         })
 
+
+        $.ajax({
+            type: "POST",
+            url: "../php/getEncNoti.php",
+            data: {'request': JSON.stringify(dataString)},
+            cache: false,
+            success: (function (result) {
+                if(result == 0){
+                    $("#messages_count").hide(); // hide and then change the value to zero
+                    $('#messages_count').val(result);
+                    $("#messages_count").text(result);
+                } else {
+                    $("#messages_count").show();
+                    $('#messages_count').val(result);
+                    $("#messages_count").text(result);
+                }
+
+
+            })
+        })
 
 
 

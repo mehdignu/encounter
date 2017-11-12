@@ -1,10 +1,53 @@
 <?php
+
 session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location: ../index.html");
-}
 
 include_once '../php/show.php';
+
+
+/*
+ * all dis to checkout if the user is allowed to visit the chat page (accepted to the encounter event)
+ */
+
+
+$EventId = $_GET['id'];
+
+    $result = mysqli_query($GLOBALS['connection'], "
+         SELECT userName from participations p
+            inner join users u on u.id = p.MemberID
+         WHERE EventID = '$EventId'
+        ");
+
+
+$rows = array();
+while ($row = $result->fetch_array()) {
+    $rows[] = $row;
+}
+
+if(!empty($rows)) {
+    $exists = FALSE;
+    foreach ($result as $r) {
+        if($_SESSION['username'] === $r['userName']){
+            $exists = TRUE;
+        }
+    }
+} else {
+    session_regenerate_id(FALSE);
+    session_unset();
+}
+
+if($exists === FALSE){
+    session_regenerate_id(FALSE);
+    session_unset();
+}
+
+
+if (!isset($_SESSION['username'])) {
+
+    header("Location: ../index.html");
+
+}
+
 
 
 ?>

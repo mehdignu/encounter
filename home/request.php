@@ -8,11 +8,15 @@
 
 include("../php/config.php");
 
+// this function add a request to an event
 
 $data = json_decode($_POST['request']);
 $eventID = $data->eventid;
 $owner = $data->owner;
 $userName = $data->username;
+
+//TODO : before insert a request check if it is already accepted
+
 
 $query = "INSERT INTO `requests` (`owner`, `requester`,`eventID`) VALUES ((SELECT `id` FROM `users` WHERE `UserName` = '$owner'), (SELECT `id` FROM `users` WHERE `UserName` = '$userName'),$eventID)";
 $result = mysqli_query($connection, $query);
