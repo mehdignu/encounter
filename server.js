@@ -28,13 +28,6 @@ function htmlEntities(str) {
         .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-var userColor = false;
-// Array with some colors
-var colors = ['red', 'green', 'blue', 'magenta', 'purple', 'plum', 'orange'];
-// ... in random order
-colors.sort(function (a, b) {
-    return Math.random() > 0.5;
-});
 
 /**
  * HTTP server
@@ -83,13 +76,9 @@ wsServer.on('request', function (request) {
             if (userName === false) {
                 // remember user name
                 userName = htmlEntities(message.utf8Data);
-                // get random color and send it back to the user
-                userColor = colors.shift();
-                connection.sendUTF(
-                    JSON.stringify({type: 'color', data: userColor}));
 
-                console.log((new Date()) + ' User is known as: ' + userName
-                    + ' with ' + userColor + ' color.');
+
+                console.log((new Date()) + ' User is known as: ' + userName);
 
                 //store connection infos in object
                 if (userName in clients) {
@@ -113,7 +102,6 @@ wsServer.on('request', function (request) {
                         time: (new Date()).getTime(),
                         text: htmlEntities(message.utf8Data),
                         author: userName,
-                        color: userColor
                     };
                     history.push(obj);
                     history = history.slice(-100);

@@ -6,8 +6,6 @@ $(function () {
     var input = $('#input');
     var status = $('#status');
 
-// my color assigned by the server
-    var myColor = false;
     // my name sent to the server
     var myName = document.getElementById("status").innerHTML;
 
@@ -22,7 +20,37 @@ $(function () {
         //  connection.send(status);
         //  myName = status; //assign username
 
+        var id = getID();
+        $.ajax({
+            type: "POST",
+            url: "../php/getLatest.php",
+            data: {'id': JSON.stringify(id)},
+            cache: false,
+            success: (function (result) {
+
+                var res =JSON.parse(result);
+
+                var res = '[' + res + ']';
+                res = JSON.parse(res);
+
+                for(var i = 0; i < res.length; i++) {
+
+                    if(res){
+                        var obj = res[i];
+                        var author = obj.author;
+                        var message = obj.message;
+                        var dt = obj.dt;
+
+                        addHistory(author,message,new Date(dt));
+                    }
+                }
+
+            })
+        })
+
+
         connection.send(myName);
+        input.removeAttr('disabled').focus();
 
     };
 
@@ -34,6 +62,8 @@ $(function () {
         // try to decode json (I assume that each message
         // from server is json)
 
+
+
         try {
             var json = JSON.parse(message.data);
         } catch (e) {
@@ -42,16 +72,10 @@ $(function () {
             return;
         }
 
-        if (json.type === 'color') {
-            myColor = json.data;
-            status.text(myName + ': ').css('color', myColor);
-            input.removeAttr('disabled').focus();
-            // from now user can start sending messages
-        } else if (json.type === 'history') { // entire message history
+         if (json.type === 'history') { // entire message history
             // insert every single message to the chat window
             for (var i = 0; i < json.data.length; i++) {
-                addMessage(json.data[i].author, json.data[i].text,
-                    json.data[i].color, new Date(json.data[i].time));
+                addMessage(json.data[i].author, json.data[i].text, new Date(json.data[i].time));
             }
         } else if (json.type === 'message') { // it's a single message
             // let the user write another message
@@ -60,8 +84,7 @@ $(function () {
 
             var text = JSON.parse(json.data.text.replace(/(&quot\;)/g,"\"")).message;
 
-            addMessage(json.data.author, text,
-                json.data.color, new Date(json.data.time));
+            addMessage(json.data.author, text, new Date(json.data.time));
         } else {
             console.log('Hmm..., I\'ve never seen JSON like this:', json);
         }
@@ -108,12 +131,33 @@ $(function () {
         }
     }, 3000);
 
+
+    function getID(){
+        var url = window.location.href;
+        var id = url.substring(url.indexOf('?id=')+1);
+        id = id.substring(3);
+        return id;
+    }
+
     /**
      * Add message to the chat window
      */
-    function addMessage(author, message, color, dt) {
+    function addMessage(author, message, dt) {
 
-        content.prepend('<p><span style="color:' + color + '">'
+        var id=getID();
+
+        $.ajax({
+            type: "POST",
+            url: "../php/saveMsg.php",
+            data: {'author':JSON.stringify(author) , 'message': JSON.stringify(message) , 'dt': JSON.stringify(dt), 'id': JSON.stringify(id)},
+            cache: false,
+
+            success: function (html) {
+
+            }
+        });
+
+        content.prepend('<p><span>'
             + author + '</span> @ ' + (dt.getHours() < 10 ? '0'
                 + dt.getHours() : dt.getHours()) + ':'
             + (dt.getMinutes() < 10
@@ -121,5 +165,20 @@ $(function () {
             + ': ' + message + '</p>');
     }
 
+
+    /**
+     * Add message to the chat window
+     */
+    function addHistory(author, message, dt) {
+
+        console.log(author);
+
+        content.prepend('<p><span>'
+            + author + '</span> @ ' + (dt.getHours() < 10 ? '0'
+                + dt.getHours() : dt.getHours()) + ':'
+            + (dt.getMinutes() < 10
+                ? '0' + dt.getMinutes() : dt.getMinutes())
+            + ': ' + message + '</p>');
+    }
 
 });
