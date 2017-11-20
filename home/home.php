@@ -10,6 +10,7 @@ include_once '../php/show.php';
 ?>
 
 <!DOCTYPE html>
+<html>
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -36,8 +37,7 @@ include_once '../php/show.php';
 <div class="topnav">
     <div class="boo">
         <a class="active" href="#home">Home</a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
+
 
         <!-- encounters -->
 
@@ -192,9 +192,9 @@ include_once '../php/show.php';
         }
 
         //notifications Encounters count
-        var count = document.getElementById("messages_count").innerText;
+        var countNoti = document.getElementById("messages_count").innerText;
         //alert(count);
-        if(count == 0){
+        if(countNoti == 0){
             $("#messages_count").hide();
         } else {
             $("#messages_count").show();
@@ -277,43 +277,45 @@ include_once '../php/show.php';
         nr = 0;
     }
 
+    var i = 0;
+
     //make the id's name different
     var buttons = document.querySelectorAll('.eventbtn');
-    for (var i = 0; i < buttons.length; i++) {
+    for ( i = 0; i < buttons.length; i++) {
         buttons[i].id = buttons[i].id + i;
     }
-    var buttons = document.querySelectorAll('.event-details');
-    for (var i = 0; i < buttons.length; i++) {
-        buttons[i].id = buttons[i].id + i;
-    }
-
-    //make the id's name different for ask button
-    var buttons = document.querySelectorAll('.ask');
-    for (var i = 0; i < buttons.length; i++) {
+     buttons = document.querySelectorAll('.event-details');
+    for ( i = 0; i < buttons.length; i++) {
         buttons[i].id = buttons[i].id + i;
     }
 
     //make the id's name different for ask button
-    var buttons = document.querySelectorAll('.own');
-    for (var i = 0; i < buttons.length; i++) {
+     buttons = document.querySelectorAll('.ask');
+    for ( i = 0; i < buttons.length; i++) {
+        buttons[i].id = buttons[i].id + i;
+    }
+
+    //make the id's name different for ask button
+     buttons = document.querySelectorAll('.own');
+    for ( i = 0; i < buttons.length; i++) {
         buttons[i].id = buttons[i].id + i;
     }
 
     //make the id's name different for event id's
-    var buttons = document.querySelectorAll('.evn');
-    for (var i = 0; i < buttons.length; i++) {
+     buttons = document.querySelectorAll('.evn');
+    for ( i = 0; i < buttons.length; i++) {
         buttons[i].id = buttons[i].id + i;
     }
     //make the id's name different for button texts id's
-    var buttons = document.querySelectorAll('#reqText');
-    for (var i = 0; i < buttons.length; i++) {
+     buttons = document.querySelectorAll('#reqText');
+    for ( i = 0; i < buttons.length; i++) {
         buttons[i].id = buttons[i].id + i;
     }
 
 
     //make the id's name different for button texts id's
-    var buttons = document.querySelectorAll('#evn');
-    for (var i = 0; i < buttons.length; i++) {
+     buttons = document.querySelectorAll('#evn');
+    for ( i = 0; i < buttons.length; i++) {
         buttons[i].id = buttons[i].id + i;
     }
 

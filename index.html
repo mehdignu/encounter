@@ -48,31 +48,42 @@
 
         <!-- Regiter -->
         <article id="register">
-            <h2 class="major">Contact</h2>
-            <form method="post" action="#">
-                <div class="field half first">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name"/>
-                </div>
-                <div class="field half">
-                    <label for="email">Email</label>
-                    <input type="text" name="email" id="email"/>
+
+            <h2 class="major">Create a New Account</h2>
+            <form name="register" action='php/register.php' onsubmit="return validateForm()" method='post' accept-charset='UTF-8'>
+                <div class="field">
+                    <label for="name">First Name</label>
+                    <input type="text" name="fName" id="fName" required />
                 </div>
                 <div class="field">
-                    <label for="message">Message</label>
-                    <textarea name="message" id="message" rows="4"></textarea>
+                    <label for="name">Last Name</label>
+                    <input type="text" name="lName" id="lName" required/>
                 </div>
+
+                <div class="field half first">
+                    <input type="radio" id="male" name="male" value="1" required>
+                    <label for="male">Male</label>
+                </div>
+                <div class="field half">
+                    <input type="radio" id="female" value="0" name="female">
+                    <label for="female">Female</label>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="mail" required />
+                </div>
+                <div class="field">
+                    <label for="email">Password</label>
+                    <input type="password" name="psw" id="psw" required/>
+                </div>
+                <span id="errorname" style="color:red"></span>
                 <ul class="actions">
-                    <li><input type="submit" value="Send Message" class="special"/></li>
+                    <li><input type="submit" value="Create Account" class="special"/></li>
                     <li><input type="reset" value="Reset"/></li>
                 </ul>
             </form>
-            <ul class="icons">
-                <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-                <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-                <li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
-            </ul>
+
         </article>
 
 
@@ -80,34 +91,31 @@
 
         <!-- Login -->
         <article id="login">
-            <h2 class="major">Contact</h2>
-            <form method="post" action="#">
-                <div class="field half first">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name"/>
-                </div>
-                <div class="field half">
+            <h2 class="major">Login</h2>
+            <form name="login" action='php/login.php' method='post' accept-charset='UTF-8'>
+
+
+                <div class="field">
                     <label for="email">Email</label>
-                    <input type="text" name="email" id="email"/>
+                    <input type="email" name="email" id="email" required/>
                 </div>
                 <div class="field">
-                    <label for="message">Message</label>
-                    <textarea name="message" id="message" rows="4"></textarea>
+                    <label for="email">Password</label>
+                    <input type="password" name="psw" id="pswd" required/>
                 </div>
                 <ul class="actions">
                     <li><input type="submit" value="Send Message" class="special"/></li>
                     <li><input type="reset" value="Reset"/></li>
                 </ul>
+
             </form>
-            <ul class="icons">
-                <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-                <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-                <li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
-            </ul>
+
         </article>
 
+
+
         <!-- Elements -->
+        <!--
         <article id="elements">
             <h2 class="major">Elements</h2>
 
@@ -354,7 +362,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
             </section>
 
         </article>
-
+-->
     </div>
 
     <!-- Footer -->
@@ -372,6 +380,29 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 <script src="assets/js/skel.min.js"></script>
 <script src="assets/js/util.js"></script>
 <script src="assets/js/main.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+
+
+
+        });
+
+    /**
+     * validate the form inputs
+     * @returns {boolean}
+     */
+    function validateForm(){
+       // if($('#male').val().trim()=="" || $('#female').val().trim()=="")
+
+       // document.getElementById('errorname').innerHTML="this is an invalid name";
+
+
+       // return false;
+    }
+
+</script>
 
 </body>
 </html>
