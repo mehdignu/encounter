@@ -10,12 +10,16 @@ if (isset($_POST['fName']) && isset($_POST['lName']) && (isset($_POST['male']) |
     $email = $_POST['email'];
     $password = $_POST['psw'];
     $p = password_hash($password, PASSWORD_DEFAULT);
-    $cc = crypto_rand_secure(123456789,123456789101112131415);
+    $cc = getToken(10);
 
 
     $query = "INSERT INTO `users` (UserName, FirstName, LastName, gender, Email, Password) VALUES ('$cc', '$firstname', '$lastName', '$gender', '$email', '$p')";
     $result = mysqli_query($connection, $query);
 
+
+    $p =
+
+    exit;
 }
 
 
@@ -54,5 +58,7 @@ function getToken($length)
 
     return $token;
 }
+
+
 
 ?>
