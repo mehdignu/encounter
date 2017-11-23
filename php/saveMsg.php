@@ -9,12 +9,13 @@ $message = str_replace("\"", "", $_POST['message']);
 $dt = str_replace("\"", "", $_POST['dt']);
 
 
+
+
 $arr = array('author' => $author, 'message' => $message, 'dt' => $dt);
 
 
 
 $arr = json_encode($arr);
-
 
 $id = $_POST['id'];
 
@@ -42,7 +43,6 @@ if(!$r){
     $result = mysqli_query($connection, $query);
 }
 
-exit;
 
 
 

@@ -77,8 +77,7 @@ if (!isset($_SESSION['username'])) {
     <input type="text" id="input" disabled="disabled" />
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
-</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="./messaging.js"></script>
 </body>
 </html>

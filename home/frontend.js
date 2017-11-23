@@ -47,7 +47,6 @@ $(function () {
             return;
         }
 
-        console.log(json.data);
 
         if (json.type === 'notifyAccepted') {
 
@@ -63,14 +62,17 @@ $(function () {
 
             var x = json.data;
             if (x !== userName)
-                alert(x); //supposed to be notification alert used instead x is username of requester
+                alert('notified from '+x); //supposed to be notification alert used instead x is username of requester
 
         }
 
     };
 
-
+    /**
+     * send or delete encounter on the front page or enter the encounter
+     */
     $('.ask').bind("click", function () {
+
         //get creator of the event to send him a request notification
         var id = $(this).attr('id');
         var owner = $('#owner' + id).val();
@@ -78,9 +80,8 @@ $(function () {
         var buttonText = $('#reqText' + id).text();
 
 
-        var dataString = {"type": 'ask', "owner": owner};
-        var notifyAsk = JSON.stringify(dataString);
-        connection.send(notifyAsk);
+
+
 
         //  connection.send(owner); //send to server to notify user that someone want to ask to join event
 
@@ -106,8 +107,16 @@ $(function () {
 
         } else if (buttonText === 'Ask To Join') {
 
+            var data = {"type": 'ask', "owner": owner};
+
+            var notifyAsk = JSON.stringify(data);
+
+            connection.send(notifyAsk);
+
             //save request to database
             var dataString = {"eventid": eventId, "owner": owner, "username": userName};
+
+
             $('#reqText' + id).text('requested');
 
             $.ajax({
@@ -117,11 +126,12 @@ $(function () {
                 cache: false,
 
                 success: function (html) {
-                    //alert(html);
+                  //  alert(html);
                 }
             });
 
         } else if (buttonText === 'Enter encounter') {
+
 
             var id = $('#evn'+id).val();
              window.location.href = "groupMessages.php?id="+id;
@@ -130,7 +140,12 @@ $(function () {
     });
 
 
-    $('#notificationsBody').on("click", ".acceptReq", function () {
+    var notiBody = $('#notificationsBody');
+
+    /**
+     * this comes from the php and it's a elements when the user accept the rquest notify the requester
+     */
+    notiBody.on("click", ".acceptReq", function () {
         var id = $(this).attr('id');
         var reqID = $('#reqID' + id).val(); // requestID
         var requester = $('#requester' + id).val();
@@ -147,6 +162,7 @@ $(function () {
             }
         });
 
+
         //notify user that request is accepted
         var data = {"type": 'accepted', "requester": requester};
         var notifyAccept = JSON.stringify(data);
@@ -157,7 +173,9 @@ $(function () {
 
     });
 
-    $('#notificationsBody').on("click", ".denyReq", function () {
+
+
+    notiBody.on("click", ".denyReq", function () {
 
         var id = $(this).attr('id');
         var reqID = $('#reqID' + id).val(); // requestID
@@ -199,14 +217,17 @@ $(function () {
             data: {'request': JSON.stringify(dataString)},
             cache: false,
             success: (function (result) {
+
+                var notiCount = $("#notification_count");
+
                 if(result == 0){
-                    $("#notification_count").hide(); // hide and then change the value to zero
-                    $('#notification_count').val(result);
-                    $("#notification_count").text(result);
+                    notiCount.hide(); // hide and then change the value to zero
+                    notiCount.val(result);
+                    notiCount.text(result);
                 } else {
-                    $("#notification_count").show();
-                    $('#notification_count').val(result);
-                    $("#notification_count").text(result);
+                    notiCount.show();
+                    notiCount.val(result);
+                    notiCount.text(result);
                 }
 
 
@@ -220,14 +241,16 @@ $(function () {
             data: {'request': JSON.stringify(dataString)},
             cache: false,
             success: (function (result) {
+
+                var msgCount = $("#messages_count");
                 if(result == 0){
-                    $("#messages_count").hide(); // hide and then change the value to zero
-                    $('#messages_count').val(result);
-                    $("#messages_count").text(result);
+                    msgCount.hide(); // hide and then change the value to zero
+                    msgCount.val(result);
+                    msgCount.text(result);
                 } else {
-                    $("#messages_count").show();
-                    $('#messages_count').val(result);
-                    $("#messages_count").text(result);
+                    msgCount.show();
+                    msgCount.val(result);
+                    msgCount.text(result);
                 }
 
 

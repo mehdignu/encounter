@@ -1,5 +1,9 @@
 "use strict";
 
+
+
+
+
 // Optional. You will see this name in eg. 'ps' or 'top' command
 process.title = 'node-notification';
 
@@ -103,6 +107,8 @@ wsServer.on('request', function (request) {
                         text: htmlEntities(message.utf8Data),
                         author: userName,
                     };
+
+
                     history.push(obj);
                     history = history.slice(-100);
                     // broadcast message to all connected clients
@@ -116,9 +122,15 @@ wsServer.on('request', function (request) {
                 } else {
 
                     json = JSON.parse(message.utf8Data);
+
                     if (json.type == 'ask') {
+
                         var jsonToSend = JSON.stringify({type: 'notifyRequest', data: userName});
+
                         var owner = json.owner;
+
+
+                        console.log(owner + jsonToSend);
 
                         clients[owner].sendUTF(jsonToSend);
                     }
@@ -127,7 +139,6 @@ wsServer.on('request', function (request) {
                         var jsonToSend = JSON.stringify({type: 'notifyAccepted', data: userName});
                         var requester = json.requester;
                         clients[requester].sendUTF(jsonToSend);
-                        console.log(requester);
                     }
                 }
             }
@@ -153,3 +164,6 @@ Object.size = function (obj) {
     }
     return size;
 };
+
+
+

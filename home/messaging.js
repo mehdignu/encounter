@@ -5,6 +5,7 @@ $(function () {
     var content = $('#content');
     var input = $('#input');
     var status = $('#status');
+    var i =0;
 
     // my name sent to the server
     var myName = document.getElementById("status").innerHTML;
@@ -30,6 +31,7 @@ $(function () {
 
                 var res =JSON.parse(result);
 
+
                 var res = '[' + res + ']';
                 res = JSON.parse(res);
 
@@ -41,7 +43,7 @@ $(function () {
                         var message = obj.message;
                         var dt = obj.dt;
 
-                        addHistory(author,message,new Date(dt));
+                        addMessage(author,message,new Date(dt));
                     }
                 }
 
@@ -102,8 +104,29 @@ $(function () {
             if (!msg) {
                 return;
             }
+
+
+            //get the event id
+            var id=getID();
+
+            //creating the current date/time
+            var dateTime = new Date();
+            dateTime.toISOString();
+
+            //save the message in the database
+            $.ajax({
+                type: "POST",
+                url: "../php/saveMsg.php",
+                data: {'author':JSON.stringify(myName) , 'message': JSON.stringify(msg) , 'dt': JSON.stringify(dateTime), 'id': JSON.stringify(id)},
+                cache: false,
+
+                success: function (html) {
+
+                }
+            });
+
             // send the message
-            var dataString = {'type': 'chatMsg', 'message': msg};
+            var dataString = {'type': 'chatMsg', 'message': msg,'id': id};
             var chatMessage = JSON.stringify(dataString);
 
             connection.send(chatMessage);
@@ -144,19 +167,6 @@ $(function () {
      */
     function addMessage(author, message, dt) {
 
-        var id=getID();
-
-        $.ajax({
-            type: "POST",
-            url: "../php/saveMsg.php",
-            data: {'author':JSON.stringify(author) , 'message': JSON.stringify(message) , 'dt': JSON.stringify(dt), 'id': JSON.stringify(id)},
-            cache: false,
-
-            success: function (html) {
-
-            }
-        });
-
         content.prepend('<p><span>'
             + author + '</span> @ ' + (dt.getHours() < 10 ? '0'
                 + dt.getHours() : dt.getHours()) + ':'
@@ -166,19 +176,5 @@ $(function () {
     }
 
 
-    /**
-     * Add message to the chat window
-     */
-    function addHistory(author, message, dt) {
-
-        console.log(author);
-
-        content.prepend('<p><span>'
-            + author + '</span> @ ' + (dt.getHours() < 10 ? '0'
-                + dt.getHours() : dt.getHours()) + ':'
-            + (dt.getMinutes() < 10
-                ? '0' + dt.getMinutes() : dt.getMinutes())
-            + ': ' + message + '</p>');
-    }
 
 });

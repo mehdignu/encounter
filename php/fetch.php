@@ -44,7 +44,10 @@ $userName = $data->userName;
             $x++;
         }
     } else {
-        $s .= "<br/> <h4>No requests yet</h4>";
+      //  $s .= "<br/> <h4>No requests yet</h4>";
+
+
+        $s .= "<br><br><a class=\"dropdown-item disabled \">No requests yet</a><br><br>";
     }
 
     echo $s;
