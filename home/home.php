@@ -206,7 +206,14 @@ include_once '../php/show.php';
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<style>
 
+    .bg-company-red {
+        background-color: #400000;
+    }
+
+
+</style>
 
 </head>
 <body>
@@ -220,12 +227,10 @@ include_once '../php/show.php';
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="./home.php">Home <span class="sr-only">(current)</span></a>
             </li>
+
             <li class="nav-item dropdown" id="notifications" >
                 <a class="nav-link" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i> Notification <span class="badge" id="notification_count" value="<?php echo getNotiCount($_SESSION['username']) ?>"><?php echo getNotiCount($_SESSION['username']) ?></span></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01" id="notificationsBody">
@@ -273,23 +278,51 @@ include_once '../php/show.php';
 
         <div class="col-sm-2" style="background-color:#f1f1f1;position:fixed;height:100%;padding-top: 20px;">
 
-            <h4>Your upcoming encounters :</h4>
+           <!-- <h4>Your upcoming encounters :</h4>
 
 
             <p><a href="#">Link</a></p>
             <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
+            <p><a href="#">Link</a></p>-->
+
+
+
+            <div class="card" style="background-color:#f1f1f1;padding-top:10px;margin-top:30px;">
+
+                <button type="button" class="btn btn-primary btn-lg" onclick="location.href = 'create.php';" style="width:11em;margin-left:27px;">Create an encounter</button>
+
+<hr>
+
+                <div class="card-block" style="margin-left:17px;">
+                    Upcoming encounters:
+                </div>
+                <br>
+
+                <ul class="list-group list-group-flush">
+                    <a href="google.com">   <li class="list-group-item" style="background-color:#f1f1f1;">Cras justo odio</li></a>
+                    <li class="list-group-item" style="background-color:#f1f1f1;">Dapibus ac facilisis in</li>
+                    <li class="list-group-item" style="background-color:#f1f1f1;">Cras justo odio</li>
+                    <li class="list-group-item" style="background-color:#f1f1f1;">Cras justo odio</li>
+                    <li class="list-group-item" style="background-color:#f1f1f1;">Vestibulum at eros</li>
+                    <li class="list-group-item" style="background-color:#f1f1f1;">Vestibulum at eros</li>
+                </ul>
+
+            </div>
 
         </div>
         <div class="col-sm-8 col-sm-8 offset-sm-2 col-md-8" >
             <br>
 
-            <h2>Top Navigation Example</h2>
-            <p>Some content..</p>
-            <a class="button button5" href="create.html">Create an encounter</a>
-            <a class="button button5">Find an encounter</a>
-            <br/>
 
+            <div class="jumbotron" id="dismissMe">
+                <h1 class="display-3">Welcome to encounter !</h1>
+                <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                <hr class="my-4">
+                <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="#"  id="dismiss" role="button">Dismiss</a>
+                </p>
+            </div>
             <br>
 
                     <h4>Friday 10 2017</h4>
@@ -370,7 +403,9 @@ include_once '../php/show.php';
 
             </div>
 
-
+<br>
+                <hr style="width: 60em">
+                <br>
                 <?php
 
             }
@@ -380,14 +415,13 @@ include_once '../php/show.php';
         </div>
         <div class="col-sm-2" style="background-color:#f1f1f1;right: 0; position: fixed;height:100%;padding-top: 20px;">
 
-            <div class="well">
-                <p>ADS</p>
-            </div>
-            <div class="well">
-                <p>ADS</p>
+            <div class="card" style="background-color:#f1f1f1; height:5em;padding-top:10px;margin-top:30px;padding-left:5px;">
+                <div class="card-block">
+                    Ads
+                </div>
             </div>
 
-        </div>
+
     </div>
 </div>
 
@@ -561,6 +595,14 @@ include_once '../php/show.php';
     for ( i = 0; i < buttons.length; i++) {
         buttons[i].id = buttons[i].id + i;
     }
+
+    function HideIt(){
+        document.getElementById("dismiss").style.display = 'none';
+    }
+
+    $("#dismiss").click(function(){
+        $("#dismissMe").fadeOut(600);
+    });
 
 </script>
 
