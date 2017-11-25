@@ -8,184 +8,6 @@ include_once '../php/show.php';
 
 
 ?>
-<!--
-<!DOCTYPE html>
-<html>
-
-
-<head>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <script
-            src="https://code.jquery.com/jquery-1.12.4.min.js"
-            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-            crossorigin="anonymous"></script>
-    <script src="./frontend.js"></script>
-
-    <script src="https://unpkg.com/vue"></script>
-
-
-    <link rel="stylesheet" type="text/css" href="../css/home.css">
-    <meta name="description"
-          content="Mehdi Dridi. I'm a software engineer obsessed with code quality, software architecture, and building experiences.">
-    <script src="../js/home.js"></script>
-
-    <title>home</title>
-</head>
-
--->
-
-<!--
-
-<body>
-
-<div class="topnav">
-    <div class="boo">
-        <a class="active" href="#home">Home</a>
-
-        -->
-
-
-        <!-- encounters -->
-
-<!--
-        <a id="messages_li">
-            <span id="messages_count" type="hidden" value="<?php echo getNotiEncCount($_SESSION['username']) ?>"><?php echo getNotiEncCount($_SESSION['username']) ?></span>
-
-            <a href="#" id="messagesLink">encounters</a>
-
-            <div id="messagesContainer">
-                <div id="messagesTitle">encounters</div>
-
-                <div id="messagessBody" class="messagess">
-
-
-                </div>
-
-
-                <div id="messagesFooter"><a href="#">See All</a></div>
-            </div>
-        </a>
--->
-
-        <!-- encounter requests -->
-<!--
-        <a id="notification_li">
-
-            <span id="notification_count" type="hidden" value="<?php echo getNotiCount($_SESSION['username']) ?>"><?php echo getNotiCount($_SESSION['username']) ?></span>
-
-            <a href="#" id="notificationLink">Notifications</a>
-
-            <div id="notificationContainer">
-                <div id="notificationTitle">Notifications</div>
-
-                <div id="notificationsBody" class="notifications">
-
-
-                </div>
-
-
-                <div id="notificationFooter"><a href="#">See All</a></div>
-            </div>
-        </a>
-
-
-        <a href="#about">username : <?php echo $_SESSION['username'] ?></a>
-    </div>
-    <div class="dropdown">
-        <a onclick="dropMenu(this.id,nr)" id="navSec" class="dropbtn">Settings</a>
-        <div id="myDropdown" class="dropdown-content">
-            <a href="#home">Profile </a>
-            <a href="../php/logout.php">Logout</a>
-        </div>
-    </div>
-
-</div>
-
-<input type="hidden" id="userName" value="<?php echo $_SESSION['username'] ?>">
-
-<div style="padding-left:16px">
-    <h2>Top Navigation Example</h2>
-    <p>Some content..</p>
-    <a class="button button5" href="create.html">Create an encounter</a>
-    <a class="button button5">Find an encounter</a>
-    <br/>
-    <!--    <a class="button button6">some event</a> -->
-<!--
-    <?php
-
-    $result = eventsArray();
-    while ($row = mysqli_fetch_assoc($result)) {
-        ?>
-        <div class="eventwrapper">
-            <button onclick="dropMenu(this.id,nr)" id="" class="eventbtn"><?php printf("%s\n",
-                    $row["Title"]); ?></button>
-            <div id="myDropdown" class="event-details">
-
-                <div class="wrp">
-
-                    <div class="details">
-                        <h4>Description:</h4>
-                        is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                        type and scrambled it to make a type specimen book.
-                    </div>
-
-                    <h4>Date/Time: <span class="timing">10/12/2017 - 18:15pm</span></h4>
-
-                    <h4>Attenders <span class="timing">1 of 5</span></h4>
-
-                    <?php $owner = getOwner($row['owner']) ?>
-                    <?php $isRequested = isRequested($_SESSION['username'], $row['id']) ?>
-                    <?php $isAccepted = isAccepted($_SESSION['username'], $row['id']) ?>
-
-                    <div class="joining">
-
-                    -->
-                        <!-- compare owner of the event with the session user if they are the same notify the user that someone want's to join the event -->
-
-                     <!--   <input type="hidden" id="evn" value="<?php echo $row['id'] ?>">
-
-                        <a class="button button5 ask" id=""> <?php if($isAccepted == TRUE) { ?>
-
-                                <span id="reqText" ><?php echo 'Enter encounter'; ?></span>
-
-                            <?php } else { ?>
-                            <?php if($isRequested == TRUE){ ?>
-
-
-                                <span id="reqText"><?php echo 'requested'; ?></span>
-
-                            <?php } else { ?>
-
-                                <span id="reqText"><?php echo 'Ask To Join'; ?></span>
-
-                            <?php } }?></a>
-
-                        <input type="hidden" class="own" id="owner" value="<?php echo $owner ?>">
-                        <input type="hidden" class="evn" id="eventid" value="<?php echo $row['id'] ?>">
-
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
-
-        <?php
-
-    }
-
-    ?>
-
-
-</div>
-
--->
-
 
 <!doctype html>
 <html lang="en">
@@ -278,13 +100,6 @@ include_once '../php/show.php';
 
         <div class="col-sm-2" style="background-color:#f1f1f1;position:fixed;height:100%;padding-top: 20px;">
 
-           <!-- <h4>Your upcoming encounters :</h4>
-
-
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>-->
-
 
 
             <div class="card" style="background-color:#f1f1f1;padding-top:10px;margin-top:30px;">
@@ -313,6 +128,12 @@ include_once '../php/show.php';
         <div class="col-sm-8 col-sm-8 offset-sm-2 col-md-8" >
             <br>
 
+            <?php
+
+            $result = isChecked($_SESSION['username']);
+             if($result == 0) {
+
+                ?>
 
             <div class="jumbotron" id="dismissMe">
                 <h1 class="display-3">Welcome to encounter !</h1>
@@ -323,6 +144,11 @@ include_once '../php/show.php';
                     <a class="btn btn-primary btn-lg" href="#"  id="dismiss" role="button">Dismiss</a>
                 </p>
             </div>
+                <?php
+
+            }
+
+            ?>
             <br>
 
                     <h4>Friday 10 2017</h4>
@@ -602,6 +428,23 @@ include_once '../php/show.php';
 
     $("#dismiss").click(function(){
         $("#dismissMe").fadeOut(600);
+
+
+
+        var userName = document.getElementById("userName").value;
+        var data = {"type": 'checked', "userName": userName};
+
+        $.ajax({
+            type: "POST",
+            url: "../php/checkedDismiss.php",
+            data: {'checked': JSON.stringify(data)},
+            cache: false,
+
+            success: function (html) {
+                //alert(html);
+            }
+        });
+
     });
 
 </script>

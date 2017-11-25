@@ -167,12 +167,19 @@ $(function () {
      */
     function addMessage(author, message, dt) {
 
-        content.prepend('<p><span>'
+        content.append('<p><span>'
             + author + '</span> @ ' + (dt.getHours() < 10 ? '0'
                 + dt.getHours() : dt.getHours()) + ':'
             + (dt.getMinutes() < 10
                 ? '0' + dt.getMinutes() : dt.getMinutes())
             + ': ' + message + '</p>');
+
+        //focus again on the input field
+        document.getElementById("input").focus();
+
+        //scroll to the bottom of the page
+        var d = $('#content');
+        d.scrollTop(d.prop("scrollHeight"));
     }
 
 

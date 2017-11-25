@@ -123,3 +123,16 @@ function isAccepted($userName= '', $id=NULL){
 }
 
 
+/*
+ * value of checked for the intro jumbo
+ */
+function isChecked($userName = ''){
+    $query = "select Checked from users where users.UserName = '$userName'";
+    $result = mysqli_query($GLOBALS['connection'], $query);
+
+    $row = mysqli_fetch_row($result);
+
+    $isChecked = $row[0];
+    return $isChecked;
+}
+

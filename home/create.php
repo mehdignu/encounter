@@ -198,7 +198,9 @@ include_once '../php/show.php';
         $( "#datepicker" ).datepicker(
             {
                 uiLibrary: 'bootstrap4',
-                iconsLibrary: 'fontawesome'
+                iconsLibrary: 'fontawesome',
+                minDate:new Date()
+
             }
         );
     } );
