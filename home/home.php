@@ -43,7 +43,17 @@ include_once '../php/show.php';
             padding: 5px;
         }
 
+      /*  .msgsGrp {
 
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .msgsGrp:hover {
+            background-color: #400000;
+
+        }*/
 
 
     </style>
@@ -85,10 +95,12 @@ include_once '../php/show.php';
                             class="badge" id="messages_count"
                             value="<?php echo getNotiEncCount($_SESSION['username']) ?>"><?php echo getNotiEncCount($_SESSION['username']) ?></span></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown02" id="messagessBody">
+
                     <a class="dropdown-item" href="#">encounter name here</a>
                     <div class="dropdown-divider"></div>
 
                     <a class="dropdown-item" href="#">encounter name here</a>
+
                 </div>
             </li>
         </ul>
@@ -291,12 +303,22 @@ include_once '../php/show.php';
                                     <button type="button" class="btn btn-warning btn-lg btn-block"><span
                                                 id="reqText"><?php echo 'Enter encounter'; ?></span></button>
 
-                                <?php } else { ?>
+                                <?php } else {
+
+                                    if($row["particNum"] == $row["Max"]){
+                                        ?>
+                                        <button type="button" class="btn btn-primary btn-lg btn-block disabled"><span
+                                                    ><?php echo 'Event is full'; ?></span></button>
+                                        <?php
+                                    } else {
+                                    ?>
+
+
 
                                     <button type="button" class="btn btn-primary btn-lg btn-block"><span
                                                 id="reqText"><?php echo 'Ask To Join'; ?></span></button>
 
-                                <?php }
+                                <?php }}
                             } ?>
 
                             <input type="hidden" class="own" id="owner" value="<?php echo $owner ?>">

@@ -34,12 +34,11 @@ while ($row = $result->fetch_array()) {
 
 if(!empty($rows)){
     foreach ($result as $r) {
-
-        $s .= "<button class='msgsGrp' id='".$r['EventID']."'>".$r['Title']."</button>";
+        $s .= "<a class='dropdown-item msgsGrp' id='".$r['EventID']."' href='#'>".$r['Title']."</a> <div class='dropdown-divider'></div>";
         $x++;
     }
 } else {
-    $s .= "<br/> <h4>No encounters yet</h4>";
+    $s .= "<br><br><a class=\"dropdown-item disabled \">No encounters yet</a><br><br>";
 }
 
 echo $s;

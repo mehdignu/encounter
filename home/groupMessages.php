@@ -71,6 +71,8 @@ if (!isset($_SESSION['username'])) {
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
+
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <style>
@@ -148,7 +150,38 @@ if (!isset($_SESSION['username'])) {
 
         <div class="col-sm-2" style="background-color:#f1f1f1;position:fixed;height:100%;padding-top: 20px;">
 
+            <?php $enc = getEncounter($EventId);
+            if ($enc) {
+            while ($row = mysqli_fetch_assoc($enc)) {
 
+            ?>
+
+                <b>Encounter:</b> <br><span value="<?php echo $row['Title'] ?>"><?php echo $row['Title'] ?></span><br>
+                <b>Description:</b><br>
+                <span value="<?php echo $row['Description'] ?>"><?php echo $row['Description'] ?></span><br>
+
+
+                <b>Address:</b><br>
+                <span type="text" id="us3-address" name="location"  value="<?php echo $row['Location'] ?>" ><?php echo $row['Location'] ?></span><br>
+                <input type="hidden" name="lat" id="lat" value="<?php echo $row['lat'] ?>">
+                <input type="hidden" name="lng" id="lng" value="<?php echo $row['lng'] ?>">
+
+
+                <div id="loc" style="width: 100%; height: 25em; margin-top: 15px;" ></div><br />
+
+
+
+                <span><b>when ?</b></span><br>
+                <span><?php echo date('jS F Y', strtotime($row['Date'])) .' at '. $row['Time'] ?></span><br>
+
+
+
+                <?php
+            }
+            }
+            ?>
+            <br>
+            <button type="button" class="btn btn-secondary fixed-bottom" style="margin-bottom: 29px;margin-left: 45px;width:200px">leave Encounter</button>
 
 
         </div>
@@ -177,14 +210,13 @@ if (!isset($_SESSION['username'])) {
 
             <div class="card" style="background-color:#f1f1f1; height:5em;padding-top:10px;margin-top:30px;padding-left:5px;">
                 <div class="card-block">
-                    Online users
+                    Encounter attenders
                 </div>
 
 
             </div>
 <br>
 
-            <button type="button" class="btn btn-danger">leave</button>
 
         </div>
 
@@ -200,11 +232,31 @@ if (!isset($_SESSION['username'])) {
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="./messaging.js"></script>
-
+    <script type="text/javascript" src='http://maps.google.com/maps/api/js?libraries=places&key=AIzaSyBCVuS83u7FTWYsPCpKN8QoVJeIiSmmo1Y'></script>
+    <script src="../js/locationpicker.jquery.js"></script>
     <script>
         window.onload = function() {
 
             document.getElementById("input").focus();
+
+
+            //google maps api to select location
+            $('#loc').locationpicker({
+                location: {
+                    latitude: $('#lat').val(),
+                    longitude: $('#lng').val()
+                },
+                radius: 300,
+                inputBinding: {
+                    locationNameInput: $('#us3-address')
+                },
+                enableAutocomplete: true,
+                onchanged: function (currentLocation, radius, isMarkerDropped) {
+                    $('#lat').val(currentLocation.latitude);
+                    $('#lng').val(currentLocation.longitude);
+                }
+            });
+
         };
         </script>
 </body>
