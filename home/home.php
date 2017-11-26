@@ -36,13 +36,15 @@ include_once '../php/show.php';
         }
 
         footer {
-
             position: relative;
-            bottom:0;
+            bottom: 0;
             background-color: #555;
             color: white;
             padding: 5px;
         }
+
+
+
 
     </style>
 
@@ -127,19 +129,39 @@ include_once '../php/show.php';
                 <hr>
 
                 <div class="card-block" style="margin-left:17px;">
-                    Upcoming encounters:
+                    Your encounters:
                 </div>
                 <br>
 
                 <ul class="list-group list-group-flush">
-                    <a href="google.com">
-                        <li class="list-group-item" style="background-color:#f1f1f1;">Cras justo odio</li>
-                    </a>
-                    <li class="list-group-item" style="background-color:#f1f1f1;">Dapibus ac facilisis in</li>
-                    <li class="list-group-item" style="background-color:#f1f1f1;">Cras justo odio</li>
-                    <li class="list-group-item" style="background-color:#f1f1f1;">Cras justo odio</li>
-                    <li class="list-group-item" style="background-color:#f1f1f1;">Vestibulum at eros</li>
-                    <li class="list-group-item" style="background-color:#f1f1f1;">Vestibulum at eros</li>
+
+                    <?php $enc = getOwnEncounters($_SESSION['username']);
+                    if ($enc) {
+
+                        while ($row = mysqli_fetch_assoc($enc)) {
+
+                            $id = $row['id'];
+
+                            ?>
+
+                            <a href="groupMessages.php?id=<?php echo $id ?>" class="encOwn">
+                                <li class="list-group-item"
+                                    style="background-color:#f1f1f1;"><?php echo $row['Title'] ?></li>
+                            </a>
+                            <li class="list-group-item" style="background-color:#f1f1f1;">
+                                <button class="btn btn-secondary" onclick="location.href = 'editEncounter.php?id=<?php echo $id ?>'" style="width: 81px">edit</button>
+                                <button class="btn btn-secondary" onclick="location.href = 'removeEncounter.php?id=<?php echo $id ?>'" style="width: 81px">remove</button>
+                            </li>
+
+
+                            <?php
+                        }
+                    } else {
+                        echo 'you have created no encounters yet';
+                    }
+
+                    ?>
+
                 </ul>
 
             </div>
@@ -173,131 +195,136 @@ include_once '../php/show.php';
             ?>
             <br>
 
-            <h3>Encounters in <?php echo getCity($_SESSION['username'])?></h3> <br>
+            <h3>Encounters in <?php echo getCity($_SESSION['username']) ?></h3> <br>
 
-
-
-
-            <h4>Friday 10 2017</h4>
-
-            <hr>
 
             <?php
 
             $result = eventsArray($_SESSION['username']);
-            if($result){
-            while ($row = mysqli_fetch_assoc($result)) {
-                ?>
-
-                <div class="card mx-auto " style="width: 35rem;">
-                    <!--
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    -->
-                    <div class="card-block">
-
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <h4 class="card-title">
-
-                                    <?php printf("%s\n", $row["Title"]); ?>
-
-                                </h4>
-                            </li>
-                            <li class="list-group-item">
-                                <h5>Description</h5>
-                                <p class="card-text">
-                                    <?php printf("%s\n", $row["Description"]); ?>
-                                </p>
-                            </li>
-                            <li class="list-group-item">
-                                <p>
-
-                                    <?php
-                                    printf("%s of %s people are attending the event\n", $row["particNum"], $row["Max"]);
-
-                                    ?>
-                                </p>
-
-                                <?php
-                               $rowww = getAttenders($row['id']);
 
 
-                                for($i = 0;$i<count($rowww);$i++){
-                                    $exists = glob ("/Applications/XAMPP/xamppfiles/htdocs/encounter/user_uploads/".$rowww[0]['attenders'].".*");
+            if ($result) {
+                while ($row = mysqli_fetch_assoc($result)) {
 
-                                    if(count($exists)){
-                                        ?>
-                                        <img class='rounded-circle' height="60px" width="60px" src='file:///Applications/XAMPP/xamppfiles/htdocs/encounter/user_uploads/<?php echo $rowww[0]["attenders"]?>.jpeg'/>
+                    $month = date('jS F Y', strtotime($row['Date']));
+
+                    ?>
+                    <h4><?php echo $month ?></h4>
+                    <hr style="width: 60em">
+                    <div class="card mx-auto " style="width: 35rem;">
+                        <!--
+                        <img class="card-img-top" src="..." alt="Card image cap">
+                        -->
+                        <div class="card-block">
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <h4 class="card-title">
+
+                                        <?php printf("%s\n", $row["Title"]); ?>
+
+                                    </h4>
+                                </li>
+                                <li class="list-group-item">
+                                    <h5>Description</h5>
+                                    <p class="card-text">
+                                        <?php printf("%s\n", $row["Description"]); ?>
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p>
 
                                         <?php
+                                        printf("%s of %s people will encounter\n", $row["particNum"],
+                                            $row["Max"]);
+
+                                        ?>
+                                    </p>
+
+                                    <?php
+                                    $rowww = getAttenders($row['id']);
+
+
+                                    for ($i = 0; $i < count($rowww); $i++) {
+                                        $exists = glob("/Applications/XAMPP/xamppfiles/htdocs/encounter/user_uploads/" . $rowww[0]['attenders'] . ".*");
+
+                                        if (count($exists)) {
+                                            ?>
+                                            <img class='rounded-circle' height="60px" width="60px"
+                                                 src='file:///Applications/XAMPP/xamppfiles/htdocs/encounter/user_uploads/<?php echo $rowww[0]["attenders"] ?>.jpeg'/>
+
+                                            <?php
                                         }
 
-                                ?>
+                                        ?>
 
 
-                                   <?php } ?>
+                                    <?php } ?>
 
-                            </li>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                        <?php $owner = getOwner($row['owner']) ?>
+                        <?php $isRequested = isRequested($_SESSION['username'], $row['id']) ?>
+                        <?php $isAccepted = isAccepted($_SESSION['username'], $row['id']) ?>
+                        <input type="hidden" id="evn" value="<?php echo $row['id'] ?>">
+
+
+                        <br/>
+                        <ul class="list-group list-group-flush">
+
+                            <?php
+                            $time = date("g:i a", strtotime($row['Time']));
+                            ?>
+                            <li class="list-group-item">Time: <?php echo $time ?></li>
 
                         </ul>
-
-
-                    </div>
-
-                    <?php $owner = getOwner($row['owner']) ?>
-                    <?php $isRequested = isRequested($_SESSION['username'], $row['id']) ?>
-                    <?php $isAccepted = isAccepted($_SESSION['username'], $row['id']) ?>
-                    <input type="hidden" id="evn" value="<?php echo $row['id'] ?>">
-
-
-                    <br/>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Date/Time: 10/12/2017 - 18:15pm</li>
-
-                    </ul>
-                    <div class="card-block text-center ask">
-                        <?php if ($isAccepted == true) { ?>
-                            <button type="button" class="btn btn-success btn-lg btn-block"><span
-                                        id="reqText"><?php echo 'Enter encounter'; ?></span></button>
-                        <?php } else { ?>
-                            <?php if ($isRequested == true) { ?>
-                                <button type="button" class="btn btn-warning btn-lg btn-block"><span
+                        <div class="card-block text-center ask">
+                            <?php if ($isAccepted == true) { ?>
+                                <button type="button" class="btn btn-success btn-lg btn-block"><span
                                             id="reqText"><?php echo 'Enter encounter'; ?></span></button>
-
                             <?php } else { ?>
+                                <?php if ($isRequested == true) { ?>
+                                    <button type="button" class="btn btn-warning btn-lg btn-block"><span
+                                                id="reqText"><?php echo 'Enter encounter'; ?></span></button>
 
-                                <button type="button" class="btn btn-primary btn-lg btn-block"><span
-                                            id="reqText"><?php echo 'Ask To Join'; ?></span></button>
+                                <?php } else { ?>
 
-                            <?php }
-                        } ?>
+                                    <button type="button" class="btn btn-primary btn-lg btn-block"><span
+                                                id="reqText"><?php echo 'Ask To Join'; ?></span></button>
 
-                        <input type="hidden" class="own" id="owner" value="<?php echo $owner ?>">
-                        <input type="hidden" class="evn" id="eventid" value="<?php echo $row['id'] ?>">
+                                <?php }
+                            } ?>
+
+                            <input type="hidden" class="own" id="owner" value="<?php echo $owner ?>">
+                            <input type="hidden" class="evn" id="eventid" value="<?php echo $row['id'] ?>">
+
+                        </div>
+
 
                     </div>
 
+                    <br>
+                    <!--   <hr style="width: 60em"> -->
+                    <br>
+                    <?php
 
-                </div>
-
-                <br>
-                <hr style="width: 60em">
-                <br>
-                <?php
-
-            }
+                }
             } else {
                 echo 'no encounters yet';
             }
 
             ?>
 
-
+            <nav aria-label="Page navigation example"> <ul class="pagination justify-content-center">
             <?php
 
             pagination($_SESSION['username']);
             ?>
-
+                </ul> </nav>
         </div>
         <div class="col-sm-2" style="background-color:#f1f1f1;right: 0; position: fixed;height:100%;padding-top: 20px;">
 
@@ -329,11 +356,6 @@ include_once '../php/show.php';
 
     <script>
         $(document).ready(function () {
-
-
-            //  $("#notification_count").hide();
-            // $("#messages_count").hide();
-
 
             //notifications Requests count
             var count = document.getElementById("notification_count").innerText;
@@ -387,20 +409,6 @@ include_once '../php/show.php';
 
                 //return false;
             });
-
-            //Document Click hiding the popup
-            /*  $(document).click(function () {
-                  $("#notificationContainer").hide();
-                  $("#messagesContainer").hide();
-              });
-      */
-
-
-            //Popup on click
-            /*   $("#notificationContainer").click(function () {
-                   return false;
-               });
-       */
 
 
             /* messages */
@@ -510,6 +518,9 @@ include_once '../php/show.php';
             });
 
         });
+
+
+
 
     </script>
 

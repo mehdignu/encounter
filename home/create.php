@@ -138,8 +138,8 @@ include_once '../php/show.php';
 
                 <label><b>location </b><i>it will be shown only for the members of the encounter</i></label>
                 <input type="text" id="us3-address" name="location" class="form-control" required /><br>
-                <input type="hidden" id="lat" value="">
-                <input type="hidden" id="lng" value="">
+                <input type="hidden" name="lat" id="lat" value="">
+                <input type="hidden" name="lng" id="lng" value="">
 
 
 
@@ -327,8 +327,9 @@ include_once '../php/show.php';
         },
         enableAutocomplete: true,
         onchanged: function (currentLocation, radius, isMarkerDropped) {
-            document.getElementById("lat").value = currentLocation.latitude;
-            document.getElementById("lng").value = currentLocation.longitude;
+
+            $('#lat').val(currentLocation.latitude);
+            $('#lng').val(currentLocation.longitude);
 
 
 

@@ -8,7 +8,7 @@ include("../php/config.php");
 
 
 
-if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['location']) && isset($_POST['hour']) && isset($_POST['min']) && isset($_POST['max'])&& isset($_POST['date'])&& isset($_POST['age'])&& isset($_POST['age1']) ){
+if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['lat']) && isset($_POST['lng']) && isset($_POST['location']) && isset($_POST['hour']) && isset($_POST['min']) && isset($_POST['max'])&& isset($_POST['date'])&& isset($_POST['age'])&& isset($_POST['age1']) ){
     $title = strip_tags($_POST['title']);
     $description = strip_tags($_POST['description']);
     $location = strip_tags($_POST['location']);
@@ -16,7 +16,7 @@ if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['loca
     $lat = $_POST['lat'];
     $lng = $_POST['lng'];
 
-    $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=52.5200,13.4050&sensor=false';
+    $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='.$lat.','.$lng.'&sensor=false&key=AIzaSyChPl2F6dKpwBPDbIqayOJCS42wWjTVmHw';
     $json = @file_get_contents($url);
     $data = json_decode($json);
     $status = $data->status;
@@ -30,6 +30,7 @@ if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['loca
             }
         }
     } else{
+
         $city = 'Location Not Found';
     }
 
@@ -41,12 +42,13 @@ if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['loca
     $age1 = $_POST['age1'];
     //add the eevent to the scheduled table
     $user = $_SESSION['username'];
-    $query = "INSERT INTO `scheduled` (`Title`, `Description`,`Location`,`city`,`Date`,`Time`,`Max`,`Age`,`Age1`,`owner`) VALUES ('$title', '$description', '$location', '$city', '$date', '$time', '$max', '$age', '$age1',(SELECT `id` FROM `users` WHERE `UserName` = '$user'))";
+    $query = "INSERT INTO `scheduled` (`Title`, `Description`,`Location`,`lat`,`lng`,`city`,`Date`,`Time`,`Max`,`Age`,`Age1`,`owner`) VALUES ('$title', '$description', '$location', '$lat', '$lng', '$city', '$date', '$time', '$max', '$age', '$age1',(SELECT `id` FROM `users` WHERE `UserName` = '$user'))";
     $result = mysqli_query($connection, $query);
     if (!$result)
     {
         echo("Error description: " . mysqli_error($connection));
     }
+
     $lastEventId = mysqli_insert_id($connection);
     $query = "INSERT INTO `participations` (EventID, MemberID) VALUES ('$lastEventId', (SELECT `id` FROM `users` WHERE `UserName` = '$user'))";
     $result = mysqli_query($connection, $query);

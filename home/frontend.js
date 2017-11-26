@@ -140,6 +140,18 @@ $(function () {
     });
 
 
+
+    $('.encOwn').bind("click", function () {
+
+
+
+            var id = $('#evn'+id).val();
+            window.location.href = "groupMessages.php?id="+id;
+
+
+    });
+
+
     var notiBody = $('#notificationsBody');
 
     /**

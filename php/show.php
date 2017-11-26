@@ -126,12 +126,11 @@ function pagination($userName = ''){
         $tt = "";
 
 
-        $s .= "<nav aria-label=\"Page navigation example\"> <ul class=\"pagination justify-content-center\">";
 
         //start
 
 
-
+if($pages > 1){
 
         $s .= ($page > 1) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page - 1) . " \" tabindex=\" " . ($page - 1) . " \">Previous</a> </li>" : '<li class="page-item disabled"> <a class="page-link" href="#" tabindex="-1">Previous</a> </li>';
 
@@ -158,7 +157,6 @@ function pagination($userName = ''){
         if($t != "")
             $s.= $t;
 
-        $t = "";
 
 
 
@@ -166,9 +164,8 @@ function pagination($userName = ''){
         //end of the pagination
         $s .= ($page < $pages) ? "<li class=\"page-item\"><a class=\"page-link\" href=\"  ?page=" . ($page + 1) . " \" tabindex=\" " . ($page + 1) . " \">Next</a></li>" : '<li class="page-item disabled"> <a class="page-link" href="#" tabindex="-1">Next</a> </li>';
 
-        $s .= "</ul> </nav>";
 
-
+}
         echo  $s;
 
     } catch (Exception $e) {
@@ -324,4 +321,33 @@ function getAttenders($id=''){
 
     return $rows;
 
+}
+
+/**
+ * @param userName $get the encounters of the user
+ */
+function getOwnEncounters($userName = ''){
+    $query = "select id from users where users.UserName = '$userName'";
+    $result = mysqli_query($GLOBALS['connection'], $query);
+
+    $row = mysqli_fetch_row($result);
+
+    $id = $row[0];
+
+    $query = "select * from scheduled where scheduled.owner = '$id'";
+    $result = mysqli_query($GLOBALS['connection'], $query);
+
+
+    return $result;
+}
+
+/**
+ *
+ *get the encounter to edit
+ */
+function getEncounter($id=''){
+    $query = "select * from scheduled where scheduled.id = '$id'";
+    $result = mysqli_query($GLOBALS['connection'], $query);
+
+    return $result;
 }

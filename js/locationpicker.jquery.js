@@ -449,7 +449,7 @@
         enableAutocomplete: false,
         enableAutocompleteBlur: false,
         autocompleteOptions: null,
-       // addressFormat: 'postal_code',
+        //addressFormat: 'administrative_area',
         enableReverseGeocode: true,
         draggable: true,
         onchanged: function(currentLocation, radius, isMarkerDropped) {},
