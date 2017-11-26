@@ -6,12 +6,177 @@ include("config.php");
 /*
  * get the available events
  */
-function eventsArray()
+function eventsArray($userName = '')
 {
-    $result = mysqli_query($GLOBALS['connection'], "SELECT * FROM `scheduled`");
-    return $result;
+
+
+    $result = mysqli_query($GLOBALS['connection'], "SELECT city FROM `users` WHERE users.UserName = '$userName' ");
+
+    $row = mysqli_fetch_row($result);
+
+    $city = $row[0];
+
+    try {
+
+        // Find out how many items are in the table
+        $result = mysqli_query($GLOBALS['connection'], "SELECT * FROM `scheduled` WHERE scheduled.city = '$city'");
+
+        // Find out how many items are in the table
+        $total =  mysqli_num_rows($result);
+        // How many items to list per page
+        $limit = 2;
+
+        // How many pages will there be
+        $pages = ceil($total / $limit);
+
+        // What page are we currently on?
+        $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
+            'options' => array(
+                'default'   => 1,
+                'min_range' => 1,
+            ),
+        )));
+
+        // Calculate the offset for the query
+        $offset = ($page - 1)  * $limit;
+
+        // Some information to display to the user
+        $start = $offset + 1;
+        $end = min(($offset + $limit), $total);
+
+        // Prepare the paged query
+
+        $stmt = mysqli_query($GLOBALS['connection'], "SELECT * FROM `scheduled` WHERE scheduled.city = '$city' order BY `Date` LIMIT $limit OFFSET $offset");
+
+
+
+        // Do we have any results?
+        if ($stmt) {
+            // Define how we want to fetch the results
+            return  $stmt;
+
+
+        } else {
+           // echo '<p>No results could be displayed.</p>';
+        }
+
+    } catch (Exception $e) {
+        echo '<p>', $e->getMessage(), '</p>';
+    }
 
 }
+
+/**
+ * get the city of the User
+ */
+function getCity($userName = ''){
+    $result = mysqli_query($GLOBALS['connection'], "SELECT city FROM `users` WHERE users.UserName = '$userName' ");
+
+    $row = mysqli_fetch_row($result);
+
+    return $row[0];
+}
+
+/**
+ * function to display the pagination informations
+ */
+function pagination($userName = ''){
+    $result = mysqli_query($GLOBALS['connection'], "SELECT city FROM `users` WHERE users.UserName = '$userName' ");
+
+    $row = mysqli_fetch_row($result);
+
+    $city = $row[0];
+
+
+    try {
+
+        // Find out how many items are in the table
+        $result = mysqli_query($GLOBALS['connection'], "SELECT city FROM `users` WHERE users.UserName = '$userName' ");
+
+        // Find out how many items are in the table
+        $total =  mysqli_num_rows($result);
+
+        // How many items to list per page
+        $limit = 2;
+
+        // How many pages will there be
+        $pages = ceil($total / $limit);
+
+        // What page are we currently on?
+        $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
+            'options' => array(
+                'default'   => 1,
+                'min_range' => 1,
+            ),
+        )));
+
+        // Calculate the offset for the query
+        $offset = ($page - 1)  * $limit;
+
+        // Some information to display to the user
+        $start = $offset + 1;
+        $end = min(($offset + $limit), $total);
+
+
+        // Display the paging information
+
+        //echo '<div aria-label="Page navigation example"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $total, ' results ', $nextlink, ' </p></div>';
+        $s = "";
+        $t = "";
+        $tt = "";
+
+
+        $s .= "<nav aria-label=\"Page navigation example\"> <ul class=\"pagination justify-content-center\">";
+
+        //start
+
+
+
+
+        $s .= ($page > 1) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page - 1) . " \" tabindex=\" " . ($page - 1) . " \">Previous</a> </li>" : '<li class="page-item disabled"> <a class="page-link" href="#" tabindex="-1">Previous</a> </li>';
+
+
+
+        $tt .= ($page == $pages && $page-2 > 0) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page - 2) . " \" tabindex=\" " . ($page - 2) . " \">".($page-2)."</a> </li>" : '';
+
+        if($tt != "")
+            $s.= $tt;
+
+            $s .= ($page-1 > 0) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page - 1) . " \" tabindex=\" " . ($page - 1) . " \">".($page-1)."</a> </li>" : '';
+                $t .= ($page-1 <= 0 && $page+2 <=  $pages) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page + 2) . " \" tabindex=\" " . ($page + 2) . " \">".($page+2)."</a> </li>" : '';
+
+
+
+
+
+        $s .= "<li class=\"page-item active \"> <a class=\"page-link\" href=\"  ?page=" . ($page) . " \" tabindex=\" " . ($page) . " \">$page</a> </li>";
+
+
+
+            $s .= ($page+1 <= $pages  ) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page + 1) . " \" tabindex=\" " . ($page + 1) . " \">".($page+1)."</a> </li>" : '';
+
+        if($t != "")
+            $s.= $t;
+
+        $t = "";
+
+
+
+
+        //end of the pagination
+        $s .= ($page < $pages) ? "<li class=\"page-item\"><a class=\"page-link\" href=\"  ?page=" . ($page + 1) . " \" tabindex=\" " . ($page + 1) . " \">Next</a></li>" : '<li class="page-item disabled"> <a class="page-link" href="#" tabindex="-1">Next</a> </li>';
+
+        $s .= "</ul> </nav>";
+
+
+        echo  $s;
+
+    } catch (Exception $e) {
+        echo '<p>', $e->getMessage(), '</p>';
+    }
+
+}
+
 
 /*
  * get the notifications requests count for the userName
@@ -136,3 +301,27 @@ function isChecked($userName = ''){
     return $isChecked;
 }
 
+
+/**
+ * @param string $id
+ * get the attenders of the event to show their images
+ */
+function getAttenders($id=''){
+
+    $result = mysqli_query($GLOBALS['connection'], "
+        SELECT u.UserName as 'attenders'
+    FROM users u
+
+            INNER JOIN participations p on p.MemberID = u.id
+            INNER JOIN scheduled s on s.id = p.EventID
+    WHERE s.id = $id
+        ");
+
+    $rows = array();
+    while ($row = $result->fetch_array()) {
+        $rows[] = $row;
+    }
+
+    return $rows;
+
+}

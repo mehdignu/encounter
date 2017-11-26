@@ -50,13 +50,13 @@
         <article id="register">
 
             <h2 class="major">Create a New Account</h2>
-            <form name="register" action='php/register.php' onsubmit="return validateForm()" method='post' accept-charset='UTF-8'>
+            <form name="register" action='php/register.php' onsubmit="return validateForm()" method='post' accept-charset='UTF-8' enctype="multipart/form-data">
                 <div class="field">
-                    <label for="name">First Name</label>
+                    <label for="fname">First Name</label>
                     <input type="text" name="fName" id="fName" required />
                 </div>
                 <div class="field">
-                    <label for="name">Last Name</label>
+                    <label for="lname">Last Name</label>
                     <input type="text" name="lName" id="lName" required/>
                 </div>
 
@@ -69,6 +69,15 @@
                     <label for="female">Female</label>
                 </div>
 
+
+                <div class="field">
+
+                    <label for="files" class="button icon fa-download" class="btn" id="demo">profile picture</label>
+                    <input id="files" name="files" style="visibility:hidden;position:absolute;" type="file" onchange="uploaded()">
+                </div>
+
+
+
                 <div class="field">
                     <label for="email">Email</label>
                     <input type="email" name="email" id="mail" required />
@@ -79,7 +88,7 @@
                 </div>
                 <span id="errorname" style="color:red"></span>
                 <ul class="actions">
-                    <li><input type="submit" value="Create Account" class="special"/></li>
+                    <li><input type="submit" value="Create Account" name="submit" class="special"/></li>
                     <li><input type="reset" value="Reset"/></li>
                 </ul>
             </form>
@@ -382,6 +391,41 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 <script src="assets/js/main.js"></script>
 
 <script>
+
+
+    function uploaded(){
+
+        var x = document.getElementById("files");
+        var txt = "";
+        var name="";
+        if ('files' in x) {
+            if (x.files.length == 0) {
+                txt = "Select one or more files.";
+            } else {
+                for (var i = 0; i < x.files.length; i++) {
+                    txt += "<br><strong>" + (i+1) + ". file</strong><br>";
+                    var file = x.files[i];
+                    if ('name' in file) {
+                        txt += "name: " + file.name + "<br>";
+                        name += "name: " + file.name + "<br>";
+                    }
+                    if ('size' in file) {
+                        txt += "size: " + file.size + " bytes <br>";
+                    }
+                }
+            }
+        }
+        else {
+            if (x.value == "") {
+                txt += "Select one or more files.";
+            } else {
+                txt += "The files property is not supported by your browser!";
+                txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead.
+            }
+        }
+        document.getElementById("demo").innerHTML = name;
+    }
+
     $(document).ready(function () {
 
 

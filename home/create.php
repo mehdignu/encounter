@@ -37,10 +37,19 @@ include_once '../php/show.php';
 
 
     <!-- maps loccation choose -->
+
     <script type="text/javascript" src='http://maps.google.com/maps/api/js?libraries=places&key=AIzaSyBCVuS83u7FTWYsPCpKN8QoVJeIiSmmo1Y'></script>
     <script src="../js/locationpicker.jquery.js"></script>
 
     <title>create encounter</title>
+<style>
+    footer {
+    background-color: #555;
+    color: white;
+    padding: 5px;
+    }
+
+    </style>
 </head>
 <body>
 
@@ -79,6 +88,7 @@ include_once '../php/show.php';
         </ul>
 
         <ul class="navbar-nav">
+
 
 
             <li class="nav-item dropdown" >
@@ -121,14 +131,17 @@ include_once '../php/show.php';
                 <input name="title" class="form-control" type="text" placeholder="Title here" required><br>
 
 
-
                 <div class="form-group">
                     <label><b>Description</b></label>
                     <textarea class="form-control text" placeholder="Description of the encounter" cols="35"  maxlength="150" name="description" rows="3" required></textarea>
                 </div>
 
-                <label><b>location</b></label>
+                <label><b>location </b><i>it will be shown only for the members of the encounter</i></label>
                 <input type="text" id="us3-address" name="location" class="form-control" required /><br>
+                <input type="hidden" id="lat" value="">
+                <input type="hidden" id="lng" value="">
+
+
 
                 <label><b>Date</b></label>
                 <p> <input type="text" id="datepicker" name="date" class="form-control" required></p><br>
@@ -179,19 +192,17 @@ include_once '../php/show.php';
 
 
 
-
-
-
-
-
-
     </div>
 
 
-
+    <footer class="container-fluid text-center col-sm-12 navbar-dark bg-dark fixed-bottom">
+        <p>Footer Text</p>
+    </footer>
 
 
 <script>
+
+
 
     //jquery function to select the date
     $( function() {
@@ -204,22 +215,7 @@ include_once '../php/show.php';
             }
         );
     } );
-    //google maps api to select location
-    $('#loc').locationpicker({
-        location: {
-            latitude: 46.15242437752303,
-            longitude: 2.7470703125
-        },
-        radius: 300,
-        inputBinding: {
-            locationNameInput: $('#us3-address')
-        },
-        enableAutocomplete: true,
-        onchanged: function (currentLocation, radius, isMarkerDropped) {
-            //alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
-            // $("#location").val(currentLocation.latitude + ", " + currentLocation.longitude);
-        }
-    });
+
 
     $(document).ready(function () {
 
@@ -322,8 +318,8 @@ include_once '../php/show.php';
     //google maps api to select location
     $('#loc').locationpicker({
         location: {
-            latitude: 46.15242437752303,
-            longitude: 2.7470703125
+            latitude: 52.5200,
+            longitude: 13.4050
         },
         radius: 300,
         inputBinding: {
@@ -331,6 +327,11 @@ include_once '../php/show.php';
         },
         enableAutocomplete: true,
         onchanged: function (currentLocation, radius, isMarkerDropped) {
+            document.getElementById("lat").value = currentLocation.latitude;
+            document.getElementById("lng").value = currentLocation.longitude;
+
+
+
             //alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
             // $("#location").val(currentLocation.latitude + ", " + currentLocation.longitude);
         }

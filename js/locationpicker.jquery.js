@@ -7,7 +7,7 @@
     function GMapContext(domElement, options) {
         var _map = new google.maps.Map(domElement, options);
         var _marker = new google.maps.Marker({
-            position: new google.maps.LatLng(54.19335, -3.92695),
+            position: new google.maps.LatLng(52.5200, 13.4050),
             map: _map,
             title: "Drag Me",
             visible: options.markerVisible,
@@ -432,7 +432,7 @@
         });
     };
     $.fn.locationpicker.defaults = {
-        location: {latitude: 40.7324319, longitude: -73.82480777777776},
+        location: {latitude: 52.5200, longitude: 13.4050},
         locationName: "",
         radius: 500,
         zoom: 15,
@@ -449,7 +449,7 @@
         enableAutocomplete: false,
         enableAutocompleteBlur: false,
         autocompleteOptions: null,
-        addressFormat: 'postal_code',
+       // addressFormat: 'postal_code',
         enableReverseGeocode: true,
         draggable: true,
         onchanged: function(currentLocation, radius, isMarkerDropped) {},
