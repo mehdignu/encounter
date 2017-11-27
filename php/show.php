@@ -351,3 +351,19 @@ function getEncounter($id=''){
 
     return $result;
 }
+
+
+/**
+ *
+ *get the encounter to edit
+ */
+function getUserName($user=''){
+    $query = "select FirstName, LastName from users where users.Username = '$user'";
+    $result = mysqli_query($GLOBALS['connection'], $query);
+    $row = mysqli_fetch_row($result);
+
+    //only first name
+    $name = $row[0];
+
+    return $name;
+}

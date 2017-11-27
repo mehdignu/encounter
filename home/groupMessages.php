@@ -1,7 +1,9 @@
 <?php
 
 session_start();
-
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.html");
+}
 include_once '../php/show.php';
 
 
@@ -48,6 +50,15 @@ if (!isset($_SESSION['username'])) {
 
 }
 
+$u = $_SESSION['username'];
+
+$result = mysqli_query($GLOBALS['connection'], "
+         SELECT id from users WHERE UserName = '$u'
+        ");
+
+$row = mysqli_fetch_row($result);
+
+$memberId = $row[0];
 
 
 ?>
@@ -67,7 +78,6 @@ if (!isset($_SESSION['username'])) {
             integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
             crossorigin="anonymous"></script>
 
-    <script src="./frontend.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
@@ -175,13 +185,30 @@ if (!isset($_SESSION['username'])) {
                 <span><?php echo date('jS F Y', strtotime($row['Date'])) .' at '. $row['Time'] ?></span><br>
 
 
-
                 <?php
+
+                if($row['owner'] == $memberId) {
+                    ?>
+
+                    <button type="button" class="btn btn-danger fixed-bottom" onclick="location.href = 'removeEncounter.php?id=<?php echo $EventId ?>'" style="margin-bottom: 29px;margin-left:9px;width:auto">delete Encounter</button>
+
+                    <?php
+
+                }else {
+                    ?>
+
+                    <button type="button" class="btn btn-secondary fixed-bottom"
+                            onclick="location.href = 'leaveEncounter.php?id=<?php echo $EventId ?>&member=<?php echo $_SESSION['username'] ?>'"
+                            style="margin-bottom: 29px;margin-left: 45px;width:200px">leave Encounter
+                    </button>
+
+
+                    <?php
+                }
             }
             }
             ?>
             <br>
-            <button type="button" class="btn btn-secondary fixed-bottom" style="margin-bottom: 29px;margin-left: 45px;width:200px">leave Encounter</button>
 
 
         </div>
@@ -195,11 +222,11 @@ if (!isset($_SESSION['username'])) {
                 </div>
                 <div id="content"></div>
 
-                <div class="card-block" style="position: absolute; bottom: 0;width: 100%" >
+                <div class="card-block" style="position: absolute; bottom: 0;width: 100%;" >
                     <div class="form-inline" >
 
-                        <span id="status" class="col-sm-1.5"><?php echo $_SESSION['username'] ?></span>
-                        <input type="text"  class="form-control offset-sm-1 col-sm-10" id="input" disabled="disabled" />
+                        <span id="status" class="col-sm-1" style="padding-left: 10px;position:absolute;"><?php echo getUserName($_SESSION['username']); ?></span>
+                        <input type="text"  class="form-control offset-sm-2 col-sm-10" id="input" disabled="disabled" />
                     </div>
                 </div>
             </div>
@@ -208,17 +235,47 @@ if (!isset($_SESSION['username'])) {
 
         <div class="col-sm-2" style="background-color:#f1f1f1;right: 0; position: fixed;height:100%;padding-top: 20px;">
 
-            <div class="card" style="background-color:#f1f1f1; height:5em;padding-top:10px;margin-top:30px;padding-left:5px;">
-                <div class="card-block">
+
                     Encounter attenders
-                </div>
+<br>
+                    <?php
+                    $rowww = getAttenders($EventId);
 
 
+                    ?>
+
+
+                        <ul class="list-group list-group-flush" style="background-color: #f1f1f1">
+
+
+                    <?php
+
+                    for ($i = 0; $i < count($rowww); $i++) {
+                        $exists = glob("/Applications/XAMPP/xamppfiles/htdocs/encounter/user_uploads/" . $rowww[$i]['attenders'] . ".*");
+
+                        if (count($exists)) {
+                            ?>
+                            <li class="list-group-item" style="background-color: #f1f1f1">
+                            <img class='rounded-circle' height="60px" width="60px"
+                                 src='../user_uploads/<?php echo $rowww[$i]["attenders"] ?>.jpeg'/>
+                            </li>
+
+                            <?php echo getUserName($rowww[$i]["attenders"]); ?>
+
+
+                            <?php
+                        }
+
+                        ?>
+
+
+                    <?php } ?>
+                        </ul>
             </div>
 <br>
 
 
-        </div>
+
 
     </div>
 
@@ -236,6 +293,90 @@ if (!isset($_SESSION['username'])) {
     <script src="../js/locationpicker.jquery.js"></script>
     <script>
         window.onload = function() {
+
+            //notifications Requests count
+            var count = document.getElementById("notification_count").innerText;
+            var d1 = document.getElementById("dropdown01");
+
+            //alert(count);
+            if (count == 0) {
+                d1.classList.remove("active");
+                $("#notification_count").hide();
+            } else {
+                d1.className += " active";
+                $("#notification_count").show();
+            }
+
+            //notifications Encounters count
+            var countNoti = document.getElementById("messages_count").innerText;
+            var d2 = document.getElementById("dropdown02");
+            if (countNoti == 0) {
+                d2.classList.remove("active");
+
+                $("#messages_count").hide();
+            } else {
+                d2.className += " active";
+
+                $("#messages_count").show();
+
+            }
+
+
+            $("#notifications").click(function () {
+                //$("#messagesContainer").hide();
+                // $("#notificationContainer").fadeToggle(300);
+                //$("#notification_count").fadeOut("slow");
+                d1.classList.remove("active");
+                $("#notification_count").fadeOut("slow");
+
+                var userName = document.getElementById("userName").value;
+
+                var data = {"type": 'NotifyRequestReset', "userName": userName};
+
+                $.ajax({
+                    type: "POST",
+                    url: "NotifyRequestReset.php",
+                    data: {'NotifyRequestReset': JSON.stringify(data)},
+                    cache: false,
+
+                    success: function (html) {
+                        //alert(html);
+                    }
+                });
+
+                //return false;
+            });
+
+
+            /* messages */
+
+            $("#encounters").click(function () {
+                //   $("#notificationContainer").hide();
+                //  $("#messagesContainer").fadeToggle(300);
+                // $("#messages_count").fadeOut("slow");
+                d2.classList.remove("active");
+                $("#messages_count").fadeOut("slow");
+
+                var userName = document.getElementById("userName").value;
+                var data = {"type": 'NotifyEncounterReset', "userName": userName};
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "NotifyEncounterReset.php",
+                    data: {'NotifyEncounterReset': JSON.stringify(data)},
+                    cache: false,
+
+                    success: function (html) {
+                        //alert(html);
+                    }
+                });
+
+
+                //return false;
+            });
+
+
 
             document.getElementById("input").focus();
 

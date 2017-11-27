@@ -1,7 +1,9 @@
 <?php
 
 session_start();
-
+if (!isset($_SESSION['username'])) {
+    header("Location: ../index.html");
+}
 include_once '../php/show.php';
 
 
@@ -151,7 +153,7 @@ if (!isset($_SESSION['username'])) {
 </nav>
 <input type="hidden" id="userName" value="<?php echo $_SESSION['username'] ?>">
 
-<div class="container-fluid mx-auto" style="margin-top: 55px;">
+<div class="container-fluid mx-auto" style="padding-bottom: 5px;padding-top: 30px;">
     <div class="row">
 
         <div class="col-sm-3" style="background-color:#f1f1f1;position:fixed;height:100%;padding-top: 20px;">

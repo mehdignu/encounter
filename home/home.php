@@ -135,7 +135,7 @@ include_once '../php/show.php';
             <div class="card" style="background-color:#f1f1f1;padding-top:10px;margin-top:30px;">
 
                 <button type="button" class="btn btn-primary btn-lg" onclick="location.href = 'create.php';"
-                        style="width:11em;margin-left:27px;">Create an encounter
+                        style="width:auto;">Create an encounter
                 </button>
 
                 <hr>
@@ -258,12 +258,12 @@ include_once '../php/show.php';
 
 
                                     for ($i = 0; $i < count($rowww); $i++) {
-                                        $exists = glob("/Applications/XAMPP/xamppfiles/htdocs/encounter/user_uploads/" . $rowww[0]['attenders'] . ".*");
+                                        $exists = glob("/Applications/XAMPP/xamppfiles/htdocs/encounter/user_uploads/" . $rowww[$i]['attenders'] . ".*");
 
                                         if (count($exists)) {
                                             ?>
                                             <img class='rounded-circle' height="60px" width="60px"
-                                                 src='file:///Applications/XAMPP/xamppfiles/htdocs/encounter/user_uploads/<?php echo $rowww[0]["attenders"] ?>.jpeg'/>
+                                                 src='../user_uploads/<?php echo $rowww[$i]["attenders"] ?>.jpeg'/>
 
                                             <?php
                                         }
@@ -362,7 +362,7 @@ include_once '../php/show.php';
     </div>
 
     <footer class="container-fluid text-center col-sm-12 navbar-dark bg-dark  ">
-        <p>Footer Text</p>
+        <p><small>&copy; Copyright 2017, encounter</small></p>
     </footer>
 
     <!-- Optional JavaScript -->

@@ -40,6 +40,10 @@ $query = "UPDATE `users` SET EncCount=EncCount+1 WHERE users.id='$requester'";
 $result = mysqli_query($connection, $query);
 
 
+//increment the number of the participants
+$query = "UPDATE `scheduled` SET `particNum`=`particNum`+1 WHERE scheduled.id='$eventId'";
+$result = mysqli_query($connection, $query);
+
 
 //delete the request
 $query = "delete from requests where requests.requestID = '$eventID'";
