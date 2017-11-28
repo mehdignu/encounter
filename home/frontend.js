@@ -141,7 +141,7 @@ $(function () {
 
 
 
-    $('.encOwn').bind("click", function () {
+ /*   $('.encOwn').bind("click", function () {
 
 
 
@@ -149,7 +149,7 @@ $(function () {
             window.location.href = "groupMessages.php?id="+id;
 
 
-    });
+    });*/
 
 
     var notiBody = $('#notificationsBody');

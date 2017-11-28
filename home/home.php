@@ -22,7 +22,9 @@ include_once '../php/show.php';
             integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
             crossorigin="anonymous"></script>
 
+
     <script src="./frontend.js"></script>
+    <link rel="stylesheet" href="../css/new.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
@@ -129,57 +131,64 @@ include_once '../php/show.php';
 <div class="container-fluid" style="margin-top: 55px; padding:0">
     <div class="row" style="margin:0;min-height: 90vh">
 
-        <div class="col-sm-2" style="background-color:#f1f1f1;position:fixed;height:100%;padding-top: 20px;">
+        <div class="col-sm-2" style="position:fixed;height:100%;padding-top: 6%; margin-left: 14%;">
+
+            <div class="card">
+              <a class="waves-effect waves-light btn-largemimi" href="create.php"><i class="material-icons left">create</i></a>
+            </div>
 
 
-            <div class="card" style="background-color:#f1f1f1;padding-top:10px;margin-top:30px;">
-
-                <button type="button" class="btn btn-primary btn-lg" onclick="location.href = 'create.php';"
-                        style="width:auto;">Create an encounter
-                </button>
-
-                <hr>
-
-                <div class="card-block" style="margin-left:17px;">
-                    Your encounters:
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="card-panel blue-grey darken-1">
+          <span class="white-text">Your encounters:
+          </span>
+                    </div>
                 </div>
-                <br>
-
-                <ul class="list-group list-group-flush">
+            </div>
 
                     <?php $enc = getOwnEncounters($_SESSION['username']);
                     if ($enc) {
 
-                        while ($row = mysqli_fetch_assoc($enc)) {
+                    while ($row = mysqli_fetch_assoc($enc)) {
 
-                            $id = $row['id'];
+                    $id = $row['id'];
 
-                            ?>
+                    ?>
 
-                            <a href="groupMessages.php?id=<?php echo $id ?>" class="encOwn">
-                                <li class="list-group-item"
-                                    style="background-color:#f1f1f1;"><?php echo $row['Title'] ?></li>
-                            </a>
-                            <li class="list-group-item" style="background-color:#f1f1f1;">
-                                <button class="btn btn-secondary" onclick="location.href = 'editEncounter.php?id=<?php echo $id ?>'" style="width: 81px">edit</button>
-                                <button class="btn btn-secondary" onclick="location.href = 'removeEncounter.php?id=<?php echo $id ?>'" style="width: 81px">remove</button>
-                            </li>
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <div class="card blue-grey darken-1">
+                                <div class="card-content white-text">
+                                    <span class="card-title">
+
+                                           <?php echo $row['Title'] ?>
+
+                                    </span>
+                                    <p><?php echo $row['Description'] ?></p>
+                                </div>
+                                <div class="card-action">
+                                    <a href="editEncounter.php?id=<?php echo $id ?>">Edit</a>
+                                    <a href="groupMessages.php?id=<?php echo $id ?>">Visit</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
-                            <?php
-                        }
+                        <?php
+                    }
                     } else {
                         echo 'you have created no encounters yet';
                     }
 
                     ?>
 
-                </ul>
 
-            </div>
+
 
         </div>
-        <div class="col-sm-8 col-sm-8 offset-sm-2 col-md-8">
+        <div class="col-sm-5 col-sm-5 offset-sm-4 col-md-5">
             <br>
 
             <?php
@@ -222,7 +231,7 @@ include_once '../php/show.php';
 
                     ?>
                     <h4><?php echo $month ?></h4>
-                    <hr style="width: 60em">
+                    <hr style="width: auto">
                     <div class="card mx-auto " style="width: 35rem;">
                         <!--
                         <img class="card-img-top" src="..." alt="Card image cap">
@@ -301,7 +310,7 @@ include_once '../php/show.php';
                             <?php } else { ?>
                                 <?php if ($isRequested == true) { ?>
                                     <button type="button" class="btn btn-warning btn-lg btn-block"><span
-                                                id="reqText"><?php echo 'Enter encounter'; ?></span></button>
+                                                id="reqText"><?php echo 'requested'; ?></span></button>
 
                                 <?php } else {
 
@@ -348,10 +357,10 @@ include_once '../php/show.php';
             ?>
                 </ul> </nav>
         </div>
-        <div class="col-sm-2" style="background-color:#f1f1f1;right: 0; position: fixed;height:100%;padding-top: 20px;">
+        <div class="col-sm-2" style="padding-top: 3%; margin-right: 6%;right: 0; position: fixed;height:100%;">
 
             <div class="card"
-                 style="background-color:#f1f1f1; height:5em;padding-top:10px;margin-top:30px;padding-left:5px;">
+                 style=" height:5em;padding-top:10px;margin-top:30px;padding-left:5px;">
                 <div class="card-block">
                     Ads
                 </div>
