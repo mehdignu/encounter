@@ -10,11 +10,13 @@ function eventsArray($userName = '')
 {
 
 
-    $result = mysqli_query($GLOBALS['connection'], "SELECT city FROM `users` WHERE users.UserName = '$userName' ");
+    /* $result = mysqli_query($GLOBALS['connection'], "SELECT city FROM `users` WHERE users.UserName = '$userName' ");
 
-    $row = mysqli_fetch_row($result);
+   $row = mysqli_fetch_row($result);
 
-    $city = $row[0];
+   $city = $row[0];
+*/
+    $city = getCity($userName);
 
     try {
 
@@ -81,17 +83,19 @@ function getCity($userName = ''){
  * function to display the pagination informations
  */
 function pagination($userName = ''){
-    $result = mysqli_query($GLOBALS['connection'], "SELECT city FROM `users` WHERE users.UserName = '$userName' ");
+   /* $result = mysqli_query($GLOBALS['connection'], "SELECT city FROM `users` WHERE users.UserName = '$userName' ");
 
     $row = mysqli_fetch_row($result);
 
     $city = $row[0];
+*/
+    $city = getCity($userName);
 
 
     try {
 
         // Find out how many items are in the table
-        $result = mysqli_query($GLOBALS['connection'], "SELECT city FROM `users` WHERE users.UserName = '$userName' ");
+        $result = mysqli_query($GLOBALS['connection'], "SELECT * FROM `scheduled` WHERE scheduled.city = '$city' ");
 
         // Find out how many items are in the table
         $total =  mysqli_num_rows($result);
@@ -126,9 +130,7 @@ function pagination($userName = ''){
         $tt = "";
 
 
-
         //start
-
 
 if($pages > 1){
 

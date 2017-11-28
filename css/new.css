@@ -1,4 +1,4 @@
-.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-largemimi, .btn-floating, .dropdown-content, .collapsible, .side-nav {
+.z-depth-1, .card-panel, .card, .toast,  .btn-largemimi, .btn-floating, .dropdown-content, .collapsible, .side-{
     -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
@@ -215,7 +215,7 @@
     z-index: -1;
 }
 
-.btn, .btn-largemimi,
+.btn-largemimi,
 .btn-flat {
     border: none;
     border-radius: 2px;
@@ -279,25 +279,25 @@
     font-size: 1.6rem;
 }
 
-.side-nav li > a.btn, .side-nav li > a.btn-largemimi, .side-nav li > a.btn-largemimi, .side-nav li > a.btn-flat, .side-nav li > a.btn-floating {
+.side-li >  .side-li > a.btn-largemimi, .side-li > a.btn-largemimi, .side-li > a.btn-flat, .side-li > a.btn-floating {
     margin: 10px 15px;
 }
 
-.side-nav li > a.btn, .side-nav li > a.btn-largemimi, .side-nav li > a.btn-largemimi, .side-nav li > a.btn-floating {
+.side-li >  .side-li > a.btn-largemimi, .side-li > a.btn-largemimi, .side-li > a.btn-floating {
     color: #fff;
 }
 
-.side-nav li > a.btn-flat {
+.side-li > a.btn-flat {
     color: #343434;
 }
 
-.side-nav li > a.btn:hover, .side-nav li > a.btn-largemimi:hover, .side-nav li > a.btn-largemimi:hover {
+.side-li > a.btn:hover, .side-li > a.btn-largemimi:hover, .side-li > a.btn-largemimi:hover {
     background-color: #2bbbad;
 }
 
 .tap-target-origin:not(.btn):not(.btn-largemimi), .tap-target-origin:not(.btn):not(.btn-largemimi):hover {
     background: none;
-}.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-largemimi, .btn-floating, .dropdown-content, .collapsible, .side-nav {
+}.z-depth-1,  .card-panel, .card, .toast,  .btn-largemimi, .btn-floating, .dropdown-content, .collapsible, .side-{
      -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
  }
@@ -360,7 +360,7 @@
     color: #9F9F9F !important;
 }
 
-.btn, .btn-largemimi,
+.btn-largemimi,
 .btn-floating,
 .btn-largemimi,
 .btn-flat {
@@ -381,11 +381,12 @@
     background-color: #1d7d74;
 }
 
-.btn, .btn-largemimi {
+.btn-largemimi {
     text-decoration: none;
     color: #fff;
     background-color: #26a69a;
-    text-align: center;
+/*    text-align: center;*/
+    width:100%!important;
     letter-spacing: .5px;
     -webkit-transition: .2s ease-out;
     transition: .2s ease-out;
@@ -458,3 +459,89 @@
 button.btn-floating {
     border: none;
 }
+.material-icons {
+    text-rendering: optimizeLegibility;
+    -webkit-font-feature-settings: 'liga';
+    -moz-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
+}
+i.material-icons {
+    display: block;
+    font-size: 24px;
+    height: 56px;
+    line-height: 56px;
+}
+
+.brand-logo i.material-icons {
+    float: left;
+    margin-right: 15px;
+}
+
+ul a.btn > .material-icons, ul a.btn-large > .material-icons, ul a.btn-large > .material-icons, ul a.btn-flat > .material-icons, ul a.btn-floating > .material-icons {
+    height: inherit;
+    line-height: inherit;
+}
+
+.input-field input[type=search]:focus ~ .material-icons {
+    color: #444;
+}
+
+.input-field input[type=search]:focus + label i,
+.input-field input[type=search]:focus ~ .mdi-navigation-close,
+.input-field input[type=search]:focus ~ .material-icons {
+    color: #444;
+}
+
+.input-field input[type=search] + label {
+    left: 1rem;
+}
+
+
+
+.input-field input[type=search] ~ .mdi-navigation-close,
+.input-field input[type=search] ~ .material-icons {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    color: transparent;
+    cursor: pointer;
+    font-size: 2rem;
+    -webkit-transition: .3s color;
+    transition: .3s color;
+}
+
+.side-li > a > [class^="mdi-"], .side-li > a li > a > [class*="mdi-"],
+.side-li > a > i.material-icons {
+    float: left;
+    height: 48px;
+    line-height: 48px;
+    margin: 0 32px 0 0;
+    width: 24px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.breadcrumb i,
+.breadcrumb [class^="mdi-"], .breadcrumb [class*="mdi-"],
+.breadcrumb i.material-icons {
+    display: inline-block;
+    float: left;
+    font-size: 24px;
+}
+
+i.left {
+    float: left;
+    margin-right: 15px;
+}
+
+.left {
+    float: left !important;
+}
+
+.material-icons {
+    text-rendering: optimizeLegibility;
+    -webkit-font-feature-settings: 'liga';
+    -moz-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
+}
+
+
