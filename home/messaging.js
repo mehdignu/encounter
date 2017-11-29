@@ -8,7 +8,7 @@ $(function () {
     var i =0;
 
     // my name sent to the server
-    var myName = document.getElementById("status").innerHTML;
+    var myName = document.getElementById("status").value;
 
 
     // if user is running mozilla then use it's built-in WebSocket

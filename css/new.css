@@ -393,6 +393,23 @@
     cursor: pointer;
 }
 
+.kaka {
+    height: 34px;
+    line-height: 24px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #26a69a;
+    /*    text-align: center;*/
+    width:50%!important;
+    letter-spacing: .5px;
+    -webkit-transition: .2s ease-out;
+    transition: .2s ease-out;
+    cursor: pointer;
+
+    font-size: 12px;
+
+}
+
 .btn:hover, .btn-largemimi:hover {
     background-color: #2bbbad;
 }
@@ -543,5 +560,3 @@ i.left {
     -moz-font-feature-settings: 'liga';
     font-feature-settings: 'liga';
 }
-
-

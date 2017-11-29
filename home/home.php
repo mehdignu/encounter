@@ -35,13 +35,14 @@ include_once '../php/show.php';
     <link href="https://fonts.googleapis.com/css?family=Lobster|Bitter|Cabin|Arimo" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+
     <style>
 
         body {
             background-color: #E6E8EB;
         }
 
-        .bg-company-red {
+        .red {
             background-color: #400000;
         }
 
@@ -53,18 +54,27 @@ include_once '../php/show.php';
             padding: 5px;
         }
 
-        /*  .msgsGrp {
 
-              margin-top: 20px;
-              margin-left: auto;
-              margin-right: auto;
-          }
-
-          .msgsGrp:hover {
-              background-color: #400000;
-
-          }*/
-
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+  /*          z-index: 1000;*/
+            min-height: 300px;
+            display: none;
+            min-width: 400px;
+            float: left;
+            padding: .5rem 0;
+            margin: .125rem 0 0;
+            font-size: 1rem;
+            color: #212529;
+            text-align: left;
+            list-style: none;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: .25rem;
+        }
 
     </style>
 
@@ -73,51 +83,61 @@ include_once '../php/show.php';
 
 <!-- navuigation -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="font-family: Arimo, sans-serif">
-    <a class="navbar-brand" href="./home.php" style="font-family: Lobster">encounter</a>
+
+
+    <!--
+       <a class="navbar-brand" href="./home.php" style="font-family: Lobster;">encounter</a>
+   -->
+    <!--
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-    </button>
+    </button>-->
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto" style="margin-left: 14%;">
+
+<!--
+            <li id="notifications">
+                <a class="nav-link" href="./home.php"
+                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i> Home </a>
+            </li>
+-->
 
 
             <li class="nav-item dropdown" id="notifications">
-                <a class="nav-link" href="http://example.com" id="dropdown01" data-toggle="dropdown"
+                <a class="nav-link" id="dropdown01" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i> Notification <span
                             class="badge" id="notification_count"
                             value="<?php echo getNotiCount($_SESSION['username']) ?>"><?php echo getNotiCount($_SESSION['username']) ?></span></a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01" id="notificationsBody">
-                    <a class="dropdown-item" href="#">user accepted your request</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">user accepted your request</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">user accepted your request</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01" id="notificationsBody" >
+
+
                 </div>
             </li>
 
-            <li class="nav-item dropdown" id="encounters">
-                <a class="nav-link" href="http://example.com" id="dropdown02" data-toggle="dropdown"
+            <li class="nav-item dropdown" id="encounters" >
+                <a class="nav-link" id="dropdown02" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-envelope"></i> Encounters <span
                             class="badge" id="messages_count"
                             value="<?php echo getNotiEncCount($_SESSION['username']) ?>"><?php echo getNotiEncCount($_SESSION['username']) ?></span></a>
-                <div class="dropdown-menu" aria-labelledby="dropdown02" id="messagessBody">
+                <div class="dropdown-menu" aria-labelledby="dropdown02" id="messagessBody" >
 
-                    <a class="dropdown-item" href="#">encounter name here</a>
-                    <div class="dropdown-divider"></div>
-
-                    <a class="dropdown-item" href="#">encounter name here</a>
 
                 </div>
             </li>
+
         </ul>
+
+
+        <a class="navbar-brand nav-justified" href="./home.php" style="font-family: Lobster;  text-align: center;margin-right: 39%">encounter</a>
+
 
         <ul class="navbar-nav">
 
 
             <li class="nav-item dropdown" style="font-family: Arimo">
-                <a class="nav-link" href="http://example.com" id="dropdown01" data-toggle="dropdown"
+                <a class="nav-link" id="dropdown01" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
                     <a class="dropdown-item" href="#">Settings</a>
@@ -134,8 +154,17 @@ include_once '../php/show.php';
 
 <input type="hidden" id="userName" value="<?php echo $_SESSION['username'] ?>">
 
+
 <div class="container-fluid" style="margin-top: 55px; padding:0">
+
+
+
+
+
     <div class="row" style="margin:0;min-height: 90vh">
+
+
+
 
         <div class="col-sm-2"
              style="position:fixed;height:100%;padding-top: 6%; margin-left: 14%;font-family: 'Cabin', sans-serif;">
@@ -223,6 +252,8 @@ include_once '../php/show.php';
 
             <h1 style="font-family: 'Lobster', serif;">Encounters in <?php echo getCity($_SESSION['username']) ?></h1>
             <br>
+
+
 
 
             <?php
@@ -327,13 +358,11 @@ include_once '../php/show.php';
 
                             <?php } else { ?>
                                 <?php if ($isRequested == true) { ?>
-                                    <button type="button" class="btn btn-warning btn-lg btn-block"><span
-                                                id="reqText"><?php echo 'requested'; ?></span></button>
 
                                     <button class="waves-effect waves-light btn-largemimi"
                                             style="width=100%!important;background-color: #fdd835">
 
-                                        <i class="material-icons left">label</i> <span
+                                        <i id="iconText" class="material-icons left">label</i> <span
                                                 id="reqText"><?php echo 'requested'; ?></span>
 
                                     </button>
@@ -356,10 +385,10 @@ include_once '../php/show.php';
                                     } else {
                                         ?>
 
-                                        <button class="waves-effect waves-light btn-largemimi"
+                                        <button class="waves-effect waves-light btn-largemimi" id="iconButt"
                                                 style="width=100%!important;background-color: #2962ff">
 
-                                            <i class="material-icons left">add</i> <span
+                                            <i id="iconText" class="material-icons left">add</i> <span
                                                     id="reqText"><?php echo 'Ask To Join'; ?></span>
 
                                         </button>
@@ -388,6 +417,9 @@ include_once '../php/show.php';
 
             ?>
 
+
+
+
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <?php
@@ -397,6 +429,11 @@ include_once '../php/show.php';
                 </ul>
             </nav>
         </div>
+
+
+
+
+
         <div class="col-sm-2" style="padding-top: 3%; margin-right: 6%;right: 0; position: fixed;height:100%;">
             <!--
                         <div class="card"
@@ -405,6 +442,10 @@ include_once '../php/show.php';
                                 Ads
                             </div>
                         </div>-->
+
+
+
+
         </div>
 
 
@@ -426,8 +467,13 @@ include_once '../php/show.php';
             integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
             crossorigin="anonymous"></script>
 
-
+    <!-- Compiled and minified JavaScript
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+-->
     <script>
+
+
+
         $(document).ready(function () {
 
             //notifications Requests count
@@ -457,8 +503,21 @@ include_once '../php/show.php';
 
             }
 
+            $('.dropdown-button').dropdown({
+                    inDuration: 300,
+                    outDuration: 225,
+                    constrainWidth: false, // Does not change width of dropdown to that of the activator
+                    hover: true, // Activate on hover
+                    gutter: 0, // Spacing from edge
+                    belowOrigin: false, // Displays dropdown below the button
+                    alignment: 'left', // Displays dropdown with edge aligned to the left of button
+                    stopPropagation: false // Stops event propagation
+                }
+            );
 
-            $("#notifications").click(function () {
+
+
+                $("#notifications").click(function () {
                 //$("#messagesContainer").hide();
                 // $("#notificationContainer").fadeToggle(300);
                 //$("#notification_count").fadeOut("slow");
@@ -486,7 +545,8 @@ include_once '../php/show.php';
 
             /* messages */
 
-            $("#encounters").click(function () {
+
+                $("#encounters").click(function () {
                 //   $("#notificationContainer").hide();
                 //  $("#messagesContainer").fadeToggle(300);
                 // $("#messages_count").fadeOut("slow");
@@ -560,7 +620,17 @@ include_once '../php/show.php';
         for (i = 0; i < buttons.length; i++) {
             buttons[i].id = buttons[i].id + i;
         }
+        //make the id's name different for button texts id's
+        buttons = document.querySelectorAll('#iconText');
+        for (i = 0; i < buttons.length; i++) {
+            buttons[i].id = buttons[i].id + i;
+        }
 
+        //make the id's name different for button texts id's
+        buttons = document.querySelectorAll('#iconButt');
+        for (i = 0; i < buttons.length; i++) {
+            buttons[i].id = buttons[i].id + i;
+        }
 
         //make the id's name different for button texts id's
         buttons = document.querySelectorAll('#evn');
@@ -591,6 +661,7 @@ include_once '../php/show.php';
             });
 
         });
+
 
 
     </script>

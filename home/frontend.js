@@ -91,7 +91,8 @@ $(function () {
             var dataString = {"eventid": eventId, "owner": owner, "username": userName};
 
             $('#reqText' + id).text('Ask To Join');
-
+            $('#iconText'+id).text('add');
+            $('#iconButt'+id).css("background-color", "#2962ff");
 
             $.ajax({
                 type: "POST",
@@ -118,6 +119,9 @@ $(function () {
 
 
             $('#reqText' + id).text('requested');
+            $('#iconText'+id).text('label');
+            $('#iconButt'+id).css("background-color", "#fdd835");
+
 
             $.ajax({
                 type: "POST",
@@ -270,7 +274,6 @@ $(function () {
         })
 
 
-
         var dataString = {"userName": userName};
 
         $.ajax({
@@ -289,7 +292,9 @@ $(function () {
             data: {'request': JSON.stringify(dataString)},
             cache: false,
             success: (function (result) {
+               // alert(html);
                 $("#messagessBody").html(result);
+
             })
         })
 
@@ -297,8 +302,6 @@ $(function () {
 
     getRequests(); // To output when the page loads
     setInterval(getRequests, (2 * 1000));
-
-
 
 });
 

@@ -34,6 +34,9 @@ include_once '../php/show.php';
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Bitter|Cabin|Arimo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../css/new.css">
 
 
     <!-- maps loccation choose -->
@@ -48,51 +51,80 @@ include_once '../php/show.php';
     color: white;
     padding: 5px;
     }
-
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        /*          z-index: 1000;*/
+        min-height: 300px;
+        display: none;
+        min-width: 400px;
+        float: left;
+        padding: .5rem 0;
+        margin: .125rem 0 0;
+        font-size: 1rem;
+        color: #212529;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0,0,0,.15);
+        border-radius: .25rem;
+    }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Logo</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="font-family: Arimo, sans-serif">
+
+
+    <!--
+       <a class="navbar-brand" href="./home.php" style="font-family: Lobster;">encounter</a>
+   -->
+    <!--
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-    </button>
+    </button>-->
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="./home.php">Home <span class="sr-only">(current)</span></a>
-            </li>
+        <ul class="navbar-nav mr-auto" style="margin-left: 14%;">
 
-            <li class="nav-item dropdown" id="notifications" >
-                <a class="nav-link" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i> Notification <span class="badge" id="notification_count" value="<?php echo getNotiCount($_SESSION['username']) ?>"><?php echo getNotiCount($_SESSION['username']) ?></span></a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01" id="notificationsBody">
-                    <a class="dropdown-item" href="#">user accepted your request</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">user accepted your request</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">user accepted your request</a>
+
+            <li class="nav-item dropdown" id="notifications">
+                <a class="nav-link" id="dropdown01" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i> Notification <span
+                            class="badge" id="notification_count"
+                            value="<?php echo getNotiCount($_SESSION['username']) ?>"><?php echo getNotiCount($_SESSION['username']) ?></span></a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01" id="notificationsBody" >
+
+
                 </div>
             </li>
 
-            <li class="nav-item dropdown" id="encounters">
-                <a class="nav-link" href="http://example.com" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-envelope"></i> Encounters    <span class="badge" id="messages_count" value="<?php echo getNotiEncCount($_SESSION['username']) ?>"><?php echo getNotiEncCount($_SESSION['username']) ?></span></a>
-                <div class="dropdown-menu" aria-labelledby="dropdown02" id="messagessBody">
-                    <a class="dropdown-item" href="#">encounter name here</a>
-                    <div class="dropdown-divider"></div>
+            <li class="nav-item dropdown" id="encounters" >
+                <a class="nav-link" id="dropdown02" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-envelope"></i> Encounters <span
+                            class="badge" id="messages_count"
+                            value="<?php echo getNotiEncCount($_SESSION['username']) ?>"><?php echo getNotiEncCount($_SESSION['username']) ?></span></a>
+                <div class="dropdown-menu" aria-labelledby="dropdown02" id="messagessBody" >
 
-                    <a class="dropdown-item" href="#">encounter name here</a>
+
                 </div>
             </li>
+
         </ul>
+
+
+        <a class="navbar-brand nav-justified" href="./home.php" style="font-family: Lobster;  text-align: center;margin-right: 39%">encounter</a>
+
 
         <ul class="navbar-nav">
 
 
-
-            <li class="nav-item dropdown" >
-                <a class="nav-link" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
+            <li class="nav-item dropdown" style="font-family: Arimo">
+                <a class="nav-link" id="dropdown01" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
                     <a class="dropdown-item" href="#">Settings</a>
                     <a class="dropdown-item" href="../php/logout.php">logout</a>
@@ -105,6 +137,8 @@ include_once '../php/show.php';
 
 
 </nav>
+
+
 <input type="hidden" id="userName" value="<?php echo $_SESSION['username'] ?>">
 
 <div class="container-fluid mx-auto" style="padding-bottom: 5px;padding-top: 30px;">
