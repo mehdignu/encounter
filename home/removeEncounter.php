@@ -57,6 +57,12 @@ if (!isset($_SESSION['username'])) {
 }
 
 if($exists){
+
+
+    //if the user delete his event give him one more allowed creation event
+    $query = "UPDATE `users` SET allowedCre=allowedCre-1 WHERE `UserName`='$username'";
+    $result = mysqli_query($connection, $query);
+
     $result = mysqli_query($GLOBALS['connection'], "
          DELETE from scheduled WHERE id = '$EventId'
         ");

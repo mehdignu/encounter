@@ -30,7 +30,7 @@ $(function () {
             success: (function (result) {
 
                 var res =JSON.parse(result);
-
+                var tmp = "";
 
                 var res = '[' + res + ']';
                 res = JSON.parse(res);
@@ -43,7 +43,25 @@ $(function () {
                         var message = obj.message;
                         var dt = obj.dt;
 
-                        addMessage(author,message,new Date(dt));
+                        var dateMe;
+
+                        var today = new Date();
+                        var dd = today.getDate();
+
+
+                        if(dd > new Date(dt).getDate() && tmp !== new Date(dt).toDateString()){
+
+                            dateMe = new Date(dt).toDateString();
+                            tmp = new Date(dt).toDateString();
+                        } else if(dd ===  new Date(dt).getDate() && tmp !== new Date(dt).toDateString()){
+                            dateMe = 'today';
+                            tmp = new Date(dt).toDateString();
+                        } else {
+                            dateMe = "";
+
+                        }
+
+                        addMessage(author,message,new Date(dt), dateMe);
                     }
                 }
 
@@ -165,14 +183,20 @@ $(function () {
     /**
      * Add message to the chat window
      */
-    function addMessage(author, message, dt) {
+    function addMessage(author, message, dt, dateMe) {
+
+        if(dateMe != ""){
+
+            content.append('<div class="dateme"><h5 id="ew">'+dateMe+'</h5></div><div class="line"></div><br> ');
+
+        }
 
         content.append('<p><span>'
-            + author + '</span> @ ' + (dt.getHours() < 10 ? '0'
+            + author + '</span><small> @ ' + (dt.getHours() < 10 ? '0'
                 + dt.getHours() : dt.getHours()) + ':'
             + (dt.getMinutes() < 10
                 ? '0' + dt.getMinutes() : dt.getMinutes())
-            + ': ' + message + '</p>');
+            +  '</small>: ' + message + '</p>');
 
         //focus again on the input field
         document.getElementById("input").focus();

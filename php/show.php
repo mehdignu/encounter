@@ -369,3 +369,38 @@ function getUserName($user=''){
 
     return $name;
 }
+
+/**
+ * check if user allowed to create more encounters
+ */
+function allowedToCreate($user=''){
+    $query = "select allowedCre from users where users.Username = '$user'";
+    $result = mysqli_query($GLOBALS['connection'], $query);
+    $row = mysqli_fetch_row($result);
+
+    $allowed = $row[0];
+
+    return $allowed;
+}
+
+
+/**
+ * function to fill the user profile
+ */
+function fillProfile($id=''){
+    $query = "select FirstName, LastName, about, city, gender from users where users.id = '$id'";
+    $result = mysqli_query($GLOBALS['connection'], $query);
+
+    return $result;
+}
+
+
+function getId($user=''){
+    $query = "select id from users where users.Username = '$user'";
+    $result = mysqli_query($GLOBALS['connection'], $query);
+    $row = mysqli_fetch_row($result);
+
+    $id = $row[0];
+
+    return $id;
+}

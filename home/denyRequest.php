@@ -10,6 +10,18 @@ include("../php/config.php");
 $data = json_decode($_POST['request']);
 $eventID = $data->eventid;
 
+//get the requester ID and decrement allowed requests
+$query = "SELECT requester FROM `requests` WHERE requests.requestID = '$eventID'";
+$result = mysqli_query($connection, $query);
+
+$row = mysqli_fetch_row($result);
+$requesterID = $row[0];
+
+//increment requester allowed requests
+$query = "UPDATE `users` SET allowedReq=allowedReq-1 WHERE `id`='$requesterID'";
+$result = mysqli_query($connection, $query);
+
+
 //delete request
 $query = "delete from requests where requests.requestID = '$eventID'";
 

@@ -6,6 +6,22 @@ if(!isset($_SESSION['username'])){
 
 include_once '../php/show.php';
 
+$ew = $_SESSION['username'];
+
+//increment requester allowed requests
+$query = "SELECT allowedCre FROM `users` WHERE `UserName`='$ew'";
+$result = mysqli_query($connection, $query);
+
+$row = mysqli_fetch_row($result);
+$count = $row[0];
+
+if ($count > 2) {
+
+    header('Location: home.php');
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -217,7 +233,7 @@ include_once '../php/show.php';
                 <br />
 
                      <button type="submit" class="btn btn-primary">Create</button>
-                     <button type="button" class="btn btn-primary" onClick="this.form.reset()">Reset</button>
+                     <button type="button" class="btn btn-secondary" onClick="this.form.reset()">Reset</button>
                 <hr>
             </form>
 

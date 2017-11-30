@@ -91,6 +91,23 @@ $memberId = $row[0];
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <style>
 
+        .dateme {
+            text-align: center;
+        }
+
+        .line {
+            height: 1px;
+            background: #E6E8EB;
+        }
+
+        #ew {
+            position: relative;
+            top: 20px;
+            background: #fff;
+            display: inline-block;
+            padding: 0 20px;
+        }
+
         body {
             background-color: #E2E5E8;
         }
@@ -205,22 +222,22 @@ $memberId = $row[0];
 
             ?>
 
-                <b>Encounter:</b> <br><span style="font-family: 'Noto Sans', sans-serif;" value="<?php echo $row['Title'] ?>"><?php echo $row['Title'] ?></span><br>
-                <b>Description:</b><br>
+                <b>Encounter:</b> <span style="font-family: 'Noto Sans', sans-serif;" value="<?php echo $row['Title'] ?>"><?php echo $row['Title'] ?></span><br>
+              <hr>  <b>Description:</b>
                 <span style="font-family: 'Noto Sans', sans-serif;" value="<?php echo $row['Description'] ?>"><?php echo $row['Description'] ?></span><br>
 
 
-                <b>Address:</b><br>
+                <hr>  <b>Address:</b>
                 <span style="font-family: 'Noto Sans', sans-serif;" type="text" id="us3-address" name="location"  value="<?php echo $row['Location'] ?>" ><?php echo $row['Location'] ?></span><br>
                 <input type="hidden" name="lat" id="lat" value="<?php echo $row['lat'] ?>">
                 <input type="hidden" name="lng" id="lng" value="<?php echo $row['lng'] ?>">
 
 
-                <div id="loc" style="width: 100%; height: 25em; margin-top: 15px;" ></div><br />
+                <hr> <div id="loc" style="width: 100%; height: 25em; margin-top: 15px;" ></div><br />
 
 
 
-                <span><b>When ?</b></span><br>
+                <hr>  <span><b>When ?</b></span><br>
                 <span style="font-family: 'Noto Sans', sans-serif;"><?php echo date('jS F Y', strtotime($row['Date'])) .' at '. $row['Time'] ?></span><br>
 
 
@@ -228,9 +245,8 @@ $memberId = $row[0];
 
                 if($row['owner'] == $memberId) {
                     ?>
-
-                    <button type="button" class="btn btn-danger fixed-bottom" onclick="location.href = 'removeEncounter.php?id=<?php echo $EventId ?>'" style="margin-bottom: 29px;margin-left:9px;width:auto">Delete Encounter</button>
-
+                    <button type="button" class="btn btn-secondary fixed-bottom" onclick="location.href = 'editEncounter.php?id=<?php echo $EventId ?>'" style="margin-bottom: 29px;margin-left:3%;width:70px">Edit</button>
+                    <button type="button" class="btn btn-secondary fixed-bottom" onclick="location.href = 'removeEncounter.php?id=<?php echo $EventId ?>'" style="margin-bottom: 29px;margin-left:7%;width:73px">Delete</button>
                     <?php
 
                 }else {

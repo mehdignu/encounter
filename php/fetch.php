@@ -7,6 +7,7 @@
  */
 
 include("config.php");
+include("show.php");
 
 
 /*
@@ -39,25 +40,16 @@ $userName = $data->userName;
 
         $s .= "<div class='text-center'><h4>You have new requests !</h4></div><hr>";
         foreach ($result as $r) {
-//            $s = "";
-//            //$s .= "<a class=\"waves-effect waves-light btn-largemimi kaka\" href=\"create.php\">accept</a><a class=\"waves-effect waves-light btn-largemimi kaka\" href=\"create.php\"><i class=\"material-icons left\">add_circle</i>Create</a>";
-//
-//            $s .= "<button type='button' class='btn btn-primary ew' data-toggle='modal' id='".$x."' data-target='#exampleModal".$x."'> Show request </button>";
-//
-//
-//            $arr[$x] = $s;
-//            $x++;
-//            $s = "";
-//            $s .= "<div class='modal fade' id='exampleModal".$x."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'> <div class='modal-dialog' role='document'> <div class='modal-content'> <div class='modal-header'> <h5 class='modal-title' id='exampleModalLabel'>request</h5> <button type='button' class='close' data-dismiss='modal' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button> </div> <div class='modal-body'> Requester: <br> User: ".$r['requester']." want to join your encounter: ".$r['Title']." <br> Description: </div> <div class='modal-footer'> <button type='button' class='btn btn-success' data-dismiss='modal'>accept</button> <button type='button' class='btn btn-danger'>decline</button> </div> </div> </div> </div>";
-//
-//            $arr[$x] = $s;
 
             if($x !=0 && ($x % 2)!=0){
                 $s .= '<hr>';
             }
+            $realName = getUserName($r['requester']);
+            $id = getId($r['requester']);
+
 
            $s .= "<div id='elm".$x."' >
-                   <div id='requestElm" . $x . "'><i class=\"fa fa-plus\"></i> User: ".$r['requester']." want to join your encounter: ".$r['Title']."</div>
+                   <div id='requestElm" . $x . "' style='text-align:center'> <a href='../home/profile.php?id=".$id."'> ".$realName." </a> want to join your encounter: ".$r['Title']."</div>
                    <div class=' text-center'>
                    <button id='".$x."' class='btn btn-success  acceptReq'>accept</button>
                    <button id='".$x."' class='btn btn-danger red denyReq'>deny</button>  

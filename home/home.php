@@ -54,12 +54,11 @@ include_once '../php/show.php';
             padding: 5px;
         }
 
-
         .dropdown-menu {
             position: absolute;
             top: 100%;
             left: 0;
-  /*          z-index: 1000;*/
+            /*          z-index: 1000;*/
             min-height: 300px;
             display: none;
             min-width: 400px;
@@ -72,7 +71,7 @@ include_once '../php/show.php';
             list-style: none;
             background-color: #fff;
             background-clip: padding-box;
-            border: 1px solid rgba(0,0,0,.15);
+            border: 1px solid rgba(0, 0, 0, .15);
             border-radius: .25rem;
         }
 
@@ -97,12 +96,12 @@ include_once '../php/show.php';
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto" style="margin-left: 14%;">
 
-<!--
-            <li id="notifications">
-                <a class="nav-link" href="./home.php"
-                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i> Home </a>
-            </li>
--->
+            <!--
+                        <li id="notifications">
+                            <a class="nav-link" href="./home.php"
+                               aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i> Home </a>
+                        </li>
+            -->
 
 
             <li class="nav-item dropdown" id="notifications">
@@ -110,18 +109,18 @@ include_once '../php/show.php';
                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i> Notification <span
                             class="badge" id="notification_count"
                             value="<?php echo getNotiCount($_SESSION['username']) ?>"><?php echo getNotiCount($_SESSION['username']) ?></span></a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01" id="notificationsBody" >
+                <div class="dropdown-menu" aria-labelledby="dropdown01" id="notificationsBody">
 
 
                 </div>
             </li>
 
-            <li class="nav-item dropdown" id="encounters" >
+            <li class="nav-item dropdown" id="encounters">
                 <a class="nav-link" id="dropdown02" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-envelope"></i> Encounters <span
                             class="badge" id="messages_count"
                             value="<?php echo getNotiEncCount($_SESSION['username']) ?>"><?php echo getNotiEncCount($_SESSION['username']) ?></span></a>
-                <div class="dropdown-menu" aria-labelledby="dropdown02" id="messagessBody" >
+                <div class="dropdown-menu" aria-labelledby="dropdown02" id="messagessBody">
 
 
                 </div>
@@ -130,7 +129,8 @@ include_once '../php/show.php';
         </ul>
 
 
-        <a class="navbar-brand nav-justified" href="./home.php" style="font-family: Lobster;  text-align: center;margin-right: 39%">encounter</a>
+        <a class="navbar-brand nav-justified" href="./home.php"
+           style="font-family: Lobster;  text-align: center;margin-right: 39%">encounter</a>
 
 
         <ul class="navbar-nav">
@@ -140,7 +140,7 @@ include_once '../php/show.php';
                 <a class="nav-link" id="dropdown01" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">Settings</a>
+                    <a class="dropdown-item" href="setProfile.php?id=<?php echo getId($_SESSION['username']) ?>">Settings</a>
                     <a class="dropdown-item" href="../php/logout.php">logout</a>
                 </div>
             </li>
@@ -158,19 +158,25 @@ include_once '../php/show.php';
 <div class="container-fluid" style="margin-top: 55px; padding:0">
 
 
-
-
-
     <div class="row" style="margin:0;min-height: 90vh">
-
-
 
 
         <div class="col-sm-2"
              style="position:fixed;height:100%;padding-top: 6%; margin-left: 14%;font-family: 'Cabin', sans-serif;">
 
             <div class="card">
-                <a class="waves-effect waves-light btn-largemimi" href="create.php"><i class="material-icons left">add_circle</i>Create</a>
+                <?php $allowd = allowedToCreate($_SESSION['username']);
+                if ($allowd < 3) {
+                    ?>
+                    <a class="waves-effect waves-light btn-largemimi" href="create.php"><i class="material-icons left">add_circle</i>Create
+                    </a>
+
+                <?php } else { ?>
+                    <a class="waves-effect waves-light btn-largemimi disabled" href="create.php"><i
+                                class="material-icons left">add_circle</i>create </a>
+                    <small style="background-color: #E2E5E8; ">You can create only 3 encounters</small>
+                <?php } ?>
+
             </div>
 
 
@@ -204,8 +210,8 @@ include_once '../php/show.php';
                                     <p><?php echo $row['Description'] ?></p>
                                 </div>
                                 <div class="card-action">
-                                    <a href="editEncounter.php?id=<?php echo $id ?>">Edit</a>
                                     <a href="groupMessages.php?id=<?php echo $id ?>">Visit</a>
+                                    <a href="editEncounter.php?id=<?php echo $id ?>">Edit</a>
                                 </div>
                             </div>
                         </div>
@@ -252,8 +258,6 @@ include_once '../php/show.php';
 
             <h1 style="font-family: 'Lobster', serif;">Encounters in <?php echo getCity($_SESSION['username']) ?></h1>
             <br>
-
-
 
 
             <?php
@@ -418,8 +422,6 @@ include_once '../php/show.php';
             ?>
 
 
-
-
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <?php
@@ -431,9 +433,6 @@ include_once '../php/show.php';
         </div>
 
 
-
-
-
         <div class="col-sm-2" style="padding-top: 3%; margin-right: 6%;right: 0; position: fixed;height:100%;">
             <!--
                         <div class="card"
@@ -442,8 +441,6 @@ include_once '../php/show.php';
                                 Ads
                             </div>
                         </div>-->
-
-
 
 
         </div>
@@ -471,7 +468,6 @@ include_once '../php/show.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 -->
     <script>
-
 
 
         $(document).ready(function () {
@@ -516,8 +512,7 @@ include_once '../php/show.php';
             );
 
 
-
-                $("#notifications").click(function () {
+            $("#notifications").click(function () {
                 //$("#messagesContainer").hide();
                 // $("#notificationContainer").fadeToggle(300);
                 //$("#notification_count").fadeOut("slow");
@@ -546,7 +541,7 @@ include_once '../php/show.php';
             /* messages */
 
 
-                $("#encounters").click(function () {
+            $("#encounters").click(function () {
                 //   $("#notificationContainer").hide();
                 //  $("#messagesContainer").fadeToggle(300);
                 // $("#messages_count").fadeOut("slow");
@@ -661,7 +656,6 @@ include_once '../php/show.php';
             });
 
         });
-
 
 
     </script>

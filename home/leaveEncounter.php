@@ -34,12 +34,15 @@ if($_SESSION['username'] == $userName){
         ");
 
 
+    //increment requester allowed requests
+    $query = "UPDATE `users` SET allowedReq=allowedReq-1 WHERE `id`='$memberId'";
+    $result = mysqli_query($connection, $query);
+
     //decrement the number of the participants
     $query = "UPDATE `scheduled` SET `particNum`=`particNum`-1 WHERE scheduled.id='$EventId'";
     $result = mysqli_query($connection, $query);
 
 
-    //decrement encCount if not clicked on the dropdown
     //decrement encCount if not clicked on the dropdown
     $query = "select EncCount from users where users.UserName = '$userName'";
     $result = mysqli_query($GLOBALS['connection'], $query);
