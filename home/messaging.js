@@ -43,7 +43,7 @@ $(function () {
                         var message = obj.message;
                         var dt = obj.dt;
 
-                        var dateMe;
+                        var dateMe = "";
 
                         var today = new Date();
                         var dd = today.getDate();
@@ -53,9 +53,11 @@ $(function () {
 
                             dateMe = new Date(dt).toDateString();
                             tmp = new Date(dt).toDateString();
+
                         } else if(dd ===  new Date(dt).getDate() && tmp !== new Date(dt).toDateString()){
                             dateMe = 'today';
                             tmp = new Date(dt).toDateString();
+
                         } else {
                             dateMe = "";
 
@@ -104,7 +106,7 @@ $(function () {
 
             var text = JSON.parse(json.data.text.replace(/(&quot\;)/g,"\"")).message;
 
-            addMessage(json.data.author, text, new Date(json.data.time));
+            addMessage(json.data.author, text, new Date(json.data.time),'');
         } else {
             console.log('Hmm..., I\'ve never seen JSON like this:', json);
         }
@@ -184,8 +186,8 @@ $(function () {
      * Add message to the chat window
      */
     function addMessage(author, message, dt, dateMe) {
-
-        if(dateMe != ""){
+        console.log(dateMe);
+        if(dateMe != ''){
 
             content.append('<div class="dateme"><h5 id="ew">'+dateMe+'</h5></div><div class="line"></div><br> ');
 

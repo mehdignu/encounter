@@ -23,9 +23,9 @@ $requesterId = $_GET['id'];
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <script
-        src="https://code.jquery.com/jquery-1.12.4.min.js"
-        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-        crossorigin="anonymous"></script>
+            src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -97,7 +97,7 @@ $requesterId = $_GET['id'];
         #content {
             padding: 5px;
             background: #ffffff;
-
+            overflow: auto;
             margin-bottom: 10px;
             height: 96%
         }
@@ -112,16 +112,31 @@ $requesterId = $_GET['id'];
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="font-family: Arimo, sans-serif">
 
 
+    <!--
+       <a class="navbar-brand" href="./home.php" style="font-family: Lobster;">encounter</a>
+   -->
+    <!--
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>-->
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto" style="margin-left: 14%;">
+
+            <!--
+                        <li id="notifications">
+                            <a class="nav-link" href="./home.php"
+                               aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i> Home </a>
+                        </li>
+            -->
 
 
             <li class="nav-item dropdown" id="notifications">
                 <a class="nav-link" id="dropdown01" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i> Notification <span
-                        class="badge" id="notification_count"
-                        value="<?php echo getNotiCount($_SESSION['username']) ?>"><?php echo getNotiCount($_SESSION['username']) ?></span></a>
+                            class="badge" id="notification_count"
+                            value="<?php echo getNotiCount($_SESSION['username']) ?>"><?php echo getNotiCount($_SESSION['username']) ?></span></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01" id="notificationsBody">
 
 
@@ -131,8 +146,8 @@ $requesterId = $_GET['id'];
             <li class="nav-item dropdown" id="encounters">
                 <a class="nav-link" id="dropdown02" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-envelope"></i> Encounters <span
-                        class="badge" id="messages_count"
-                        value="<?php echo getNotiEncCount($_SESSION['username']) ?>"><?php echo getNotiEncCount($_SESSION['username']) ?></span></a>
+                            class="badge" id="messages_count"
+                            value="<?php echo getNotiEncCount($_SESSION['username']) ?>"><?php echo getNotiEncCount($_SESSION['username']) ?></span></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown02" id="messagessBody">
 
 
@@ -149,10 +164,11 @@ $requesterId = $_GET['id'];
         <ul class="navbar-nav">
 
 
-            <li class="nav-item dropdown" style="font-family: Arimo">
+            <li class="nav-item dropdown" style="font-family: Arimo;">
                 <a class="nav-link" id="dropdown01" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+                <div class="dropdown-menu dropdown-menu-right" id="dropit" aria-labelledby="dropdown01"
+                     style="min-width: 10px;min-height: 20px">
                     <a class="dropdown-item" href="setProfile.php?id=<?php echo getId($_SESSION['username']) ?>">Settings</a>
                     <a class="dropdown-item" href="../php/logout.php">logout</a>
                 </div>
@@ -187,60 +203,65 @@ $requesterId = $_GET['id'];
                 <div id="content">
 
 
-                    <div id="pic">
-                        <img src="../user_uploads/2qBIIeRE5B.jpeg"/>
+                    <img id="blah" src="../user_uploads/2qBIIeRE5B.jpeg"/>
 
-                    </div>
+                    <!--  <input type='file' onchange="readURL(this);" accept="image/png,image/jpg,image/jpeg" /> -->
+                    <input type="file" name="dataFile" id="fileChooser" onchange="return ValidateFileUpload()"/>
 
                     <div id="wrapper"><br>
-                        <form name="register" id='register' action='saveProfile.php' method='post' accept-charset='UTF-8' onkeypress="return event.keyCode != 13;">
+                        <form name="register" id='register' action='saveProfile.php' method='post'
+                              accept-charset='UTF-8' onkeypress="return event.keyCode != 13;">
 
-                        <?php
+                            <?php
 
-                        $result = fillProfile($requesterId);
-
-
-                        if ($result) {
-                            while ($row = mysqli_fetch_assoc($result)) {
+                            $result = fillProfile($requesterId);
 
 
-                                ?>
+                            if ($result) {
+                                while ($row = mysqli_fetch_assoc($result)) {
 
 
-                                <label><b>FirstName</b></label>
-                                <input name="FirstName" class="form-control" type="text" placeholder="Title here"
-                                       value="<?php echo $row['FirstName'] ?>"  required><br>
-
-                                <label><b>LastName</b></label>
-                                <input name="LastName" class="form-control" type="text" placeholder="Title here"
-                                       value="<?php echo $row['LastName'] ?>"  required><br>
+                                    ?>
 
 
-                                <div class="form-group">
-                                    <label><b>About me</b></label>
-                                    <textarea class="form-control text" placeholder="Description of the encounter" cols="35"
-                                              maxlength="150" name="about" rows="3" required><?php echo $row['about'] ?></textarea>
-                                </div>
+                                    <label><b>FirstName</b></label>
+                                    <input name="FirstName" class="form-control" type="text" placeholder="Title here"
+                                           value="<?php echo $row['FirstName'] ?>" required><br>
+
+                                    <label><b>LastName</b></label>
+                                    <input name="LastName" class="form-control" type="text" placeholder="Title here"
+                                           value="<?php echo $row['LastName'] ?>" required><br>
 
 
-                                <label style="margin-left: 9px;margin-right: 9px;"> Gender:</label>
-                                <select class="form-control" name="gender" id="gender" style="width: 5em">
-                                    <option value="1">Male</option>
-                                    <option value="2">Female</option>
+                                    <div class="form-group">
+                                        <label><b>About me</b></label>
+                                        <textarea class="form-control text" placeholder="Description of the encounter"
+                                                  cols="35"
+                                                  maxlength="150" name="about" rows="3"
+                                                  required><?php echo $row['about'] ?></textarea>
+                                    </div>
 
-                                </select>
-                                <input type="hidden" id="gend" value="<?php echo $row['gender'] ? 1 : 2 ?>">
 
+                                    <label><b>Gender</b></label>
+                                    <select class="form-control" name="gender" id="gender" style="width: 5em">
+                                        <option value="1">Male</option>
+                                        <option value="2">Female</option>
 
-                                <label><b>City</b></label>
-                                <input name="city" class="form-control" type="text" placeholder="Title here"
-                                       value="<?php echo $row['city'] ?>"  required><br>
+                                    </select>
+                                    <input type="hidden" id="gend" value="<?php echo $row['gender'] ? 1 : 2 ?>">
 
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                <button type="button" class="btn btn-primary" onClick="this.form.reset()">Reset</button>
+                                    <br>
+                                    <label><b>City</b></label>
+                                    <input name="city" class="form-control" type="text" placeholder="Title here"
+                                           value="<?php echo $row['city'] ?>" required><br>
 
-                            <?php }}
-                        ?>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-secondary" onClick="this.form.reset()">Reset
+                                    </button>
+
+                                <?php }
+                            }
+                            ?>
                         </form>
                     </div>
 
@@ -280,15 +301,51 @@ $requesterId = $_GET['id'];
     <script>
 
 
+        function ValidateFileUpload() {
+            var fuData = document.getElementById('fileChooser');
+            var FileUploadPath = fuData.value;
+
+        //To check if user upload any file
+            if (FileUploadPath == '') {
+                alert("Please upload an image");
+
+            } else {
+                var Extension = FileUploadPath.substring(
+                    FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+                //The file uploaded is an image
+
+                if (Extension == "gif" || Extension == "png" || Extension == "bmp"
+                    || Extension == "jpeg" || Extension == "jpg") {
+
+            // To Display
+                    if (fuData.files && fuData.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#blah').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(fuData.files[0]);
+                    }
+
+                }
+
+            //The file upload is NOT an image
+                else {
+                    alert("Photo only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
+
+                }
+            }
+        }
+
         $(document).ready(function () {
 
 
+            var x = $('#gend').val();
 
-
-                var x = $('#gend').val();
-
-                $('#gender').val(x);
-                $('#gender').change();
+            $('#gender').val(x);
+            $('#gender').change();
 
             //notifications Requests count
             var count = document.getElementById("notification_count").innerText;

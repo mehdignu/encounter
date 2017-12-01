@@ -16,13 +16,13 @@ if (isset($_POST['FirstName']) && isset($_POST['LastName']) && isset($_POST['gen
 
    $user = $_SESSION['username'];
 
-    $first = strip_tags($_POST['FirstName']);
-    $last = strip_tags($_POST['LastName']);
+    $first = mysqli_real_escape_string($connection, strip_tags($_POST['FirstName']));
+    $last = mysqli_real_escape_string($connection, strip_tags($_POST['LastName']));
     $gender = strip_tags($_POST['gender']);
-    $about = $_POST['about'];
-    $city= strip_tags($_POST['city']);
+    $about = mysqli_real_escape_string($connection, strip_tags($_POST['about']));
+    $city= mysqli_real_escape_string($connection, strip_tags($_POST['city']));
 
-    $query = "UPDATE `users` SET `FirstName`='$first', `LastName`='$last', `about`= $about, `city`='$city' where `UserName`='$user'";
+    $query = "UPDATE `users` SET `FirstName`='$first', `LastName`='$last', `about`= '$about', `city`='$city' where `UserName`='$user'";
 
 
     $result = mysqli_query($connection, $query);

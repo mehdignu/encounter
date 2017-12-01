@@ -59,9 +59,9 @@ include_once '../php/show.php';
             top: 100%;
             left: 0;
             /*          z-index: 1000;*/
-            min-height: 300px;
+            min-height: 200px;
             display: none;
-            min-width: 400px;
+            min-width: 250px;
             float: left;
             padding: .5rem 0;
             margin: .125rem 0 0;
@@ -74,6 +74,7 @@ include_once '../php/show.php';
             border: 1px solid rgba(0, 0, 0, .15);
             border-radius: .25rem;
         }
+
 
     </style>
 
@@ -136,10 +137,11 @@ include_once '../php/show.php';
         <ul class="navbar-nav">
 
 
-            <li class="nav-item dropdown" style="font-family: Arimo">
+            <li class="nav-item dropdown" style="font-family: Arimo;">
                 <a class="nav-link" id="dropdown01" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+                <div class="dropdown-menu dropdown-menu-right" id="dropit" aria-labelledby="dropdown01"
+                     style="min-width: 10px;min-height: 20px">
                     <a class="dropdown-item" href="setProfile.php?id=<?php echo getId($_SESSION['username']) ?>">Settings</a>
                     <a class="dropdown-item" href="../php/logout.php">logout</a>
                 </div>
@@ -315,9 +317,10 @@ include_once '../php/show.php';
 
                                         if (count($exists)) {
                                             ?>
-                                            <img class='rounded-circle' height="60px" width="60px"
-                                                 src='../user_uploads/<?php echo $rowww[$i]["attenders"] ?>.jpeg'/>
-
+                                            <div class="rounded">
+                                                <img class='rounded-circle' height="60px" width="60px"
+                                                     src='../user_uploads/<?php echo $rowww[$i]["attenders"] ?>.jpeg'/>
+                                            </div>
                                             <?php
                                         }
 

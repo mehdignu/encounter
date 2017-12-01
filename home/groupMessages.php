@@ -131,6 +131,28 @@ $memberId = $row[0];
             border: 1px solid rgba(0,0,0,.15);
             border-radius: .25rem;
         }
+
+
+        .dropdown-menu0 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-height: 300px;
+            display: none;
+            min-width: 400px;
+            float: left;
+            padding: .5rem 0;
+            margin: .125rem 0 0;
+            font-size: 1rem;
+            color: #212529;
+            text-align: left;
+            list-style: none;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: .25rem;
+        }
+
         .bg-company-red {
             background-color: #400000;
         }
@@ -233,7 +255,7 @@ $memberId = $row[0];
                 <input type="hidden" name="lng" id="lng" value="<?php echo $row['lng'] ?>">
 
 
-                <hr> <div id="loc" style="width: 100%; height: 25em; margin-top: 15px;" ></div><br />
+                 <!--   <hr> <div id="loc" style="width: 100%; height: 25em; margin-top: 15px;" ></div><br /> -->
 
 
 
@@ -246,7 +268,7 @@ $memberId = $row[0];
                 if($row['owner'] == $memberId) {
                     ?>
                     <button type="button" class="btn btn-secondary fixed-bottom" onclick="location.href = 'editEncounter.php?id=<?php echo $EventId ?>'" style="margin-bottom: 29px;margin-left:3%;width:70px">Edit</button>
-                    <button type="button" class="btn btn-secondary fixed-bottom" onclick="location.href = 'removeEncounter.php?id=<?php echo $EventId ?>'" style="margin-bottom: 29px;margin-left:7%;width:73px">Delete</button>
+                    <button type="button" class="btn btn-secondary fixed-bottom" onclick="location.href = 'removeEncounter.php?id=<?php echo $EventId ?>'" style="margin-bottom: 29px;margin-left:8%;width:73px">Delete</button>
                     <?php
 
                 }else {
@@ -254,7 +276,7 @@ $memberId = $row[0];
 
                     <button type="button" class="btn btn-secondary fixed-bottom"
                             onclick="location.href = 'leaveEncounter.php?id=<?php echo $EventId ?>&member=<?php echo $_SESSION['username'] ?>'"
-                            style="margin-bottom: 29px;margin-left: 45px;width:200px">Leave Encounter
+                            style="margin-bottom: 29px;margin-left: 1%;width:200px">Leave Encounter
                     </button>
 
 

@@ -15,8 +15,8 @@ include("../php/config.php");
 
 
 if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['location']) && isset($_POST['hour']) && isset($_POST['min']) && isset($_POST['max'])&& isset($_POST['date'])&& isset($_POST['age'])&& isset($_POST['age1']) ){
-    $title = strip_tags($_POST['title']);
-    $description = strip_tags($_POST['description']);
+    $title = mysqli_real_escape_string($connection, strip_tags($_POST['title']));
+    $description = mysqli_real_escape_string($connection, strip_tags($_POST['description']));
     $location = strip_tags($_POST['location']);
 
     $lat = $_POST['lat'];
