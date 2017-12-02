@@ -108,11 +108,7 @@ $(function () {
 
         } else if (buttonText === 'Ask To Join') {
 
-            var data = {"type": 'ask', "owner": owner};
 
-            var notifyAsk = JSON.stringify(data);
-
-            connection.send(notifyAsk);
 
             //save request to database
             var dataString = {"eventid": eventId, "owner": owner, "username": userName};

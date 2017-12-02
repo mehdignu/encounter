@@ -4,6 +4,7 @@ include("config.php");
 
 
 $author = str_replace("\"", "", $_POST['author']);
+
 $message = str_replace("\"", "", $_POST['message']);
 
 $dt = str_replace("\"", "", $_POST['dt']);
@@ -12,7 +13,6 @@ $dt = str_replace("\"", "", $_POST['dt']);
 
 
 $arr = array('author' => $author, 'message' => $message, 'dt' => $dt);
-
 
 
 $arr = json_encode($arr);
@@ -30,6 +30,8 @@ while ($row = $result->fetch_array()) {
 }
 
 $r = $rows[0]['messages'];
+
+$arr = mysqli_real_escape_string($connection, $arr);
 
 if(!$r){
 

@@ -317,10 +317,9 @@ include_once '../php/show.php';
 
                                         if (count($exists)) {
                                             ?>
-                                            <div class="rounded">
+
                                                 <img class='rounded-circle' height="60px" width="60px"
                                                      src='../user_uploads/<?php echo $rowww[$i]["attenders"] ?>.jpeg'/>
-                                            </div>
                                             <?php
                                         }
 
@@ -385,7 +384,7 @@ include_once '../php/show.php';
                                                 style="width=100%!important;background-color: #78909c">
 
                                             <i class="material-icons left">disc_full</i> <span
-                                                    id="reqText"><?php echo 'Event is full'; ?></span>
+                                                    ><?php echo 'Event is full'; ?></span>
 
                                         </button>
                                         <?php

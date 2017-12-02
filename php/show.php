@@ -48,7 +48,7 @@ function eventsArray($userName = '')
 
         // Prepare the paged query
 
-        $stmt = mysqli_query($GLOBALS['connection'], "SELECT * FROM `scheduled` WHERE scheduled.city = '$city' order BY `Date` LIMIT $limit OFFSET $offset");
+        $stmt = mysqli_query($GLOBALS['connection'], "SELECT * FROM `scheduled` WHERE scheduled.city = '$city' order BY `Date` DESC LIMIT $limit OFFSET $offset");
 
 
 

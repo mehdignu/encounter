@@ -99,7 +99,7 @@ $requesterId = $_GET['id'];
             background: #ffffff;
             overflow: auto;
             margin-bottom: 10px;
-            height: 96%
+            height: 100%
         }
 
     </style>

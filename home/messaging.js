@@ -6,6 +6,7 @@ $(function () {
     var input = $('#input');
     var status = $('#status');
     var i =0;
+    var userName = $('#userName').val();
 
     // my name sent to the server
     var myName = document.getElementById("status").value;
@@ -17,6 +18,9 @@ $(function () {
     var connection = new WebSocket('ws://127.0.0.1:1337');
 
     connection.onopen = function () {
+
+        connection.send(userName);
+
         // connection is opened and ready to use
         //  connection.send(status);
         //  myName = status; //assign username
@@ -71,7 +75,7 @@ $(function () {
         })
 
 
-        connection.send(myName);
+      //  connection.send(myName);
         input.removeAttr('disabled').focus();
 
     };
@@ -94,6 +98,26 @@ $(function () {
             return;
         }
 
+
+        if (json.type === 'notifyAccepted') {
+
+
+            var x = json.data;
+            if (x !== userName)
+                alert(x); //supposed to be notification alert used instead x is username of requester
+
+        }
+
+        if (json.type === 'notifyRequest') {
+
+
+            var x = json.data;
+            if (x !== userName)
+                alert('notified from '+x); //supposed to be notification alert used instead x is username of requester
+
+        }
+
+
          if (json.type === 'history') { // entire message history
             // insert every single message to the chat window
             for (var i = 0; i < json.data.length; i++) {
@@ -106,7 +130,15 @@ $(function () {
 
             var text = JSON.parse(json.data.text.replace(/(&quot\;)/g,"\"")).message;
 
-            addMessage(json.data.author, text, new Date(json.data.time),'');
+
+            var realname = '';
+             $.get('realName.php', { auth: json.data.author },  function(data) {
+
+                 addMessage(data, text, new Date(json.data.time),'');
+
+             });
+
+
         } else {
             console.log('Hmm..., I\'ve never seen JSON like this:', json);
         }
@@ -186,7 +218,7 @@ $(function () {
      * Add message to the chat window
      */
     function addMessage(author, message, dt, dateMe) {
-        console.log(dateMe);
+
         if(dateMe != ''){
 
             content.append('<div class="dateme"><h5 id="ew">'+dateMe+'</h5></div><div class="line"></div><br> ');
@@ -207,6 +239,155 @@ $(function () {
         var d = $('#content');
         d.scrollTop(d.prop("scrollHeight"));
     }
+
+
+    var notiBody = $('#notificationsBody');
+
+    /**
+     * this comes from the php and it's a elements when the user accept the rquest notify the requester
+     */
+    notiBody.on("click", ".acceptReq", function () {
+        var id = $(this).attr('id');
+        var reqID = $('#reqID' + id).val(); // requestID
+        var requester = $('#requester' + id).val();
+        var dataString = {"eventid": reqID};
+
+        $.ajax({
+            type: "POST",
+            url: "acceptRequest.php",
+            data: {'request': JSON.stringify(dataString)},
+            cache: false,
+
+            success: function (html) {
+                //alert(html);
+            }
+        });
+
+
+        //notify user that request is accepted
+        var data = {"type": 'accepted', "requester": requester};
+        var notifyAccept = JSON.stringify(data);
+        connection.send(notifyAccept); //send notification that the request is accepted
+
+
+        $('#requestElm' + id).remove(); //remove element from dom
+
+    });
+
+
+
+    notiBody.on("click", ".denyReq", function () {
+
+        var id = $(this).attr('id');
+        var reqID = $('#reqID' + id).val(); // requestID
+
+        var dataString = {"eventid": reqID};
+        $.ajax({
+            type: "POST",
+            url: "denyRequest.php",
+            data: {'request': JSON.stringify(dataString)},
+            cache: false,
+
+            success: function (html) {
+                //alert(html);
+            }
+        });
+
+        $('#elm' + id).remove(); //remove element from dom
+
+
+    });
+
+
+    $('#messagessBody').on('click', '.msgsGrp', function () {
+
+        var id  = this.id;
+
+        window.location.href = "groupMessages.php?id="+id;
+    });
+
+
+    //showing the requests dynamically
+    function getRequests() {
+
+        var dataString = {"userName": userName};
+
+        $.ajax({
+            type: "POST",
+            url: "../php/getReqNoti.php",
+            data: {'request': JSON.stringify(dataString)},
+            cache: false,
+            success: (function (result) {
+
+                var notiCount = $("#notification_count");
+
+                if(result == 0){
+                    notiCount.hide(); // hide and then change the value to zero
+                    notiCount.val(result);
+                    notiCount.text(result);
+                } else {
+                    notiCount.show();
+                    notiCount.val(result);
+                    notiCount.text(result);
+                }
+
+
+            })
+        })
+
+
+        $.ajax({
+            type: "POST",
+            url: "../php/getEncNoti.php",
+            data: {'request': JSON.stringify(dataString)},
+            cache: false,
+            success: (function (result) {
+
+                var msgCount = $("#messages_count");
+                if(result == 0){
+                    msgCount.hide(); // hide and then change the value to zero
+                    msgCount.val(result);
+                    msgCount.text(result);
+                } else {
+                    msgCount.show();
+                    msgCount.val(result);
+                    msgCount.text(result);
+                }
+
+
+            })
+        })
+
+
+        var dataString = {"userName": userName};
+
+        $.ajax({
+            type: "POST",
+            url: "../php/fetch.php",
+            data: {'request': JSON.stringify(dataString)},
+            cache: false,
+            success: (function (result) {
+                $("#notificationsBody").html(result);
+            })
+        })
+
+        $.ajax({
+            type: "POST",
+            url: "../php/fetchEncounters.php",
+            data: {'request': JSON.stringify(dataString)},
+            cache: false,
+            success: (function (result) {
+                // alert(html);
+                $("#messagessBody").html(result);
+
+            })
+        })
+
+    };
+
+    getRequests(); // To output when the page loads
+    setInterval(getRequests, (2 * 1000));
+
 
 
 
