@@ -5,7 +5,12 @@
  * Date: 9/10/17
  * Time: 3:08 PM
  */
+session_start();
+if(!isset($_SESSION['username'])){
+    header("Location: ../index.html");
+}
 
+session_regenerate_id();
 include("config.php");
 include("show.php");
 

@@ -2,7 +2,12 @@
 
 include("../php/config.php");
 
+session_start();
+if(!isset($_SESSION['username'])){
+    header("Location: ../index.html");
+}
 
+session_regenerate_id();
 $data = json_decode($_POST['NotifyRequestReset']);
 $userName = $data->userName;
 

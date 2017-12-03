@@ -5,7 +5,12 @@
  * Date: 9/9/17
  * Time: 7:38 PM
  */
+session_start();
+if(!isset($_SESSION['username'])){
+    header("Location: ../index.html");
+}
 
+session_regenerate_id();
 include("../php/config.php");
 $data = json_decode($_POST['request']);
 $eventID = $data->eventid;

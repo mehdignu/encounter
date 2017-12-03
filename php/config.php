@@ -6,6 +6,8 @@
  * Time: 6:29 PM
  */
 
+
+
 $connection = mysqli_connect('localhost', 'mehdi', 'toor');
 $connection->query('SET NAMES utf8');
 if (!$connection){

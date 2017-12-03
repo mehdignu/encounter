@@ -1,9 +1,11 @@
 <?php
 
 session_start();
-if (!isset($_SESSION['username'])) {
+if(!isset($_SESSION['username'])){
     header("Location: ../index.html");
 }
+
+session_regenerate_id();
 include_once '../php/show.php';
 
 
@@ -13,6 +15,10 @@ include_once '../php/show.php';
 
 
 $EventId = $_GET['id'];
+
+if(preg_match("/[a-z]/i", $EventId) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $EventId)){
+    header("Location: ../index.html");
+}
 
 $result = mysqli_query($GLOBALS['connection'], "
          SELECT userName from participations p

@@ -1,4 +1,6 @@
 <?php
+
+
 include("config.php");
 
 //check the values from the database

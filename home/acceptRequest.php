@@ -6,6 +6,12 @@
  * Time: 7:39 PM
  */
 
+session_start();
+if(!isset($_SESSION['username'])){
+    header("Location: ../index.html");
+}
+
+session_regenerate_id();
 
 include("../php/config.php");
 $data = json_decode($_POST['request']);
@@ -52,6 +58,7 @@ if (!$result)
 {
     echo("Error description: " . mysqli_error($connection));
 }
+
 
 
 
