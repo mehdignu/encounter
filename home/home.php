@@ -2,6 +2,7 @@
 session_start();
 if (!isset($_SESSION['username'])) {
     header("Location: ../index.html");
+    return false;
 }
 session_regenerate_id();
 
@@ -219,7 +220,14 @@ include_once '../php/show.php';
                                         <h5>   <?php echo $row['Title'] ?></h5>
 
                                     </span>
-                                    <p><?php echo $row['Description'] ?></p>
+                                    <p><?php
+
+
+                                        $current_date = new DateTime(date('Y-m-d'), new DateTimeZone('Asia/Dhaka'));
+                                        $end_date = new DateTime($row['Date'], new DateTimeZone('Asia/Dhaka'));
+                                        $interval = $current_date->diff($end_date);
+                                        echo $interval->format('%a day(s) left');
+                                         ?></p>
                                 </div>
                                 <div class="card-action">
                                     <a href="groupMessages.php?id=<?php echo $id ?>">Visit</a>

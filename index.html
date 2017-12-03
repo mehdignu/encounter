@@ -53,20 +53,33 @@
             <form name="register" action='php/register.php' onsubmit="return validateForm()" method='post' accept-charset='UTF-8' enctype="multipart/form-data">
                 <div class="field">
                     <label for="fname">First Name</label>
-                    <input type="text" name="fName" id="fName" required />
+                    <input type="text" name="fName" id="fName" placeholder="Your first name" required />
+                    <small style="color: red; font-size: 16px;font-weight: bold" id="err1"></small>
                 </div>
                 <div class="field">
                     <label for="lname">Last Name</label>
-                    <input type="text" name="lName" id="lName" required/>
+                    <input type="text" name="lName" id="lName" placeholder="Your last name" required/>
+                    <small style="color: red; font-size: 16px;font-weight: bold" id="err2"></small>
+
+                </div>
+
+
+                <div class="field">
+                    <label for="city">City</label>
+                    <input type="text" name="city" id="city" placeholder="Your city" required/>
+                    <small style="color: red; font-size: 16px;font-weight: bold" id="errc"></small>
+
                 </div>
 
                 <div class="field half first">
-                    <input type="radio" id="male" name="male" value="1" required>
+                    <input type="radio" id="male" name="male" value="1">
                     <label for="male">Male</label>
                 </div>
                 <div class="field half">
                     <input type="radio" id="female" value="0" name="female">
                     <label for="female">Female</label>
+                    <small style="color: red; font-size: 16px;font-weight: bold" id="err3"></small>
+
                 </div>
 
 
@@ -80,11 +93,13 @@
 
                 <div class="field">
                     <label for="email">Email</label>
-                    <input type="email" name="email" id="mail" required />
+                    <input type="email" name="email" placeholder="E-mail address" id="mail" required />
                 </div>
                 <div class="field">
                     <label for="email">Password</label>
-                    <input type="password" name="psw" id="psw" required/>
+                    <input type="password" name="psw" id="psw" placeholder="Your pasword" required/>
+                    <small style="color: red; font-size: 16px;font-weight: bold" id="err4"></small>
+
                 </div>
                 <span id="errorname" style="color:red"></span>
                 <ul class="actions">
@@ -106,11 +121,11 @@
 
                 <div class="field">
                     <label for="email">Email</label>
-                    <input type="email" name="email" id="email" required/>
+                    <input type="email" name="email" id="email" placeholder="E-mail address" required/>
                 </div>
                 <div class="field">
                     <label for="email">Password</label>
-                    <input type="password" name="psw" id="pswd" required/>
+                    <input type="password" name="psw" id="pswd" placeholder="Password" required/>
                 </div>
                 <ul class="actions">
                     <li><input type="submit" value="Login" class="special"/></li>
@@ -426,24 +441,61 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
         document.getElementById("demo").innerHTML = name;
     }
 
-    $(document).ready(function () {
 
-
-
-
-        });
 
     /**
      * validate the form inputs
      * @returns {boolean}
      */
     function validateForm(){
-       // if($('#male').val().trim()=="" || $('#female').val().trim()=="")
 
-       // document.getElementById('errorname').innerHTML="this is an invalid name";
+        var verified = true;
+        var fname = document.getElementById('fName').value;
+        var lname = document.getElementById('lName').value;
+
+       if(/\d/.test(fname) ) {
+
+           document.getElementById('err1').innerHTML = 'Your first name should be characters !';
+            verified = false;
+        }
+
+        if(/\d/.test(lname) ) {
+            document.getElementById('err2').innerHTML = 'Your last name should be characters !';
+            verified = false;
+        }
 
 
-       // return false;
+        var g1 = document.getElementById('male').checked;
+        var g2 = document.getElementById('female').checked;
+
+
+        if(g1==false && g2==false){
+            document.getElementById('err3').innerHTML = 'Select gender';
+            verified = false;
+        }
+
+
+        var psw = document.getElementById('psw').value;
+
+       if(psw.length < 7){
+           document.getElementById('err4').innerHTML = 'password have to be more than 8 caracters long';
+           verified = false;
+       }
+
+
+        var psw = document.getElementById('city').value;
+
+        if(psw.length == 0 || /\d/.test(lname)){
+            document.getElementById('errc').innerHTML = 'fill your city correctly';
+            verified = false;
+        }
+
+
+
+
+
+
+        return verified;
     }
 
 </script>

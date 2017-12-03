@@ -3,6 +3,7 @@
 session_start();
 if(!isset($_SESSION['username'])){
     header("Location: ../index.html");
+    return false;
 }
 
 session_regenerate_id();
@@ -18,6 +19,7 @@ $EventId = $_GET['id'];
 
 if(preg_match("/[a-z]/i", $EventId) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $EventId)){
     header("Location: ../index.html");
+    return false;
 }
 
 $result = mysqli_query($GLOBALS['connection'], "
@@ -57,6 +59,7 @@ if($exists === FALSE){
 if (!isset($_SESSION['username'])) {
 
     header("Location: ../index.html");
+    return false;
 
 }
 

@@ -12,6 +12,11 @@ include_once '../php/show.php';
 
 $requesterId = $_GET['id'];
 
+if(preg_match("/[a-z]/i", $requesterId) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $requesterId)){
+    header("Location: ../index.html");
+    return false;
+}
+
 ?>
 
 <!DOCTYPE html>

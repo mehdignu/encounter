@@ -7,9 +7,21 @@ include("config.php");
 if (isset($_POST['email']) && isset($_POST['psw']) ){
 
 
-    $email = $_POST['email'];
-    $password = $_POST['psw'];
-    $result =mysqli_query($connection,"SELECT Password FROM users WHERE Email='$email'");
+    $email = mysqli_real_escape_string($connection, strip_tags($_POST['email']));
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $uploadOk = 0;
+    }
+
+    $password = mysqli_real_escape_string($connection,strip_tags($_POST['psw']));
+
+    $stmt = $connection->prepare('SELECT Password FROM users WHERE Email= ?');
+    $stmt->bind_param('s', $email);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
 
     if ($result && mysqli_num_rows($result) > 0){
         while($row = $result->fetch_array())
@@ -23,17 +35,26 @@ if (isset($_POST['email']) && isset($_POST['psw']) ){
 
         if(!password_verify($password, $HashedPass)){
             echo "invalid password";
+            header("Location: ../index.html");
 
             return false;
         }
     } else {
 
         echo "user doesn't exits";
+        header("Location: ../index.html");
         return false;
     }
 
          session_start();
-    $result =mysqli_query($connection,"SELECT UserName FROM users WHERE Email='$email'");
+
+
+    $stmt = $connection->prepare('SELECT UserName FROM users WHERE Email= ?');
+    $stmt->bind_param('s', $email);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
 
     if ($result && mysqli_num_rows($result) > 0) {
 
@@ -48,7 +69,6 @@ if (isset($_POST['email']) && isset($_POST['psw']) ){
 
         $_SESSION['username'] = $userName;
         header('Location: ../home/home.php');
-
 
 }
 

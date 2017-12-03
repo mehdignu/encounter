@@ -2,6 +2,7 @@
 session_start();
 if(!isset($_SESSION['username'])){
     header("Location: ../index.html");
+    return;
 }
 
 session_regenerate_id();
@@ -48,7 +49,7 @@ if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['loca
     //add the eevent to the scheduled table
     $user = $_SESSION['username'];
     $id = $_POST['id'];
-    $query = "UPDATE `scheduled` SET `Title`='$title', Description='$description', Location='$location', lat='$lat', lng='$lng', city='$city',  `date`='$date', `Time`='$time', `Max`='$max', Age='$age', Age1='$age1' where `id`='$id'";
+    $query = "UPDATE `scheduled` SET `Title`='$title', Description='$description', Location='$location', lat='$lat', lng='$lng', city=(SELECT `city` FROM `users` WHERE `UserName` = '$user'),  `date`='$date', `Time`='$time', `Max`='$max', Age='$age', Age1='$age1' where `id`='$id'";
 
 
     $result = mysqli_query($connection, $query);

@@ -2,6 +2,7 @@
 session_start();
 if(!isset($_SESSION['username'])){
     header("Location: ../index.html");
+    return false;
 }
 
 session_regenerate_id();
@@ -59,7 +60,7 @@ if ($count < 3) {
         $age1 = $_POST['age1'];
         //add the eevent to the scheduled table
         $user = $_SESSION['username'];
-        $query = "INSERT INTO `scheduled` (`Title`, `Description`,`Location`,`lat`,`lng`,`city`,`Date`,`Time`,`Max`,`Age`,`Age1`,`owner`) VALUES ('$title', '$description', '$location', '$lat', '$lng', '$city', '$date', '$time', '$max', '$age', '$age1',(SELECT `id` FROM `users` WHERE `UserName` = '$user'))";
+        $query = "INSERT INTO `scheduled` (`Title`, `Description`,`Location`,`lat`,`lng`,`city`,`Date`,`Time`,`Max`,`Age`,`Age1`,`owner`) VALUES ('$title', '$description', '$location', '$lat', '$lng', (SELECT `city` FROM `users` WHERE `UserName` = '$user'), '$date', '$time', '$max', '$age', '$age1',(SELECT `id` FROM `users` WHERE `UserName` = '$user'))";
         $result = mysqli_query($connection, $query);
         if (!$result) {
             echo("Error description: " . mysqli_error($connection));

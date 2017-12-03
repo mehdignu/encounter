@@ -5,7 +5,7 @@ include("config.php");
 
 
 // If the values are posted, insert them into the database.
-if (isset($_POST['fName']) && isset($_POST['lName']) && (isset($_POST['male']) || isset($_POST['female']) && isset($_POST['email']) && isset($_POST['psw']))) {
+if (isset($_POST['fName']) && isset($_POST['city']) && isset($_POST['lName']) && (isset($_POST['male']) || isset($_POST['female']) && isset($_POST['email']) && isset($_POST['psw']))) {
 
     $destination_path = getcwd().DIRECTORY_SEPARATOR;
     $target_file = $destination_path . basename( $_FILES["files"]["name"]);
@@ -24,10 +24,7 @@ if (isset($_POST['fName']) && isset($_POST['lName']) && (isset($_POST['male']) |
             echo "File is not an image.";
             $uploadOk = 0;
         }
-
-
     }
-
 
     // Check if file already exists
     if (file_exists($target_file)) {
@@ -48,18 +45,73 @@ if (isset($_POST['fName']) && isset($_POST['lName']) && (isset($_POST['male']) |
 
 
     //start
-    $firstname = $_POST['fName'];
-    $lastName = $_POST['lName'];
+    $firstname = mysqli_real_escape_string($connection, strip_tags($_POST['fName']));
+    if (!preg_match("/^[a-zA-Z ]*$/",$firstname)) {
+        $uploadOk = 0;
+        header("Location: ../index.html");
+        return false;
+
+    }
+
+
+    $lastName = mysqli_real_escape_string($connection, strip_tags($_POST['lName']));
+     if (!preg_match("/^[a-zA-Z ]*$/",$lastName)) {
+        $uploadOk = 0;
+         header("Location: ../index.html");
+         return false;
+
+     }
+
+
+    $city = mysqli_real_escape_string($connection, strip_tags($_POST['city']));
+    if (!preg_match("/^[a-zA-Z ]*$/",$city)) {
+        $uploadOk = 0;
+        header("Location: ../index.html");
+        return false;
+
+    }
+
+    $headers = @get_headers('https://www.weather-forecast.com/locations/'.$city.'/forecasts/latest');
+
+    if($headers[0] == "HTTP/1.1 404 Not Found")
+    {
+        $uploadOk = 0;
+        header("Location: ../index.html");
+        return false;
+
+    }
+
+
+
     $gender = isset($_POST['male']) ? $_POST['male'] : $_POST['female'];
-    $email = $_POST['email'];
-    $password = $_POST['psw'];
+
+    $in = !in_array($gender, array('1','2'), true);
+
+    if(empty($gender) || $in){
+        header("Location: ../index.html");
+        $uploadOk = 0;
+        return false;
+    }
+
+
+
+
+    $email = mysqli_real_escape_string($connection, strip_tags($_POST['email']));
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        header("Location: ../index.html");
+        $uploadOk = 0;
+        return;
+    }
+
+    $password = mysqli_real_escape_string($connection, strip_tags($_POST['psw']));
     $p = password_hash($password, PASSWORD_DEFAULT);
     $cc = getToken(10);
-
 
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
         echo "Sorry, your file was not uploaded.";
+        header("Location: ../index.html");
+        return;
         // if everything is ok, try to upload file
     } else {
 
@@ -78,7 +130,7 @@ if (isset($_POST['fName']) && isset($_POST['lName']) && (isset($_POST['male']) |
         }
     }
 
-    $query = "INSERT INTO `users` (UserName, FirstName, LastName, gender, Email, Password) VALUES ('$cc', '$firstname', '$lastName', '$gender', '$email', '$p')";
+    $query = "INSERT INTO `users` (UserName, FirstName, LastName, gender,city ,Email, Password) VALUES ('$cc', '$firstname', '$lastName', '$gender', '$city','$email', '$p')";
     $result = mysqli_query($connection, $query);
 
 
