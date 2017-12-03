@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['username'])) {
     header("Location: ../index.html");
 }
+session_regenerate_id();
 
 include_once '../php/show.php';
 
@@ -24,6 +25,7 @@ include_once '../php/show.php';
 
 
     <script src="./frontend.js"></script>
+    <script src="./notify.js"></script>
     <link rel="stylesheet" href="../css/new.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -73,6 +75,14 @@ include_once '../php/show.php';
             background-clip: padding-box;
             border: 1px solid rgba(0, 0, 0, .15);
             border-radius: .25rem;
+            max-height:250px;/* you can change as you need it */
+            overflow:auto;
+        }
+
+        .dropdown-item:hover{
+
+            background-color: #E2E5E8;
+
         }
 
 
@@ -139,7 +149,7 @@ include_once '../php/show.php';
 
             <li class="nav-item dropdown" style="font-family: Arimo;">
                 <a class="nav-link" id="dropdown01" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
+                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <?php echo getUserName($_SESSION['username']); ?> </a>
                 <div class="dropdown-menu dropdown-menu-right" id="dropit" aria-labelledby="dropdown01"
                      style="min-width: 10px;min-height: 20px">
                     <a class="dropdown-item" href="setProfile.php?id=<?php echo getId($_SESSION['username']) ?>">Settings</a>
@@ -473,6 +483,7 @@ include_once '../php/show.php';
 
 
         $(document).ready(function () {
+
 
             //notifications Requests count
             var count = document.getElementById("notification_count").innerText;

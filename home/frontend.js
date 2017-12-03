@@ -47,13 +47,16 @@ $(function () {
             return;
         }
 
-
         if (json.type === 'notifyAccepted') {
 
 
             var x = json.data;
-            if (x !== userName)
-                alert(x); //supposed to be notification alert used instead x is username of requester
+            if (x !== userName) {
+                $.notify("Your request is accepted", "success");
+
+
+            }
+            //supposed to be notification used instead x is username of requester
 
         }
 
@@ -61,8 +64,10 @@ $(function () {
 
 
             var x = json.data;
-            if (x !== userName)
-                alert('notified from '+x); //supposed to be notification alert used instead x is username of requester
+            if (x !== userName){
+                $.notify("You have a new request", "info");
+            }
+            //supposed to be notification alert used instead x is username of requester
 
         }
 
@@ -129,6 +134,11 @@ $(function () {
                   //  alert(html);
                 }
             });
+
+
+            var data = {"type": 'ask', "owner": owner};
+            var notifyAccept = JSON.stringify(data);
+            connection.send(notifyAccept);
 
         } else if (buttonText === 'Enter encounter') {
 

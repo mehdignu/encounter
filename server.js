@@ -130,8 +130,6 @@ wsServer.on('request', function (request) {
                         var owner = json.owner;
 
 
-                        console.log(owner + jsonToSend);
-
                         clients[owner].sendUTF(jsonToSend);
                     }
 

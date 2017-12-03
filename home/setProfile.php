@@ -4,6 +4,7 @@ session_start();
 if (!isset($_SESSION['username'])) {
     header("Location: ../index.html");
 }
+session_regenerate_id();
 
 include_once '../php/show.php';
 
@@ -34,8 +35,10 @@ $requesterId = $_GET['id'];
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../css/new.css">
     <link href="https://fonts.googleapis.com/css?family=Lobster|Bitter|Cabin|Arimo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Bitter|Cabin|Arimo" rel="stylesheet">
 
     <link href="../css/profile.css" rel="stylesheet" type="text/css"/>
+    <script src="./notify.js"></script>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
@@ -74,9 +77,9 @@ $requesterId = $_GET['id'];
             top: 100%;
             left: 0;
             /*          z-index: 1000;*/
-            min-height: 300px;
+            min-height: 200px;
             display: none;
-            min-width: 400px;
+            min-width: 250px;
             float: left;
             padding: .5rem 0;
             margin: .125rem 0 0;
@@ -166,7 +169,7 @@ $requesterId = $_GET['id'];
 
             <li class="nav-item dropdown" style="font-family: Arimo;">
                 <a class="nav-link" id="dropdown01" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
+                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <?php echo getUserName($_SESSION['username']); ?> </a>
                 <div class="dropdown-menu dropdown-menu-right" id="dropit" aria-labelledby="dropdown01"
                      style="min-width: 10px;min-height: 20px">
                     <a class="dropdown-item" href="setProfile.php?id=<?php echo getId($_SESSION['username']) ?>">Settings</a>

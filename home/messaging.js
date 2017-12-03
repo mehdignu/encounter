@@ -103,8 +103,11 @@ $(function () {
 
 
             var x = json.data;
-            if (x !== userName)
-                alert(x); //supposed to be notification alert used instead x is username of requester
+            if (x !== userName) {
+                $.notify("Your request is accepted", "success");
+
+
+            }
 
         }
 
@@ -112,8 +115,9 @@ $(function () {
 
 
             var x = json.data;
-            if (x !== userName)
-                alert('notified from '+x); //supposed to be notification alert used instead x is username of requester
+            if (x !== userName){
+                $.notify("You have a new request", "info");
+            }
 
         }
 

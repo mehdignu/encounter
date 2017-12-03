@@ -33,12 +33,14 @@ while ($row = $result->fetch_array()) {
 }
 
 if(!empty($rows)){
+    $s .= "<div class='text-center' style='font-family: Lobster;'><h4>Encounters:</h4></div>";
+
     foreach ($result as $r) {
-        $s .= "<a class='dropdown-item msgsGrp' id='".$r['EventID']."' href='#'>".$r['Title']."</a> <div class='dropdown-divider'></div>";
+        $s .= "<a class='dropdown-item msgsGrp' id='".$r['EventID']."' href='#' style='font-family: Bitter, serif;'><i class=\"fa fa-calendar\" aria-hidden=\"true\"></i> ".$r['Title']."</a> <div class='dropdown-divider'></div>";
         $x++;
     }
 } else {
-    $s .= "<br><br><a class=\"dropdown-item disabled \">No encounters yet</a><br><br>";
+    $s .= "<br><br><a class=\"dropdown-item disabled text-center \" style='font-family: Bitter, serif;'><i class=\"fa fa-calendar\" aria-hidden=\"true\"></i><h5>No encounters yet</h5></a><br><br>";
 }
 
 echo $s;

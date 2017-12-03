@@ -67,6 +67,7 @@ if (!isset($_SESSION['username'])) {
         crossorigin="anonymous"></script>
 
     <script src="./frontend.js"></script>
+    <script src="./notify.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
@@ -91,14 +92,36 @@ if (!isset($_SESSION['username'])) {
     <script type="text/javascript" src='http://maps.google.com/maps/api/js?libraries=places&key=AIzaSyBCVuS83u7FTWYsPCpKN8QoVJeIiSmmo1Y'></script>
     <script src="../js/locationpicker.jquery.js"></script>
 
-    <title>create encounter</title>
+    <title>edit encounter</title>
     <style>
+
+
+
         footer {
             background-color: #555;
             color: white;
             padding: 5px;
         }
-
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            /*          z-index: 1000;*/
+            min-height: 200px;
+            display: none;
+            min-width: 250px;
+            float: left;
+            padding: .5rem 0;
+            margin: .125rem 0 0;
+            font-size: 1rem;
+            color: #212529;
+            text-align: left;
+            list-style: none;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid rgba(0, 0, 0, .15);
+            border-radius: .25rem;
+        }
     </style>
 </head>
 <body>
@@ -118,24 +141,31 @@ if (!isset($_SESSION['username'])) {
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto" style="margin-left: 14%;">
 
+            <!--
+                        <li id="notifications">
+                            <a class="nav-link" href="./home.php"
+                               aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i> Home </a>
+                        </li>
+            -->
+
 
             <li class="nav-item dropdown" id="notifications">
                 <a class="nav-link" id="dropdown01" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i> Notification <span
                             class="badge" id="notification_count"
                             value="<?php echo getNotiCount($_SESSION['username']) ?>"><?php echo getNotiCount($_SESSION['username']) ?></span></a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01" id="notificationsBody" >
+                <div class="dropdown-menu" aria-labelledby="dropdown01" id="notificationsBody">
 
 
                 </div>
             </li>
 
-            <li class="nav-item dropdown" id="encounters" >
+            <li class="nav-item dropdown" id="encounters">
                 <a class="nav-link" id="dropdown02" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-envelope"></i> Encounters <span
                             class="badge" id="messages_count"
                             value="<?php echo getNotiEncCount($_SESSION['username']) ?>"><?php echo getNotiEncCount($_SESSION['username']) ?></span></a>
-                <div class="dropdown-menu" aria-labelledby="dropdown02" id="messagessBody" >
+                <div class="dropdown-menu" aria-labelledby="dropdown02" id="messagessBody">
 
 
                 </div>
@@ -144,17 +174,19 @@ if (!isset($_SESSION['username'])) {
         </ul>
 
 
-        <a class="navbar-brand nav-justified" href="./home.php" style="font-family: Lobster;  text-align: center;margin-right: 39%">encounter</a>
+        <a class="navbar-brand nav-justified" href="./home.php"
+           style="font-family: Lobster;  text-align: center;margin-right: 39%">encounter</a>
 
 
         <ul class="navbar-nav">
 
 
-            <li class="nav-item dropdown" style="font-family: Arimo">
+            <li class="nav-item dropdown" style="font-family: Arimo;">
                 <a class="nav-link" id="dropdown01" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">Settings</a>
+                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <?php echo getUserName($_SESSION['username']); ?> </a>
+                <div class="dropdown-menu dropdown-menu-right" id="dropit" aria-labelledby="dropdown01"
+                     style="min-width: 10px;min-height: 20px">
+                    <a class="dropdown-item" href="setProfile.php?id=<?php echo getId($_SESSION['username']) ?>">Settings</a>
                     <a class="dropdown-item" href="../php/logout.php">logout</a>
                 </div>
             </li>
