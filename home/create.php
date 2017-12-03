@@ -190,18 +190,23 @@ if ($count > 2) {
             <form name="register" id='register' action='CreateEncounter.php' method='post' accept-charset='UTF-8' onkeypress="return event.keyCode != 13;">
 
                 <label><b>Title</b></label>
-                <input name="title" class="form-control" type="text" placeholder="Title here" required><br>
+                <input name="title" class="form-control" type="text" maxlength="25" placeholder="Title here" required><br>
 
 
                 <div class="form-group">
                     <label><b>Description</b></label>
-                    <textarea class="form-control text" placeholder="Description of the encounter" cols="35"  maxlength="150" name="description" rows="3" required></textarea>
+                    <textarea class="form-control text" placeholder="Description of the encounter" cols="35"  maxlength="120" name="description" rows="3" required></textarea>
                 </div>
 
-                <label><b>location </b><i>it will be shown only for the members of the encounter</i></label>
+                <label><b>location </b><i>location and location Description will be shown only for the members of the encounter</i></label>
                 <input type="text" id="us3-address" name="location" class="form-control" required /><br>
                 <input type="hidden" name="lat" id="lat" value="">
                 <input type="hidden" name="lng" id="lng" value="">
+
+
+                <label><b>location Description </b></label>
+                <textarea class="form-control text" placeholder="Details of the location" cols="35"  maxlength="120" name="locDescription" rows="3" required></textarea>
+
 
 
 
@@ -230,16 +235,15 @@ if ($count > 2) {
                 </select>
                 </div><br>
 
-                <label><b>Age:</b></label><br />
-                <div class="form-inline">
 
-                <i style="margin-right: 9px;">Between</i>
-                <select class="form-control" id="age" name ="age" style="width: 5em">
+
+                <label><b>Tag:</b></label><br />
+                <select class="form-control"  id="tag" name ="tag" style="width: 5em">
+                    <option value="social">Social</option>
+                    <option value="Date">Date</option>
+                    <option value="sport">Sport</option>
+                    <option value="hobby">Hobby</option>
                 </select>
-               <i style="margin-left: 9px;margin-right: 9px;">and:</i>
-                <select class="form-control" id="age1" name ="age1" style="width: 5em">
-                </select>
-                </div>
 
                 <br />
 
@@ -404,8 +408,7 @@ if ($count > 2) {
     var hour = "";
     var mins = "";
     var max = "";
-    var age = "";
-    var age1 = "";
+
     var i = 0;
     var s = '';
     for(var i = 0; i < 24; i++)
@@ -434,29 +437,14 @@ if ($count > 2) {
         max += "<option value="+i+">"+i+"</option>";
     }
 
-    i = 0;
-    for(var i = 0; i <= 70; i++)
-    {
-        if(i == 18)
-            age += "<option value="+i+" selected>"+i+"</option>";
-        age += "<option value="+i+">"+i+"</option>";
-    }
 
-    i = 0;
-    for(var i = 0; i <= 70; i++)
-    {
-        if(i == 25)
-            age1 += "<option value="+i+" selected>"+i+"</option>";
-        age1 += "<option value="+i+">"+i+"</option>";
-    }
 
 
 
     $("#hour").html(hour);
     $("#min").html(mins);
     $("#max").html(max);
-    $("#age").html(age);
-    $("#age1").html(age1);
+
 
 
 </script>

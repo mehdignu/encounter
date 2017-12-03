@@ -254,6 +254,8 @@ if (!isset($_SESSION['username'])) {
 
                     <input type="hidden" name="id" id="id" value="<?php echo $EventId ?>">
 
+                    <label><b>location Description </b></label>
+                    <textarea class="form-control text" placeholder="Details of the location" cols="35"  maxlength="120" name="locDescription" rows="3" required><?php echo $row['locDescription'] ?></textarea>
 
 
                     <label><b>Date</b></label>
@@ -295,22 +297,15 @@ if (!isset($_SESSION['username'])) {
 
                     </div><br>
 
-                    <label><b>Age:</b></label><br/>
-                    <div class="form-inline">
+                    <label><b>Tag:</b></label><br />
+                    <select class="form-control"  id="tag" name ="tag" style="width: 5em">
+                        <option value="social">Social</option>
+                        <option value="Date">Date</option>
+                        <option value="sport">Sport</option>
+                        <option value="hobby">Hobby</option>
+                    </select>
+                    <input type="hidden" name="socy" id="socy" value="<?php echo $row['Tag'] ?>">
 
-                        <i style="margin-right: 9px;">Between</i>
-                        <select class="form-control" id="age" name="age"  style="width: 5em">
-                        </select>
-
-                        <input type="hidden" id="ageV" value="<?php echo $row['Age'] ?>">
-
-                        <i style="margin-left: 9px;margin-right: 9px;">and:</i>
-                        <select class="form-control" id="age1" name="age1" style="width: 5em">
-                        </select>
-
-                        <input type="hidden" id="age1V" value="<?php echo $row['Age1'] ?>">
-
-                    </div>
 
 
                     <br/>
@@ -388,6 +383,11 @@ if (!isset($_SESSION['username'])) {
             $('#min').change();
             $('#hour').val(y);
             $('#hour').change();
+
+
+            var s = $('#socy').val();
+            $('#tag').val(s);
+            $('#tag').change();
 
             //  $("#notification_count").hide();
             // $("#messages_count").hide();
@@ -506,8 +506,7 @@ if (!isset($_SESSION['username'])) {
         var hour = "";
         var mins = "";
         var max = "";
-        var age = "";
-        var age1 = "";
+
         var i = 0;
         var s = '';
         for(var i = 0; i < 24; i++)
@@ -536,29 +535,14 @@ if (!isset($_SESSION['username'])) {
             max += "<option value="+i+">"+i+"</option>";
         }
 
-        i = 0;
-        for(var i = 0; i <= 70; i++)
-        {
-            if(i == 18)
-                age += "<option value="+i+" selected>"+i+"</option>";
-            age += "<option value="+i+">"+i+"</option>";
-        }
 
-        i = 0;
-        for(var i = 0; i <= 70; i++)
-        {
-            if(i == 25)
-                age1 += "<option value="+i+" selected>"+i+"</option>";
-            age1 += "<option value="+i+">"+i+"</option>";
-        }
 
 
 
         $("#hour").html(hour);
         $("#min").html(mins);
         $("#max").html(max);
-        $("#age").html(age);
-        $("#age1").html(age1);
+
 
 
     </script>

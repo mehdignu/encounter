@@ -22,7 +22,7 @@ if (!$result)
 {
 
     echo("Error description: " . mysqli_error($connection));
-
+    return false;
 }
 $s ='';
 //fetch result

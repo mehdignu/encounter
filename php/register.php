@@ -127,6 +127,7 @@ if (isset($_POST['fName']) && isset($_POST['city']) && isset($_POST['lName']) &&
             echo "The file " . basename($_FILES["files"]["name"]) . " has been uploaded.";
         } else {
             echo "Sorry, there was an error uploading your file.";
+                return false;
         }
     }
 

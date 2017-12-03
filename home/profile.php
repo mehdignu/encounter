@@ -6,6 +6,7 @@ if(!isset($_SESSION['username'])){
 }
 
 session_regenerate_id();
+include("../php/config.php");
 
 include_once '../php/show.php';
 
@@ -16,6 +17,25 @@ if(preg_match("/[a-z]/i", $requesterId) || preg_match('/[\'^£$%&*()}{@#~?><>,|=
     header("Location: ../index.html");
     return false;
 }
+
+$stmt = $connection->prepare('SELECT Count(*) FROM users WHERE id= ?');
+$stmt->bind_param('s', $requesterId);
+
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+$row = mysqli_fetch_row($result);
+
+$count = $row[0];
+
+if($count!=1){
+
+    header("Location: ../index.html");
+
+}
+
+
 
 ?>
 
