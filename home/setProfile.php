@@ -50,6 +50,9 @@ if ($id != $requesterId) {
             integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
             crossorigin="anonymous"></script>
 
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="./frontend.js"></script>
@@ -229,25 +232,34 @@ if ($id != $requesterId) {
                 <div id="content">
 
 
-                    <img id="blah" src="../user_uploads/2qBIIeRE5B.jpeg"/>
+                    <?php
+
+                    $result = fillProfile($requesterId);
+
+
+                    if ($result) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+
+
+                    ?>
+                    <img id="blah" src="../user_uploads/<?php echo $row['ImageName'] ?>"/>
+
+
+
 
                     <!--  <input type='file' onchange="readURL(this);" accept="image/png,image/jpg,image/jpeg" /> -->
-                    <input type="file" name="dataFile" id="fileChooser" onchange="return ValidateFileUpload()"/>
 
                     <div id="wrapper"><br>
-                        <form name="register" id='register' action='saveProfile.php' method='post'
-                              accept-charset='UTF-8' onkeypress="return event.keyCode != 13;">
-
-                            <?php
-
-                            $result = fillProfile($requesterId);
+                        <form name="register" id='register' action='saveProfile.php'
+                              method='post' accept-charset='UTF-8' enctype="multipart/form-data" onkeypress="return event.keyCode != 13;">
 
 
-                            if ($result) {
-                                while ($row = mysqli_fetch_assoc($result)) {
 
 
-                                    ?>
+                                <label for="files" id="demo"></label>
+
+                                <input id="files" name="files" style="visibility:block;position:absolute;" type="file" onchange="uploaded()">
+
 
 
                                     <label><b>FirstName</b></label>
@@ -264,7 +276,7 @@ if ($id != $requesterId) {
                                         <label><b>About me</b></label>
                                         <textarea class="form-control text" placeholder="Description of yourself"
                                                   cols="35"
-                                                  maxlength="150" name="about" rows="3"
+                                                  maxlength="120" name="about" rows="3"
                                                   required><?php echo $row['about'] ?></textarea>
                                     </div>
 
@@ -326,47 +338,54 @@ if ($id != $requesterId) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 -->
     <script>
+        function uploaded(){
 
-
-        function ValidateFileUpload() {
-            var fuData = document.getElementById('fileChooser');
-            var FileUploadPath = fuData.value;
-
-            //To check if user upload any file
-            if (FileUploadPath == '') {
-                alert("Please upload an image");
-
-            } else {
-                var Extension = FileUploadPath.substring(
-                    FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
-
-                //The file uploaded is an image
-
-                if (Extension == "gif" || Extension == "png" || Extension == "bmp"
-                    || Extension == "jpeg" || Extension == "jpg") {
-
-                    // To Display
-                    if (fuData.files && fuData.files[0]) {
-                        var reader = new FileReader();
-
-                        reader.onload = function (e) {
-                            $('#blah').attr('src', e.target.result);
+            var x = document.getElementById("files");
+            var txt = "";
+            var name="";
+            if ('files' in x) {
+                if (x.files.length == 0) {
+                    txt = "Select one or more files.";
+                } else {
+                    for (var i = 0; i < x.files.length; i++) {
+                        txt += "<br><strong>" + (i+1) + ". file</strong><br>";
+                        var file = x.files[i];
+                        if ('name' in file) {
+                            txt += "name: " + file.name + "<br>";
+                            name += "name: " + file.name + "<br>";
                         }
-
-                        reader.readAsDataURL(fuData.files[0]);
+                        if ('size' in file) {
+                            txt += "size: " + file.size + " bytes <br>";
+                        }
                     }
-
-                }
-
-                //The file upload is NOT an image
-                else {
-                    alert("Photo only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
-
                 }
             }
+            else {
+                if (x.value == "") {
+                    txt += "Select one or more files.";
+                } else {
+                    txt += "The files property is not supported by your browser!";
+                    txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead.
+                }
+            }
+
+            // To Display
+            if (x.files && x.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(x.files[0]);
+            }
+            document.getElementById("demo").innerHTML = name.substring(0,8)+ '...';
         }
 
+
         $(document).ready(function () {
+
+
 
 
             var x = $('#gend').val();

@@ -338,13 +338,13 @@ $memberId = $row[0];
                 <?php
 
                 for ($i = 0; $i < count($rowww); $i++) {
-                    $exists = glob("/Applications/XAMPP/xamppfiles/htdocs/encounter/user_uploads/" . $rowww[$i]['attenders'] . ".*");
+                    $exists = glob("/Applications/XAMPP/xamppfiles/htdocs/encounter/user_uploads/" . $rowww[$i]['attenders'] . "");
 
                     if (count($exists)) {
                         ?>
                         <li class="list-group-item" style="background-color: #E2E5E8">
                         <img class='rounded-circle' height="60px" width="60px"
-                             src='../user_uploads/<?php echo $rowww[$i]["attenders"] ?>.jpeg'/>
+                             src='../user_uploads/<?php echo $rowww[$i]["attenders"] ?>'/>
 
 
                         <?php
@@ -352,7 +352,7 @@ $memberId = $row[0];
                         $un = getUserName($rowww[$i]["attenders"]);
                         ?>
 
-                        <span style="font-family: 'Noto Sans', sans-serif;">  <a href="profile.php?id=<?php echo getId($rowww[$i]["attenders"]) ?>"><?php echo $un ?> </a></span>
+                        <span style="font-family: 'Noto Sans', sans-serif;">  <a href="profile.php?id=<?php echo $rowww[$i]["ide"]; ?>"><?php echo $rowww[$i]["name"]; ?> </a></span>
 
 
                         <?php

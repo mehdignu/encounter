@@ -28,9 +28,6 @@ $result = mysqli_query($connection, $query);
 $userNameID = mysqli_fetch_assoc($result);
 $userNameID = $userNameID['id'];
 
-//decrement requester allowed requests
-$query = "UPDATE `users` SET allowedReq=allowedReq-1 WHERE `id`='$userNameID'";
-$result = mysqli_query($connection, $query);
 
 //get owner id
 $query = "select id from users where users.UserName = '$owner'";

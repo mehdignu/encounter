@@ -311,7 +311,7 @@ function getAttenders($id = '')
 {
 
     $result = mysqli_query($GLOBALS['connection'], "
-        SELECT u.UserName as 'attenders'
+        SELECT u.ImageName as 'attenders', u.FirstName as 'name', u.id as 'ide'
     FROM users u
 
             INNER JOIN participations p on p.MemberID = u.id
@@ -396,7 +396,7 @@ function allowedToCreate($user = '')
  */
 function fillProfile($id = '')
 {
-    $query = "select FirstName, LastName, about, city, gender from users where users.id = '$id'";
+    $query = "select FirstName, ImageName,LastName, about, city, gender from users where users.id = '$id'";
     $result = mysqli_query($GLOBALS['connection'], $query);
 
     return $result;

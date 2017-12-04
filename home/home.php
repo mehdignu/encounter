@@ -18,7 +18,9 @@ include_once '../php/show.php';
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />s
     <script
             src="https://code.jquery.com/jquery-1.12.4.min.js"
             integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
@@ -332,13 +334,13 @@ include_once '../php/show.php';
 
 
                                     for ($i = 0; $i < count($rowww); $i++) {
-                                        $exists = glob("/Applications/XAMPP/xamppfiles/htdocs/encounter/user_uploads/" . $rowww[$i]['attenders'] . ".*");
+                                        $exists = glob("/Applications/XAMPP/xamppfiles/htdocs/encounter/user_uploads/" . $rowww[$i]['attenders'] . "");
 
                                         if (count($exists)) {
                                             ?>
 
                                             <img class='rounded-circle' height="60px" width="60px"
-                                                 src='../user_uploads/<?php echo $rowww[$i]["attenders"] ?>.jpeg'/>
+                                                 src='../user_uploads/<?php echo $rowww[$i]["attenders"] ?>'/>
                                             <?php
                                         }
 

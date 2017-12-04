@@ -23,7 +23,6 @@ $eventID = $data->eventid;
 $owner = $data->owner;
 $userName = $data->username;
 
-//TODO : before insert a request check if it is already accepted - anyone can change the html -
 
 //check if the maximum number of requests is erreicht
 $query = "SELECT `particNum`, `Max` FROM `scheduled` WHERE `id`='$eventID'";
@@ -36,7 +35,7 @@ $max = $row[1];
 
 $UserId = getId($userName);
 
-//check if the user already participating
+//check if the user already accepted
 $query = "SELECT * FROM `participations` WHERE `MemberID`='$UserId' AND `EventID`='$eventID'";
 $result = mysqli_query($connection, $query);
 
@@ -67,10 +66,6 @@ if ($count < $max && !$row[0]) {
         $query = "UPDATE `users` SET ReqCount=ReqCount+1 WHERE `UserName`='$owner'";
         $result = mysqli_query($connection, $query);
 
-
-        //increment requester allowed requests
-        $query = "UPDATE `users` SET allowedReq=allowedReq+1 WHERE `UserName`='$userName'";
-        $result = mysqli_query($connection, $query);
 
     }
 

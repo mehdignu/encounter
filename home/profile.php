@@ -100,9 +100,9 @@ if ($count != 1) {
             top: 100%;
             left: 0;
             /*          z-index: 1000;*/
-            min-height: 300px;
+            min-height: 200px;
             display: none;
-            min-width: 400px;
+            min-width: 250px;
             float: left;
             padding: .5rem 0;
             margin: .125rem 0 0;
@@ -123,11 +123,10 @@ if ($count != 1) {
         #content {
             padding: 5px;
             background: #ffffff;
-
+            overflow: auto;
             margin-bottom: 10px;
-            height: 96%
+            height: 100%
         }
-
     </style>
 
 </head>
@@ -138,8 +137,24 @@ if ($count != 1) {
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="font-family: Arimo, sans-serif">
 
 
+    <!--
+       <a class="navbar-brand" href="./home.php" style="font-family: Lobster;">encounter</a>
+   -->
+    <!--
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>-->
+
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto" style="margin-left: 14%;">
+
+            <!--
+                        <li id="notifications">
+                            <a class="nav-link" href="./home.php"
+                               aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i> Home </a>
+                        </li>
+            -->
 
 
             <li class="nav-item dropdown" id="notifications">
@@ -174,12 +189,14 @@ if ($count != 1) {
         <ul class="navbar-nav">
 
 
-            <li class="nav-item dropdown" style="font-family: Arimo">
+            <li class="nav-item dropdown" style="font-family: Arimo;">
                 <a class="nav-link" id="dropdown01" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <a class="dropdown-item" href="../php/logout.php">logout</a>
+                   aria-haspopup="true" aria-expanded="false"><i
+                            class="fa fa-user"></i> <?php echo getUserName($_SESSION['username']); ?> </a>
+                <div class="dropdown-menu dropdown-menu-right" id="dropit" aria-labelledby="dropdown01"
+                     style="min-width: 10px;min-height: 20px">
+                    <a class="dropdown-item" href="setProfile.php?id=<?php echo getId($_SESSION['username']) ?>"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
+                    <a class="dropdown-item" href="../php/logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign-out</a>
                 </div>
             </li>
         </ul>
