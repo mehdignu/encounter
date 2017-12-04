@@ -18,13 +18,13 @@ if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['lat'
 
 
     $title = mysqli_real_escape_string($connection,strip_tags($_POST['title']));
-    if($title=='' || (strlen($title) > 26 )) {
+    if($title=='' || (strlen($title) > 50 )) {
         $bool = false;
     }
 
 
     $description = mysqli_real_escape_string($connection,strip_tags($_POST['description']));
-    if($description==''|| (strlen($description) > 120 )) {
+    if($description==''|| (strlen($description) > 180 )) {
         $bool = false;
 
     }
@@ -42,7 +42,7 @@ if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['lat'
 
 
     $locdesc = mysqli_real_escape_string($connection,strip_tags($_POST['locDescription']));
-    if($locdesc==''|| (strlen($locdesc) > 120 )) {
+    if($locdesc==''|| (strlen($locdesc) > 180)) {
         $bool = false;
     }
 

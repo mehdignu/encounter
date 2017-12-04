@@ -237,7 +237,7 @@ if (!isset($_SESSION['username'])) {
                     ?>
 
                     <label><b>Title</b></label>
-                    <input name="title" class="form-control" type="text" placeholder="Title here"
+                    <input name="title" class="form-control" type="text" maxlength="40" placeholder="Title here"
                          value="<?php echo $row['Title'] ?>"  required><br>
 
 

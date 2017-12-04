@@ -90,6 +90,7 @@ $memberId = $row[0];
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../css/new.css">
 
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
@@ -257,7 +258,9 @@ $memberId = $row[0];
                     <input type="hidden" name="lat" id="lat" value="<?php echo $row['lat'] ?>">
                     <input type="hidden" name="lng" id="lng" value="<?php echo $row['lng'] ?>">
 
-
+                    <hr>  <b>Address description:</b>
+                    <span style="font-family: 'Noto Sans', sans-serif;"
+                          value="<?php echo $row['locDescription'] ?>"><?php echo $row['locDescription'] ?></span><br>
                     <!--   <hr> <div id="loc" style="width: 100%; height: 25em; margin-top: 15px;" ></div><br /> -->
 
 

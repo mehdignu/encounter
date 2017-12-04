@@ -314,8 +314,13 @@ include_once '../php/show.php';
                                     <h5>Description</h5>
                                     <p class="card-text">
                                         <?php printf("%s\n", $row["Description"]); ?>
+
+
                                     </p>
                                 </li>
+
+                                <?php if ($row['Tag'] == 'Date' && $row["particNum"] == $row["Max"]){} else { ?>
+
                                 <li class="list-group-item">
                                     <p>
                                         <i class="fa fa-user-plus" aria-hidden="true"></i>
@@ -348,6 +353,7 @@ include_once '../php/show.php';
                                     <?php } ?>
 
                                 </li>
+                                <?php } ?>
 
                             </ul>
 
@@ -376,7 +382,9 @@ include_once '../php/show.php';
                                         style="width=100%!important;background-color: #4caf50">
 
                                     <i class="material-icons left">drafts</i> <span
-                                            id="reqText"><?php echo 'Enter encounter'; ?></span>
+                                            id="reqText"><?php echo 'Enter encounter'; ?></span><div style="float: right; font-size: 13px;ont-family: Arimo, sans-serif">
+                                        <i class="fa fa-tag" aria-hidden="true"></i> <?php echo $row['Tag'] ?>
+                                    </div>
 
                                 </button>
 

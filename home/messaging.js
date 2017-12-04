@@ -229,12 +229,12 @@ $(function () {
 
         }
 
-        content.append('<p><span>'
-            + author + '</span><small> @ ' + (dt.getHours() < 10 ? '0'
+        content.append('<p style="padding-left: 1%;"><span><b>'
+            + author + '</b></span><small> @ ' + (dt.getHours() < 10 ? '0'
                 + dt.getHours() : dt.getHours()) + ':'
             + (dt.getMinutes() < 10
                 ? '0' + dt.getMinutes() : dt.getMinutes())
-            +  '</small>: ' + message + '</p>');
+            +  '</small>: <span style="font-family: \'Lato\', sans-serif;\n">' + message + '</span></p><hr style="width: 90%;">');
 
         //focus again on the input field
         document.getElementById("input").focus();

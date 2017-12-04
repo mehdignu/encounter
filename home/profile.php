@@ -228,36 +228,36 @@ if ($count != 1) {
 
                 <div id="content">
 
+                    <?php
 
+                    $result = fillProfile($requesterId);
+
+
+                    if ($result) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+
+
+                    ?>
                     <div id="pic">
-                        <img src="../user_uploads/2qBIIeRE5B.jpeg"/>
+                        <img src="../user_uploads/<?php echo $row['ImageName'] ?>"/>
 
                     </div>
 
                     <div id="wrapper"><br>
 
-                        <?php
 
-                        $result = fillProfile($requesterId);
-
-
-                        if ($result) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-
-
-                                ?>
 
 
                                 <h1 class="desktop"><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?></h1>
 
-
-                                <h5>About me:</h5>
+<br>
+                        <h5><b>About me:</b></h5>
                                 <p><?php echo $row['about'] ?></p>
 
-                                <h5 id="element2">City: </h5><p id="element1"> <?php echo $row['city'] ?></p><br>
+                                <h5 id="element2"><b>City:</b></h5><p id="element1"> <?php echo $row['city'] ?></p><br>
 
 
-                                <h5 id="element2">Gender: </h5><p
+                                <h5 id="element2"><b>Gender:</b> </h5><p
                                         id="element1"> <?php echo $row['gender'] ? 'Male' : 'Female' ?></p>
 
 
