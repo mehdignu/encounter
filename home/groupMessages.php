@@ -19,6 +19,7 @@ $EventId = $_GET['id'];
 
 if (preg_match("/[a-z]/i", $EventId) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $EventId)) {
     header("Location: ../index.html");
+    return;
 }
 
 
@@ -52,11 +53,6 @@ if ($exists === false) {
 }
 
 
-if (!isset($_SESSION['username'])) {
-
-    header("Location: ../index.html");
-    return;
-}
 
 $u = $_SESSION['username'];
 

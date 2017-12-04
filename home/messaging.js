@@ -33,7 +33,6 @@ $(function () {
             cache: false,
             success: (function (result) {
 
-
                 var res =JSON.parse(result);
                 var tmp = "";
 
