@@ -32,7 +32,7 @@ $count = $row[0];
 if($count!=1){
 
     header("Location: ../index.html");
-
+    return false;
 }
 
 

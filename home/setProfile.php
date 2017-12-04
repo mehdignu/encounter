@@ -16,6 +16,25 @@ if(preg_match("/[a-z]/i", $requesterId) || preg_match('/[\'^£$%&*()}{@#~?><>,|=
     return false;
 }
 
+$stmt = $connection->prepare('SELECT id FROM users WHERE UserName= ?');
+$stmt->bind_param('s', $_SESSION['username']);
+
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+$row = mysqli_fetch_row($result);
+
+$id = $row[0];
+
+if($id != $requesterId){
+    header("Location: ./home.php");
+    return false;
+}
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -233,17 +252,16 @@ if(preg_match("/[a-z]/i", $requesterId) || preg_match('/[\'^£$%&*()}{@#~?><>,|=
 
 
                                     <label><b>FirstName</b></label>
-                                    <input name="FirstName" class="form-control" type="text" placeholder="Title here"
+                                    <input name="FirstName" class="form-control" type="text" placeholder="First name" maxlength="15"
                                            value="<?php echo $row['FirstName'] ?>" required><br>
 
                                     <label><b>LastName</b></label>
-                                    <input name="LastName" class="form-control" type="text" placeholder="Title here"
+                                    <input name="LastName" class="form-control" type="text" placeholder="Last name" maxlength="15"
                                            value="<?php echo $row['LastName'] ?>" required><br>
-
 
                                     <div class="form-group">
                                         <label><b>About me</b></label>
-                                        <textarea class="form-control text" placeholder="Description of the encounter"
+                                        <textarea class="form-control text" placeholder="Description of yourself"
                                                   cols="35"
                                                   maxlength="150" name="about" rows="3"
                                                   required><?php echo $row['about'] ?></textarea>
