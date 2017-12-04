@@ -151,11 +151,12 @@ if ($count > 2) {
 
             <li class="nav-item dropdown" style="font-family: Arimo;">
                 <a class="nav-link" id="dropdown01" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <?php echo getUserName($_SESSION['username']); ?> </a>
+                   aria-haspopup="true" aria-expanded="false"><i
+                            class="fa fa-user"></i> <?php echo getUserName($_SESSION['username']); ?> </a>
                 <div class="dropdown-menu dropdown-menu-right" id="dropit" aria-labelledby="dropdown01"
                      style="min-width: 10px;min-height: 20px">
-                    <a class="dropdown-item" href="setProfile.php?id=<?php echo getId($_SESSION['username']) ?>">Settings</a>
-                    <a class="dropdown-item" href="../php/logout.php">logout</a>
+                    <a class="dropdown-item" href="setProfile.php?id=<?php echo getId($_SESSION['username']) ?>"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
+                    <a class="dropdown-item" href="../php/logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign-out</a>
                 </div>
             </li>
         </ul>

@@ -219,8 +219,8 @@ $memberId = $row[0];
                             class="fa fa-user"></i> <?php echo getUserName($_SESSION['username']); ?> </a>
                 <div class="dropdown-menu dropdown-menu-right" id="dropit" aria-labelledby="dropdown01"
                      style="min-width: 10px;min-height: 20px">
-                    <a class="dropdown-item" href="setProfile.php?id=<?php echo getId($_SESSION['username']) ?>">Settings</a>
-                    <a class="dropdown-item" href="../php/logout.php">logout</a>
+                    <a class="dropdown-item" href="setProfile.php?id=<?php echo getId($_SESSION['username']) ?>"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
+                    <a class="dropdown-item" href="../php/logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign-out</a>
                 </div>
             </li>
         </ul>
@@ -347,7 +347,12 @@ $memberId = $row[0];
                              src='../user_uploads/<?php echo $rowww[$i]["attenders"] ?>.jpeg'/>
 
 
-                        <span style="font-family: 'Noto Sans', sans-serif;">  <?php echo getUserName($rowww[$i]["attenders"]); ?> </span>
+                        <?php
+
+                        $un = getUserName($rowww[$i]["attenders"]);
+                        ?>
+
+                        <span style="font-family: 'Noto Sans', sans-serif;">  <a href="profile.php?id=<?php echo getId($rowww[$i]["attenders"]) ?>"><?php echo $un ?> </a></span>
 
 
                         <?php
