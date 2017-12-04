@@ -17,12 +17,12 @@ include_once '../php/show.php';
 
 $EventId = $_GET['id'];
 
-if(preg_match("/[a-z]/i", $EventId) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $EventId)){
+if (preg_match("/[a-z]/i", $EventId) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $EventId)) {
     header("Location: ../index.html");
 }
 
 
-    $result = mysqli_query($GLOBALS['connection'], "
+$result = mysqli_query($GLOBALS['connection'], "
          SELECT userName from participations p
             inner join users u on u.id = p.MemberID
          WHERE EventID = '$EventId'
@@ -34,20 +34,20 @@ while ($row = $result->fetch_array()) {
     $rows[] = $row;
 }
 
-if(!empty($rows)) {
-    $exists = FALSE;
+if (!empty($rows)) {
+    $exists = false;
     foreach ($result as $r) {
-        if($_SESSION['username'] === $r['userName']){
-            $exists = TRUE;
+        if ($_SESSION['username'] === $r['userName']) {
+            $exists = true;
         }
     }
 } else {
-    session_regenerate_id(FALSE);
+    session_regenerate_id(false);
     session_unset();
 }
 
-if($exists === FALSE){
-    session_regenerate_id(FALSE);
+if ($exists === false) {
+    session_regenerate_id(false);
     session_unset();
 }
 
@@ -95,9 +95,9 @@ $memberId = $row[0];
     <link rel="stylesheet" href="../css/new.css">
 
 
-
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <style>
 
         .dateme {
@@ -145,10 +145,15 @@ $memberId = $row[0];
         .bg-company-red {
             background-color: #400000;
         }
-        #content { padding:5px; background:#ffffff;
+
+        #content {
+            padding: 5px;
+            background: #ffffff;
             overflow-y: scroll;
 
-            margin-bottom:10px;height:96%  }
+            margin-bottom: 10px;
+            height: 96%
+        }
 
     </style>
 
@@ -214,7 +219,8 @@ $memberId = $row[0];
 
             <li class="nav-item dropdown" style="font-family: Arimo;">
                 <a class="nav-link" id="dropdown01" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <?php echo getUserName($_SESSION['username']); ?> </a>
+                   aria-haspopup="true" aria-expanded="false"><i
+                            class="fa fa-user"></i> <?php echo getUserName($_SESSION['username']); ?> </a>
                 <div class="dropdown-menu dropdown-menu-right" id="dropit" aria-labelledby="dropdown01"
                      style="min-width: 10px;min-height: 20px">
                     <a class="dropdown-item" href="setProfile.php?id=<?php echo getId($_SESSION['username']) ?>">Settings</a>
@@ -238,49 +244,58 @@ $memberId = $row[0];
 
             <?php $enc = getEncounter($EventId);
             if ($enc) {
-            while ($row = mysqli_fetch_assoc($enc)) {
+                while ($row = mysqli_fetch_assoc($enc)) {
 
-            ?>
-
-                <b>Encounter:</b> <span style="font-family: 'Noto Sans', sans-serif;" value="<?php echo $row['Title'] ?>"><?php echo $row['Title'] ?></span><br>
-              <hr>  <b>Description:</b>
-                <span style="font-family: 'Noto Sans', sans-serif;" value="<?php echo $row['Description'] ?>"><?php echo $row['Description'] ?></span><br>
-
-
-                <hr>  <b>Address:</b>
-                <span style="font-family: 'Noto Sans', sans-serif;" type="text" id="us3-address" name="location"  value="<?php echo $row['Location'] ?>" ><?php echo $row['Location'] ?></span><br>
-                <input type="hidden" name="lat" id="lat" value="<?php echo $row['lat'] ?>">
-                <input type="hidden" name="lng" id="lng" value="<?php echo $row['lng'] ?>">
-
-
-                 <!--   <hr> <div id="loc" style="width: 100%; height: 25em; margin-top: 15px;" ></div><br /> -->
-
-
-
-                <hr>  <span><b>When ?</b></span><br>
-                <span style="font-family: 'Noto Sans', sans-serif;"><?php echo date('jS F Y', strtotime($row['Date'])) .' at '. $row['Time'] ?></span><br>
-
-
-                <?php
-
-                if($row['owner'] == $memberId) {
-                    ?>
-                    <button type="button" class="btn btn-secondary fixed-bottom" onclick="location.href = 'editEncounter.php?id=<?php echo $EventId ?>'" style="margin-bottom: 29px;margin-left:3%;width:70px">Edit</button>
-                    <button type="button" class="btn btn-secondary fixed-bottom" onclick="location.href = 'removeEncounter.php?id=<?php echo $EventId ?>'" style="margin-bottom: 29px;margin-left:8%;width:73px">Delete</button>
-                    <?php
-
-                }else {
                     ?>
 
-                    <button type="button" class="btn btn-secondary fixed-bottom"
-                            onclick="location.href = 'leaveEncounter.php?id=<?php echo $EventId ?>&member=<?php echo $_SESSION['username'] ?>'"
-                            style="margin-bottom: 29px;margin-left: 1%;width:200px">Leave Encounter
-                    </button>
+                    <b>Encounter:</b> <span style="font-family: 'Noto Sans', sans-serif;"
+                                            value="<?php echo $row['Title'] ?>"><?php echo $row['Title'] ?></span><br>
+                    <hr>  <b>Description:</b>
+                    <span style="font-family: 'Noto Sans', sans-serif;"
+                          value="<?php echo $row['Description'] ?>"><?php echo $row['Description'] ?></span><br>
+
+
+                    <hr>  <b>Address:</b>
+                    <span style="font-family: 'Noto Sans', sans-serif;" type="text" id="us3-address" name="location"
+                          value="<?php echo $row['Location'] ?>"><?php echo $row['Location'] ?></span><br>
+                    <input type="hidden" name="lat" id="lat" value="<?php echo $row['lat'] ?>">
+                    <input type="hidden" name="lng" id="lng" value="<?php echo $row['lng'] ?>">
+
+
+                    <!--   <hr> <div id="loc" style="width: 100%; height: 25em; margin-top: 15px;" ></div><br /> -->
+
+
+                    <hr>  <span><b>When ?</b></span><br>
+                    <span style="font-family: 'Noto Sans', sans-serif;"><?php echo date('jS F Y',
+                                strtotime($row['Date'])) . ' at ' . $row['Time'] ?></span><br>
 
 
                     <?php
+
+                    if ($row['owner'] == $memberId) {
+                        ?>
+                        <button type="button" class="btn btn-secondary fixed-bottom"
+                                onclick="location.href = 'editEncounter.php?id=<?php echo $EventId ?>'"
+                                style="margin-bottom: 29px;margin-left:3%;width:70px">Edit
+                        </button>
+                        <button type="button" class="btn btn-secondary fixed-bottom"
+                                onclick="location.href = 'removeEncounter.php?id=<?php echo $EventId ?>'"
+                                style="margin-bottom: 29px;margin-left:8%;width:73px">Delete
+                        </button>
+                        <?php
+
+                    } else {
+                        ?>
+
+                        <button type="button" class="btn btn-secondary fixed-bottom"
+                                onclick="location.href = 'leaveEncounter.php?id=<?php echo $EventId ?>&member=<?php echo $_SESSION['username'] ?>'"
+                                style="margin-bottom: 29px;margin-left: 1%;width:200px">Leave Encounter
+                        </button>
+
+
+                        <?php
+                    }
                 }
-            }
             }
             ?>
             <br>
@@ -289,17 +304,20 @@ $memberId = $row[0];
         </div>
 
 
-        <div class="col-sm-6 offset-sm-2" >
+        <div class="col-sm-6 offset-sm-2">
 
-            <div class="card" style="position:fixed;height:92%;width:65%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <div class="card"
+                 style="position:fixed;height:92%;width:65%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 
                 <div id="content"></div>
 
-                <div class="card-block" style="position: absolute; bottom: 0;width: 100%;" >
-                    <div class="form-inline" >
-                        <input id="status" type="hidden" class="col-sm-1" value="<?php echo getUserName($_SESSION['username']); ?>" />
+                <div class="card-block" style="position: absolute; bottom: 0;width: 100%;">
+                    <div class="form-inline">
+                        <input id="status" type="hidden" class="col-sm-1"
+                               value="<?php echo getUserName($_SESSION['username']); ?>"/>
 
-                        <input type="text" placeholder="write something..."  class="form-control col-sm-12" id="input" disabled="disabled" />
+                        <input type="text" placeholder="write something..." class="form-control col-sm-12" id="input"
+                               disabled="disabled"/>
                     </div>
                 </div>
             </div>
@@ -309,62 +327,62 @@ $memberId = $row[0];
         <div class="col-sm-2" style="background-color:#E2E5E8;right: 0; position: fixed;height:100%;padding-top: 20px;">
 
 
-                   <h4>Encounter attenders</h4>
+            <h4>Encounter attenders</h4>
             <br>
-                    <?php
-                    $rowww = getAttenders($EventId);
+            <?php
+            $rowww = getAttenders($EventId);
 
+
+            ?>
+
+
+            <ul class="list-group list-group-flush" style="background-color: #E2E5E8">
+
+
+                <?php
+
+                for ($i = 0; $i < count($rowww); $i++) {
+                    $exists = glob("/Applications/XAMPP/xamppfiles/htdocs/encounter/user_uploads/" . $rowww[$i]['attenders'] . ".*");
+
+                    if (count($exists)) {
+                        ?>
+                        <li class="list-group-item" style="background-color: #E2E5E8">
+                        <img class='rounded-circle' height="60px" width="60px"
+                             src='../user_uploads/<?php echo $rowww[$i]["attenders"] ?>.jpeg'/>
+
+
+                        <span style="font-family: 'Noto Sans', sans-serif;">  <?php echo getUserName($rowww[$i]["attenders"]); ?> </span>
+
+
+                        <?php
+                    }
 
                     ?>
+                    </li>
 
-
-                        <ul class="list-group list-group-flush" style="background-color: #E2E5E8">
-
-
-                    <?php
-
-                    for ($i = 0; $i < count($rowww); $i++) {
-                        $exists = glob("/Applications/XAMPP/xamppfiles/htdocs/encounter/user_uploads/" . $rowww[$i]['attenders'] . ".*");
-
-                        if (count($exists)) {
-                            ?>
-                            <li class="list-group-item" style="background-color: #E2E5E8">
-                            <img class='rounded-circle' height="60px" width="60px"
-                                 src='../user_uploads/<?php echo $rowww[$i]["attenders"] ?>.jpeg'/>
-
-
-                          <span style="font-family: 'Noto Sans', sans-serif;">  <?php echo getUserName($rowww[$i]["attenders"]); ?> </span>
-
-
-                            <?php
-                        }
-
-                        ?>
-                        </li>
-
-                    <?php } ?>
-                        </ul>
-            </div>
-<br>
-
-
+                <?php } ?>
+            </ul>
+        </div>
+        <br>
 
 
     </div>
 
 
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="./messaging.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="./messaging.js"></script>
     <script src="./notify.js"></script>
-    <script type="text/javascript" src='http://maps.google.com/maps/api/js?libraries=places&key=AIzaSyBCVuS83u7FTWYsPCpKN8QoVJeIiSmmo1Y'></script>
+    <script type="text/javascript"
+            src='http://maps.google.com/maps/api/js?libraries=places&key=AIzaSyBCVuS83u7FTWYsPCpKN8QoVJeIiSmmo1Y'></script>
     <script src="../js/locationpicker.jquery.js"></script>
     <script>
-        window.onload = function() {
+        window.onload = function () {
 
             //notifications Requests count
             var count = document.getElementById("notification_count").innerText;
@@ -449,7 +467,6 @@ $memberId = $row[0];
             });
 
 
-
             document.getElementById("input").focus();
 
 
@@ -471,6 +488,6 @@ $memberId = $row[0];
             });
 
         };
-        </script>
+    </script>
 </body>
 </html>

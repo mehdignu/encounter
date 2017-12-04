@@ -1,7 +1,6 @@
 <?php
 
 
-
 include("config.php");
 
 
@@ -26,7 +25,7 @@ function eventsArray($userName = '')
         $result = mysqli_query($GLOBALS['connection'], "SELECT * FROM `scheduled` WHERE scheduled.city = '$city'");
 
         // Find out how many items are in the table
-        $total =  mysqli_num_rows($result);
+        $total = mysqli_num_rows($result);
         // How many items to list per page
         $limit = 2;
 
@@ -36,13 +35,13 @@ function eventsArray($userName = '')
         // What page are we currently on?
         $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
             'options' => array(
-                'default'   => 1,
+                'default' => 1,
                 'min_range' => 1,
             ),
         )));
 
         // Calculate the offset for the query
-        $offset = ($page - 1)  * $limit;
+        $offset = ($page - 1) * $limit;
 
         // Some information to display to the user
         $start = $offset + 1;
@@ -50,18 +49,18 @@ function eventsArray($userName = '')
 
         // Prepare the paged query
 
-        $stmt = mysqli_query($GLOBALS['connection'], "SELECT * FROM `scheduled` WHERE scheduled.city = '$city' order BY `Date` ASC LIMIT $limit OFFSET $offset");
-
+        $stmt = mysqli_query($GLOBALS['connection'],
+            "SELECT * FROM `scheduled` WHERE scheduled.city = '$city' order BY `Date` ASC LIMIT $limit OFFSET $offset");
 
 
         // Do we have any results?
         if ($stmt) {
             // Define how we want to fetch the results
-            return  $stmt;
+            return $stmt;
 
 
         } else {
-           // echo '<p>No results could be displayed.</p>';
+            // echo '<p>No results could be displayed.</p>';
         }
 
     } catch (Exception $e) {
@@ -73,7 +72,8 @@ function eventsArray($userName = '')
 /**
  * get the city of the User
  */
-function getCity($userName = ''){
+function getCity($userName = '')
+{
     $result = mysqli_query($GLOBALS['connection'], "SELECT city FROM `users` WHERE users.UserName = '$userName' ");
 
     $row = mysqli_fetch_row($result);
@@ -84,13 +84,14 @@ function getCity($userName = ''){
 /**
  * function to display the pagination informations
  */
-function pagination($userName = ''){
-   /* $result = mysqli_query($GLOBALS['connection'], "SELECT city FROM `users` WHERE users.UserName = '$userName' ");
+function pagination($userName = '')
+{
+    /* $result = mysqli_query($GLOBALS['connection'], "SELECT city FROM `users` WHERE users.UserName = '$userName' ");
 
-    $row = mysqli_fetch_row($result);
+     $row = mysqli_fetch_row($result);
 
-    $city = $row[0];
-*/
+     $city = $row[0];
+ */
     $city = getCity($userName);
 
 
@@ -100,7 +101,7 @@ function pagination($userName = ''){
         $result = mysqli_query($GLOBALS['connection'], "SELECT * FROM `scheduled` WHERE scheduled.city = '$city' ");
 
         // Find out how many items are in the table
-        $total =  mysqli_num_rows($result);
+        $total = mysqli_num_rows($result);
 
         // How many items to list per page
         $limit = 2;
@@ -111,13 +112,13 @@ function pagination($userName = ''){
         // What page are we currently on?
         $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
             'options' => array(
-                'default'   => 1,
+                'default' => 1,
                 'min_range' => 1,
             ),
         )));
 
         // Calculate the offset for the query
-        $offset = ($page - 1)  * $limit;
+        $offset = ($page - 1) * $limit;
 
         // Some information to display to the user
         $start = $offset + 1;
@@ -134,43 +135,37 @@ function pagination($userName = ''){
 
         //start
 
-if($pages > 1){
+        if ($pages > 1) {
 
-        $s .= ($page > 1) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page - 1) . " \" tabindex=\" " . ($page - 1) . " \">Previous</a> </li>" : '<li class="page-item disabled"> <a class="page-link" href="#" tabindex="-1">Previous</a> </li>';
-
-
-
-        $tt .= ($page == $pages && $page-2 > 0) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page - 2) . " \" tabindex=\" " . ($page - 2) . " \">".($page-2)."</a> </li>" : '';
-
-        if($tt != "")
-            $s.= $tt;
-
-            $s .= ($page-1 > 0) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page - 1) . " \" tabindex=\" " . ($page - 1) . " \">".($page-1)."</a> </li>" : '';
-                $t .= ($page-1 <= 0 && $page+2 <=  $pages) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page + 2) . " \" tabindex=\" " . ($page + 2) . " \">".($page+2)."</a> </li>" : '';
+            $s .= ($page > 1) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page - 1) . " \" tabindex=\" " . ($page - 1) . " \">Previous</a> </li>" : '<li class="page-item disabled"> <a class="page-link" href="#" tabindex="-1">Previous</a> </li>';
 
 
+            $tt .= ($page == $pages && $page - 2 > 0) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page - 2) . " \" tabindex=\" " . ($page - 2) . " \">" . ($page - 2) . "</a> </li>" : '';
+
+            if ($tt != "") {
+                $s .= $tt;
+            }
+
+            $s .= ($page - 1 > 0) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page - 1) . " \" tabindex=\" " . ($page - 1) . " \">" . ($page - 1) . "</a> </li>" : '';
+            $t .= ($page - 1 <= 0 && $page + 2 <= $pages) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page + 2) . " \" tabindex=\" " . ($page + 2) . " \">" . ($page + 2) . "</a> </li>" : '';
 
 
-
-        $s .= "<li class=\"page-item active \"> <a class=\"page-link\" href=\"  ?page=" . ($page) . " \" tabindex=\" " . ($page) . " \">$page</a> </li>";
-
+            $s .= "<li class=\"page-item active \"> <a class=\"page-link\" href=\"  ?page=" . ($page) . " \" tabindex=\" " . ($page) . " \">$page</a> </li>";
 
 
-            $s .= ($page+1 <= $pages  ) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page + 1) . " \" tabindex=\" " . ($page + 1) . " \">".($page+1)."</a> </li>" : '';
+            $s .= ($page + 1 <= $pages) ? "<li class=\"page-item\"> <a class=\"page-link\" href=\"  ?page=" . ($page + 1) . " \" tabindex=\" " . ($page + 1) . " \">" . ($page + 1) . "</a> </li>" : '';
 
-        if($t != "")
-            $s.= $t;
-
-
-
+            if ($t != "") {
+                $s .= $t;
+            }
 
 
-        //end of the pagination
-        $s .= ($page < $pages) ? "<li class=\"page-item\"><a class=\"page-link\" href=\"  ?page=" . ($page + 1) . " \" tabindex=\" " . ($page + 1) . " \">Next</a></li>" : '<li class="page-item disabled"> <a class="page-link" href="#" tabindex="-1">Next</a> </li>';
+            //end of the pagination
+            $s .= ($page < $pages) ? "<li class=\"page-item\"><a class=\"page-link\" href=\"  ?page=" . ($page + 1) . " \" tabindex=\" " . ($page + 1) . " \">Next</a></li>" : '<li class="page-item disabled"> <a class="page-link" href="#" tabindex="-1">Next</a> </li>';
 
 
-}
-        echo  $s;
+        }
+        echo $s;
 
     } catch (Exception $e) {
         echo '<p>', $e->getMessage(), '</p>';
@@ -182,7 +177,8 @@ if($pages > 1){
 /*
  * get the notifications requests count for the userName
  */
-function getNotiCount($userName = ''){
+function getNotiCount($userName = '')
+{
     $query = "select ReqCount from users where users.UserName = '$userName'";
     $result = mysqli_query($GLOBALS['connection'], $query);
 
@@ -196,7 +192,8 @@ function getNotiCount($userName = ''){
 /*
  * get the notifications encounters count for the userName
  */
-function getNotiEncCount($userName = ''){
+function getNotiEncCount($userName = '')
+{
     $query = "select EncCount from users where users.UserName = '$userName'";
     $result = mysqli_query($GLOBALS['connection'], $query);
 
@@ -250,7 +247,8 @@ function getRequests($userName = '')
 /*
  * check if username already requested to join event
  */
-function isRequested($userName= '', $id=NULL){
+function isRequested($userName = '', $id = null)
+{
 
     $userID = mysqli_query($GLOBALS['connection'], "SELECT `id` FROM `users` WHERE `UserName` = '$userName'");
     $userID = mysqli_fetch_assoc($userID);
@@ -260,7 +258,7 @@ function isRequested($userName= '', $id=NULL){
         SELECT * FROM `requests` WHERE requester='$userID' and eventID = '$id'
         ");
 
-    if($result->num_rows === 0){
+    if ($result->num_rows === 0) {
         return false;
     } else {
         return true;
@@ -271,7 +269,8 @@ function isRequested($userName= '', $id=NULL){
 /*
  * check if username already accepted to the event
  */
-function isAccepted($userName= '', $id=NULL){
+function isAccepted($userName = '', $id = null)
+{
 
     $userID = mysqli_query($GLOBALS['connection'], "SELECT `id` FROM `users` WHERE `UserName` = '$userName'");
     $userID = mysqli_fetch_assoc($userID);
@@ -281,7 +280,7 @@ function isAccepted($userName= '', $id=NULL){
         SELECT partID FROM `participations` WHERE EventID = '$id' AND MemberID = '$userID'
         ");
 
-    if($result->num_rows === 0){
+    if ($result->num_rows === 0) {
         return false;
     } else {
         return true;
@@ -292,7 +291,8 @@ function isAccepted($userName= '', $id=NULL){
 /*
  * value of checked for the intro jumbo
  */
-function isChecked($userName = ''){
+function isChecked($userName = '')
+{
     $query = "select Checked from users where users.UserName = '$userName'";
     $result = mysqli_query($GLOBALS['connection'], $query);
 
@@ -307,7 +307,8 @@ function isChecked($userName = ''){
  * @param string $id
  * get the attenders of the event to show their images
  */
-function getAttenders($id=''){
+function getAttenders($id = '')
+{
 
     $result = mysqli_query($GLOBALS['connection'], "
         SELECT u.UserName as 'attenders'
@@ -330,7 +331,8 @@ function getAttenders($id=''){
 /**
  * @param userName $get the encounters of the user
  */
-function getOwnEncounters($userName = ''){
+function getOwnEncounters($userName = '')
+{
     $query = "select id from users where users.UserName = '$userName'";
     $result = mysqli_query($GLOBALS['connection'], $query);
 
@@ -349,7 +351,8 @@ function getOwnEncounters($userName = ''){
  *
  *get the encounter to edit
  */
-function getEncounter($id=''){
+function getEncounter($id = '')
+{
     $query = "select * from scheduled where scheduled.id = '$id'";
     $result = mysqli_query($GLOBALS['connection'], $query);
 
@@ -361,7 +364,8 @@ function getEncounter($id=''){
  *
  *get the encounter to edit
  */
-function getUserName($user=''){
+function getUserName($user = '')
+{
     $query = "select FirstName, LastName from users where users.Username = '$user'";
     $result = mysqli_query($GLOBALS['connection'], $query);
     $row = mysqli_fetch_row($result);
@@ -375,7 +379,8 @@ function getUserName($user=''){
 /**
  * check if user allowed to create more encounters
  */
-function allowedToCreate($user=''){
+function allowedToCreate($user = '')
+{
     $query = "select allowedCre from users where users.Username = '$user'";
     $result = mysqli_query($GLOBALS['connection'], $query);
     $row = mysqli_fetch_row($result);
@@ -389,7 +394,8 @@ function allowedToCreate($user=''){
 /**
  * function to fill the user profile
  */
-function fillProfile($id=''){
+function fillProfile($id = '')
+{
     $query = "select FirstName, LastName, about, city, gender from users where users.id = '$id'";
     $result = mysqli_query($GLOBALS['connection'], $query);
 
@@ -397,7 +403,8 @@ function fillProfile($id=''){
 }
 
 
-function getId($user=''){
+function getId($user = '')
+{
     $query = "select id from users where users.Username = '$user'";
     $result = mysqli_query($GLOBALS['connection'], $query);
     $row = mysqli_fetch_row($result);

@@ -76,11 +76,11 @@ include_once '../php/show.php';
             background-clip: padding-box;
             border: 1px solid rgba(0, 0, 0, .15);
             border-radius: .25rem;
-            max-height:250px;/* you can change as you need it */
-            overflow:auto;
+            max-height: 250px; /* you can change as you need it */
+            overflow: auto;
         }
 
-        .dropdown-item:hover{
+        .dropdown-item:hover {
 
             background-color: #E2E5E8;
 
@@ -150,7 +150,8 @@ include_once '../php/show.php';
 
             <li class="nav-item dropdown" style="font-family: Arimo;">
                 <a class="nav-link" id="dropdown01" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <?php echo getUserName($_SESSION['username']); ?> </a>
+                   aria-haspopup="true" aria-expanded="false"><i
+                            class="fa fa-user"></i> <?php echo getUserName($_SESSION['username']); ?> </a>
                 <div class="dropdown-menu dropdown-menu-right" id="dropit" aria-labelledby="dropdown01"
                      style="min-width: 10px;min-height: 20px">
                     <a class="dropdown-item" href="setProfile.php?id=<?php echo getId($_SESSION['username']) ?>">Settings</a>
@@ -227,7 +228,7 @@ include_once '../php/show.php';
                                         $end_date = new DateTime($row['Date'], new DateTimeZone('Asia/Dhaka'));
                                         $interval = $current_date->diff($end_date);
                                         echo $interval->format('%a day(s) left');
-                                         ?></p>
+                                        ?></p>
                                 </div>
                                 <div class="card-action">
                                     <a href="groupMessages.php?id=<?php echo $id ?>">Visit</a>
@@ -336,8 +337,8 @@ include_once '../php/show.php';
                                         if (count($exists)) {
                                             ?>
 
-                                                <img class='rounded-circle' height="60px" width="60px"
-                                                     src='../user_uploads/<?php echo $rowww[$i]["attenders"] ?>.jpeg'/>
+                                            <img class='rounded-circle' height="60px" width="60px"
+                                                 src='../user_uploads/<?php echo $rowww[$i]["attenders"] ?>.jpeg'/>
                                             <?php
                                         }
 
@@ -402,7 +403,7 @@ include_once '../php/show.php';
                                                 style="width=100%!important;background-color: #78909c">
 
                                             <i class="material-icons left">disc_full</i> <span
-                                                    ><?php echo 'Event is full'; ?></span>
+                                            ><?php echo 'Event is full'; ?></span>
 
                                         </button>
                                         <?php

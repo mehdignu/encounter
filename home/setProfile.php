@@ -11,7 +11,7 @@ include_once '../php/show.php';
 
 
 $requesterId = $_GET['id'];
-if(preg_match("/[a-z]/i", $requesterId) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $requesterId)){
+if (preg_match("/[a-z]/i", $requesterId) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $requesterId)) {
     header("Location: ../index.html");
     return false;
 }
@@ -27,12 +27,10 @@ $row = mysqli_fetch_row($result);
 
 $id = $row[0];
 
-if($id != $requesterId){
+if ($id != $requesterId) {
     header("Location: ./home.php");
     return false;
 }
-
-
 
 
 ?>
@@ -193,7 +191,8 @@ if($id != $requesterId){
 
             <li class="nav-item dropdown" style="font-family: Arimo;">
                 <a class="nav-link" id="dropdown01" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <?php echo getUserName($_SESSION['username']); ?> </a>
+                   aria-haspopup="true" aria-expanded="false"><i
+                            class="fa fa-user"></i> <?php echo getUserName($_SESSION['username']); ?> </a>
                 <div class="dropdown-menu dropdown-menu-right" id="dropit" aria-labelledby="dropdown01"
                      style="min-width: 10px;min-height: 20px">
                     <a class="dropdown-item" href="setProfile.php?id=<?php echo getId($_SESSION['username']) ?>">Settings</a>
@@ -252,11 +251,13 @@ if($id != $requesterId){
 
 
                                     <label><b>FirstName</b></label>
-                                    <input name="FirstName" class="form-control" type="text" placeholder="First name" maxlength="15"
+                                    <input name="FirstName" class="form-control" type="text" placeholder="First name"
+                                           maxlength="15"
                                            value="<?php echo $row['FirstName'] ?>" required><br>
 
                                     <label><b>LastName</b></label>
-                                    <input name="LastName" class="form-control" type="text" placeholder="Last name" maxlength="15"
+                                    <input name="LastName" class="form-control" type="text" placeholder="Last name"
+                                           maxlength="15"
                                            value="<?php echo $row['LastName'] ?>" required><br>
 
                                     <div class="form-group">
@@ -331,7 +332,7 @@ if($id != $requesterId){
             var fuData = document.getElementById('fileChooser');
             var FileUploadPath = fuData.value;
 
-        //To check if user upload any file
+            //To check if user upload any file
             if (FileUploadPath == '') {
                 alert("Please upload an image");
 
@@ -344,7 +345,7 @@ if($id != $requesterId){
                 if (Extension == "gif" || Extension == "png" || Extension == "bmp"
                     || Extension == "jpeg" || Extension == "jpg") {
 
-            // To Display
+                    // To Display
                     if (fuData.files && fuData.files[0]) {
                         var reader = new FileReader();
 
@@ -357,7 +358,7 @@ if($id != $requesterId){
 
                 }
 
-            //The file upload is NOT an image
+                //The file upload is NOT an image
                 else {
                     alert("Photo only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
 

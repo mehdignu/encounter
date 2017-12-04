@@ -9,18 +9,13 @@ if(!isset($_SESSION['username'])){
 session_regenerate_id();
 include("config.php");
 $id = $_POST['id'];
-if(preg_match("/[a-z]/i", $id) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $id)){
-    header("Location: ../index.html");
-    return false;
-}
 
-$stmt = $connection->prepare('SELECT messages FROM scheduled WHERE id= ?');
-$stmt->bind_param('s', $id);
 
-$stmt->execute();
 
-$result = $stmt->get_result();
 
+//increment user notiications count with each request
+$query = "SELECT messages FROM scheduled WHERE id='$id'";
+$result = mysqli_query($connection, $query);
 
 
 echo json_encode($result->fetch_array()[0], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);

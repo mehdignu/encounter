@@ -11,9 +11,5 @@ session_regenerate_id();
 
 $auth = $_GET['auth'];
 
-if(preg_match("/[a-z]/i", $auth) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $auth)){
-    header("Location: ../index.html");
-    return false;
-}
 
 echo getUserName($auth);

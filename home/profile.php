@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if(!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     header("Location: ../index.html");
 }
 
@@ -13,7 +13,7 @@ include_once '../php/show.php';
 
 $requesterId = $_GET['id'];
 
-if(preg_match("/[a-z]/i", $requesterId) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $requesterId)){
+if (preg_match("/[a-z]/i", $requesterId) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $requesterId)) {
     header("Location: ../index.html");
     return false;
 }
@@ -29,12 +29,11 @@ $row = mysqli_fetch_row($result);
 
 $count = $row[0];
 
-if($count!=1){
+if ($count != 1) {
 
     header("Location: ../index.html");
     return false;
 }
-
 
 
 ?>
@@ -139,7 +138,6 @@ if($count!=1){
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="font-family: Arimo, sans-serif">
 
 
-
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto" style="margin-left: 14%;">
 
@@ -227,26 +225,27 @@ if($count!=1){
 
 
                         if ($result) {
-                        while ($row = mysqli_fetch_assoc($result)) {
+                            while ($row = mysqli_fetch_assoc($result)) {
 
 
-                        ?>
+                                ?>
 
 
-                        <h1 class="desktop"><?php echo $row['FirstName'] .' '. $row['LastName'] ?></h1>
+                                <h1 class="desktop"><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?></h1>
 
 
+                                <h5>About me:</h5>
+                                <p><?php echo $row['about'] ?></p>
 
-                            <h5>About me:</h5>
-                        <p><?php echo $row['about'] ?></p>
-
-                            <h5 id="element2">City: </h5><p id="element1"> <?php echo $row['city'] ?></p><br>
-
-
-                            <h5 id="element2">Gender: </h5><p id="element1"> <?php echo $row['gender'] ? 'Male' : 'Female' ?></p>
+                                <h5 id="element2">City: </h5><p id="element1"> <?php echo $row['city'] ?></p><br>
 
 
-                        <?php }}
+                                <h5 id="element2">Gender: </h5><p
+                                        id="element1"> <?php echo $row['gender'] ? 'Male' : 'Female' ?></p>
+
+
+                            <?php }
+                        }
                         ?>
 
                     </div>
