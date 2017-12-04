@@ -6,7 +6,7 @@
  * Time: 7:07 PM
  */
 session_start();
-if(!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     header("Location: ../index.html");
     return false;
 }
@@ -38,21 +38,15 @@ $UserId = getId($userName);
 //check if the user already accepted
 $query = "SELECT * FROM `participations` WHERE `MemberID`='$UserId' AND `EventID`='$eventID'";
 $result = mysqli_query($connection, $query);
-
 $row = mysqli_fetch_row($result);
 
 
-if ($count < $max && !$row[0]) {
+$query = "SELECT * FROM `requests` WHERE `requester`='$UserId' AND `eventID`='$eventID'";
+$result = mysqli_query($connection, $query);
+$row1 = mysqli_fetch_row($result);
 
 
-//increment requester allowed requests
-    $query = "SELECT allowedReq FROM `users` WHERE `UserName`='$userName'";
-    $result = mysqli_query($connection, $query);
-
-    $row = mysqli_fetch_row($result);
-    $count = $row[0];
-
-    if ($count < 3) {
+if ($count < $max && !$row[0] && !$row1[0]) {
 
         $query = "INSERT INTO `requests` (`owner`, `requester`,`eventID`) VALUES ((SELECT `id` FROM `users` WHERE `UserName` = '$owner'), (SELECT `id` FROM `users` WHERE `UserName` = '$userName'),$eventID)";
         $result = mysqli_query($connection, $query);
@@ -67,7 +61,7 @@ if ($count < $max && !$row[0]) {
         $result = mysqli_query($connection, $query);
 
 
-    }
+
 
 } else {
     header('Location: ./home.php');
