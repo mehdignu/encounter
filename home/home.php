@@ -96,24 +96,11 @@ include_once '../php/show.php';
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="font-family: Arimo, sans-serif">
 
 
-    <!--
-       <a class="navbar-brand" href="./home.php" style="font-family: Lobster;">encounter</a>
-   -->
-    <!--
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>-->
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto" style="margin-left: 14%;">
 
-            <!--
-                        <li id="notifications">
-                            <a class="nav-link" href="./home.php"
-                               aria-haspopup="true" aria-expanded="false"><i class="fa fa-home"></i> Home </a>
-                        </li>
-            -->
+
 
 
             <li class="nav-item dropdown" id="notifications">
@@ -259,13 +246,13 @@ include_once '../php/show.php';
 
                 ?>
 
-                <div class="jumbotron" id="dismissMe">
+                <div class="jumbotron" id="dismissMe" style="background-color: #FFFFFF">
                     <h1 class="display-3">Welcome to encounter !</h1>
-                    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra
-                        attention to featured content or information.</p>
+                    <p class="lead">Encounter is a social app, it's main puropse is trying to connect the people in the real world using new simple methods, we believe that social media should help us connect more as humans.</p>
                     <hr class="my-4">
-                    <p>It uses utility classes for typography and spacing to space content out within the larger
-                        container.</p>
+                    <p>
+                        We are in beta version so we would appreciate every feedback.
+                    </p>
                     <p class="lead">
                         <a class="btn btn-primary btn-lg" href="#" id="dismiss" role="button">Dismiss</a>
                     </p>
@@ -445,7 +432,11 @@ include_once '../php/show.php';
 
                 }
             } else {
-                echo 'no encounters yet';
+
+
+                echo 'No encounters in your City yet Start by Creating some';
+
+
             }
 
             ?>
@@ -463,13 +454,7 @@ include_once '../php/show.php';
 
 
         <div class="col-sm-2" style="padding-top: 3%; margin-right: 6%;right: 0; position: fixed;height:100%;">
-            <!--
-                        <div class="card"
-                             style=" height:5em;padding-top:10px;margin-top:30px;padding-left:5px;">
-                            <div class="card-block">
-                                Ads
-                            </div>
-                        </div>-->
+
 
 
         </div>
@@ -483,9 +468,7 @@ include_once '../php/show.php';
         </p>
     </footer>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
             integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
             crossorigin="anonymous"></script>

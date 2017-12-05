@@ -30,7 +30,6 @@
             <div class="inner">
                 <h1>Encounter</h1>
                 <p>Connecting people in the real world</p>
-
             </div>
         </div>
         <nav>
@@ -50,10 +49,11 @@
         <article id="register">
 
             <h2 class="major">Create a New Account</h2>
-            <form name="register" action='php/register.php' onsubmit="return validateForm()" method='post' accept-charset='UTF-8' enctype="multipart/form-data">
+            <form name="register" action='php/register.php' onsubmit="return validateForm()" method='post'
+                  accept-charset='UTF-8' enctype="multipart/form-data">
                 <div class="field">
                     <label for="fname">First Name</label>
-                    <input type="text" name="fName" id="fName" placeholder="Your first name" required />
+                    <input type="text" name="fName" id="fName" placeholder="Your first name" required/>
                     <small style="color: red; font-size: 16px;font-weight: bold" id="err1"></small>
                 </div>
                 <div class="field">
@@ -86,14 +86,14 @@
                 <div class="field">
 
                     <label for="files" class="button icon fa-download" class="btn" id="demo">profile picture</label>
-                    <input id="files" name="files" style="visibility:hidden;position:absolute;" type="file" onchange="uploaded()">
+                    <input id="files" name="files" style="visibility:hidden;position:absolute;" type="file"
+                           onchange="uploaded()">
                 </div>
-
 
 
                 <div class="field">
                     <label for="email">Email</label>
-                    <input type="email" name="email" placeholder="E-mail address" id="mail" required />
+                    <input type="email" name="email" placeholder="E-mail address" id="mail" required/>
                 </div>
                 <div class="field">
                     <label for="email">Password</label>
@@ -102,6 +102,11 @@
 
                 </div>
                 <span id="errorname" style="color:red"></span>
+                <small style="font-size: 12px;">Indem du auf „Create Account“ klickst, erklärst du dich mit unseren <a
+                        href="#nutz">Nutzungsbedingungen</a> einverstanden und bestätigst, dass du unsere <a
+                        href="#recht">Datenrichtlinie</a> einschließlich unserer Cookie-Richtlinie gelesen hast.
+
+                </small>
                 <ul class="actions">
                     <li><input type="submit" value="Create Account" name="submit" class="special"/></li>
                     <li><input type="reset" value="Reset"/></li>
@@ -109,8 +114,6 @@
             </form>
 
         </article>
-
-
 
 
         <!-- Login -->
@@ -138,260 +141,221 @@
 
 
 
-        <!-- Elements -->
-        <!--
-        <article id="elements">
-            <h2 class="major">Elements</h2>
-
-            <section>
-                <h3 class="major">Text</h3>
-                <p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
-                    This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
-                    This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this
-                        is a link</a>.</p>
-                <hr/>
-                <h2>Heading Level 2</h2>
-                <h3>Heading Level 3</h3>
-                <h4>Heading Level 4</h4>
-                <h5>Heading Level 5</h5>
-                <h6>Heading Level 6</h6>
-                <hr/>
-                <h4>Blockquote</h4>
-                <blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus
-                    euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis
-                    volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor
-                    sit amet nullam adipiscing eu felis.
-                </blockquote>
-                <h4>Preformatted</h4>
-                <pre><code>i = 0;
-
-while (!deck.isInOrder()) {
-    print 'Iteration ' + i;
-    deck.shuffle();
-    i++;
-}
-
-print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
-            </section>
-
-            <section>
-                <h3 class="major">Lists</h3>
-
-                <h4>Unordered</h4>
-                <ul>
-                    <li>Dolor pulvinar etiam.</li>
-                    <li>Sagittis adipiscing.</li>
-                    <li>Felis enim feugiat.</li>
-                </ul>
-
-                <h4>Alternate</h4>
-                <ul class="alt">
-                    <li>Dolor pulvinar etiam.</li>
-                    <li>Sagittis adipiscing.</li>
-                    <li>Felis enim feugiat.</li>
-                </ul>
-
-                <h4>Ordered</h4>
-                <ol>
-                    <li>Dolor pulvinar etiam.</li>
-                    <li>Etiam vel felis viverra.</li>
-                    <li>Felis enim feugiat.</li>
-                    <li>Dolor pulvinar etiam.</li>
-                    <li>Etiam vel felis lorem.</li>
-                    <li>Felis enim et feugiat.</li>
-                </ol>
-                <h4>Icons</h4>
-                <ul class="icons">
-                    <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-                    <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                    <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-                    <li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
-                </ul>
-
-                <h4>Actions</h4>
-                <ul class="actions">
-                    <li><a href="#" class="button special">Default</a></li>
-                    <li><a href="#" class="button">Default</a></li>
-                </ul>
-                <ul class="actions vertical">
-                    <li><a href="#" class="button special">Default</a></li>
-                    <li><a href="#" class="button">Default</a></li>
-                </ul>
-            </section>
-
-            <section>
-                <h3 class="major">Table</h3>
-                <h4>Default</h4>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Item One</td>
-                            <td>Ante turpis integer aliquet porttitor.</td>
-                            <td>29.99</td>
-                        </tr>
-                        <tr>
-                            <td>Item Two</td>
-                            <td>Vis ac commodo adipiscing arcu aliquet.</td>
-                            <td>19.99</td>
-                        </tr>
-                        <tr>
-                            <td>Item Three</td>
-                            <td> Morbi faucibus arcu accumsan lorem.</td>
-                            <td>29.99</td>
-                        </tr>
-                        <tr>
-                            <td>Item Four</td>
-                            <td>Vitae integer tempus condimentum.</td>
-                            <td>19.99</td>
-                        </tr>
-                        <tr>
-                            <td>Item Five</td>
-                            <td>Ante turpis integer aliquet porttitor.</td>
-                            <td>29.99</td>
-                        </tr>
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <td colspan="2"></td>
-                            <td>100.00</td>
-                        </tr>
-                        </tfoot>
-                    </table>
-                </div>
-
-                <h4>Alternate</h4>
-                <div class="table-wrapper">
-                    <table class="alt">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Item One</td>
-                            <td>Ante turpis integer aliquet porttitor.</td>
-                            <td>29.99</td>
-                        </tr>
-                        <tr>
-                            <td>Item Two</td>
-                            <td>Vis ac commodo adipiscing arcu aliquet.</td>
-                            <td>19.99</td>
-                        </tr>
-                        <tr>
-                            <td>Item Three</td>
-                            <td> Morbi faucibus arcu accumsan lorem.</td>
-                            <td>29.99</td>
-                        </tr>
-                        <tr>
-                            <td>Item Four</td>
-                            <td>Vitae integer tempus condimentum.</td>
-                            <td>19.99</td>
-                        </tr>
-                        <tr>
-                            <td>Item Five</td>
-                            <td>Ante turpis integer aliquet porttitor.</td>
-                            <td>29.99</td>
-                        </tr>
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <td colspan="2"></td>
-                            <td>100.00</td>
-                        </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </section>
-
-            <section>
-                <h3 class="major">Buttons</h3>
-                <ul class="actions">
-                    <li><a href="#" class="button special">Special</a></li>
-                    <li><a href="#" class="button">Default</a></li>
-                </ul>
-                <ul class="actions">
-                    <li><a href="#" class="button">Default</a></li>
-                    <li><a href="#" class="button small">Small</a></li>
-                </ul>
-                <ul class="actions">
-                    <li><a href="#" class="button special icon fa-download">Icon</a></li>
-                    <li><a href="#" class="button icon fa-download">Icon</a></li>
-                </ul>
-                <ul class="actions">
-                    <li><span class="button special disabled">Disabled</span></li>
-                    <li><span class="button disabled">Disabled</span></li>
-                </ul>
-            </section>
-
-            <section>
-                <h3 class="major">Form</h3>
-                <form method="post" action="#">
-                    <div class="field half first">
-                        <label for="demo-name">Name</label>
-                        <input type="text" name="demo-name" id="demo-name" value="" placeholder="Jane Doe"/>
-                    </div>
-                    <div class="field half">
-                        <label for="demo-email">Email</label>
-                        <input type="email" name="demo-email" id="demo-email" value="" placeholder="jane@untitled.tld"/>
-                    </div>
-                    <div class="field">
-                        <label for="demo-category">Category</label>
-                        <div class="select-wrapper">
-                            <select name="demo-category" id="demo-category">
-                                <option value="">-</option>
-                                <option value="1">Manufacturing</option>
-                                <option value="1">Shipping</option>
-                                <option value="1">Administration</option>
-                                <option value="1">Human Resources</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="field half first">
-                        <input type="radio" id="demo-priority-low" name="demo-priority" checked>
-                        <label for="demo-priority-low">Low</label>
-                    </div>
-                    <div class="field half">
-                        <input type="radio" id="demo-priority-high" name="demo-priority">
-                        <label for="demo-priority-high">High</label>
-                    </div>
-                    <div class="field half first">
-                        <input type="checkbox" id="demo-copy" name="demo-copy">
-                        <label for="demo-copy">Email me a copy</label>
-                    </div>
-                    <div class="field half">
-                        <input type="checkbox" id="demo-human" name="demo-human" checked>
-                        <label for="demo-human">Not a robot</label>
-                    </div>
-                    <div class="field">
-                        <label for="demo-message">Message</label>
-                        <textarea name="demo-message" id="demo-message" placeholder="Enter your message"
-                                  rows="6"></textarea>
-                    </div>
-                    <ul class="actions">
-                        <li><input type="submit" value="Send Message" class="special"/></li>
-                        <li><input type="reset" value="Reset"/></li>
-                    </ul>
-                </form>
-            </section>
+        <article id="nutz">
+            <h2 class="major">Nutzungsbedingungen</h2>
+            <h2>Haftung für Inhalte</h2>
+            <p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den
+                allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht
+                verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu
+                forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+            <p>Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen
+                bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis
+                einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden
+                wir diese Inhalte umgehend entfernen.</p>
+            <h2>Haftung für Links</h2>
+            <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben.
+                Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der
+                verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die
+                verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft.
+                Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar.</p>
+            <p>Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer
+                Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links
+                umgehend entfernen.</p>
+            <h2>Urheberrecht</h2>
+            <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen
+                Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der
+                Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+                Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.</p>
+            <p>Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter
+                beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine
+                Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden
+                von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
+            <p><i>Quellverweis: <a href="https://www.e-recht24.de">eRecht24</a></i></p>
 
         </article>
--->
+
+
+        <!-- Contact -->
+        <article id="schutz">
+            <h2 class="major">Datenschutzerklärung</h2>
+
+            <p><strong>Datenschutzerklärung</strong></p>
+            <p>Der Schutz und die Sicherheit von persönlichen Daten hat bei uns eine hohe Priorität. Daher halten wir
+                uns strikt an die Regeln des deutschen Bundesdatenschutzgesetzes (BDSG). Nachfolgend werden Sie darüber
+                informiert, welche Art von Daten erfasst und zu welchem Zweck sie erhoben werden:</p>
+            <p>1. Datenübermittlung /Datenprotokollierung<br>Beim Besuch dieser Seite verzeichnet der Web-Server
+                automatisch Log-Files, die keiner bestimmten Person zugeordnet werden können. Diese Daten beinhalten z.
+                B. den Browsertyp und -version, verwendetes Betriebssystem, Referrer URL (die zuvor besuchte Seite),
+                IP-Adresse des anfragenden Rechners, Zugriffsdatum und -uhrzeit der Serveranfrage und die Dateianfrage
+                des Client (Dateiname und URL). Diese Daten werden nur zum Zweck der statistischen Auswertung gesammelt.
+                Eine Weitergabe an Dritte, zu kommerziellen oder nichtkommerziellen Zwecken, findet nicht statt.</p>
+            <p>2. Nutzung persönlicher Daten<br>Persönliche Daten werden nur erhoben oder verarbeitet, wenn Sie diese
+                Angaben freiwillig, z.B. im Rahmen einer Anfrage mitteilen. Sofern keine erforderlichen Gründe im
+                Zusammenhang mit einer Geschäftsabwicklung bestehen, können Sie jederzeit die zuvor erteilte Genehmigung
+                Ihrer persönlichen Datenspeicherung mit sofortiger Wirkung schriftlich (z.B. per E-Mail oder per Fax)
+                widerrufen. Ihre Daten werden nicht an Dritte weitergeben, es sei denn, eine Weitergabe ist aufgrund
+                gesetzlicher Vorschriften erforderlich.</p>
+            <p>3. Auskunft, Änderung und Löschung Ihrer Daten<br>Gemäß geltendem Recht können Sie jederzeit bei uns
+                schriftlich nachfragen, ob und welche personenbezogenen Daten bei uns über Sie gespeichert sind. Eine
+                entsprechende Mitteilung hierzu erhalten Sie umgehend.</p>
+            <p>4. Sicherheit Ihrer Daten<br>Ihre uns zur Verfügung gestellten persönlichen Daten werden durch Ergreifung
+                aller technischen sowie organisatorischen Sicherheitsmaßnahmen so gesichert, dass sie für den Zugriff
+                unberechtigter Dritter unzugänglich sind. Bei Versendung von sehr sensiblen Daten oder Informationen ist
+                es empfehlenswert, den Postweg zu nutzen, da eine vollständige Datensicherheit per E-Mail nicht
+                gewährleistet werden kann.</p>
+            <p>5. Hinweis zu Google Analytics<br>Diese Website benutzt Google Analytics, einen Webanalysedienst der
+                Google Inc. („Google“).  Google Analytics verwendet sog. „Cookies“, d. h. Textdateien, die auf Ihrem
+                Computer gespeichert werden und die eine Analyse der Benutzung der Website durch Sie ermöglicht. Die
+                durch den Cookie erzeugten Informationen über Ihre Benutzung diese Website (einschließlich Ihrer
+                IP-Adresse) wird an einen Server von Google in den USA übertragen und dort gespeichert. Google wird
+                diese Informationen benutzen, um Ihre Nutzung der Website auszuwerten, um Reports über die
+                Websiteaktivitäten für die Websitebetreiber zusammenzustellen und um weitere mit der Websitenutzung und
+                der Internetnutzung verbundene Dienstleistungen zu erbringen. Auch wird Google diese Informationen
+                gegebenenfalls an Dritte übertragen, sofern dies gesetzlich vorgeschrieben oder soweit Dritte diese
+                Daten im Auftrag von Google verarbeiten. Google wird in keinem Fall Ihre IP-Adresse mit anderen Daten
+                der Google in Verbindung bringen. Sie können die Installation der Cookies durch eine entsprechende
+                Einstellung Ihrer Browser Software verhindern; wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall
+                gegebenenfalls nicht sämtliche Funktionen dieser Website voll umfänglich nutzen können. Durch die
+                Nutzung dieser Website erklären Sie sich mit der Bearbeitung der über Sie erhobenen Daten durch Google
+                in der zuvor beschriebenen Art und Weise und zu dem zuvor benannten Zweck einverstanden.</p>
+            <p>6. Cookies<br>Auf einigen unserer Seiten verwenden wir sog. "Session-Cookies", um Ihnen die Nutzung
+                unserer Webseiten zu erleichtern. Dabei handelt es sich um kleine Textdateien, die nur für die Dauer
+                Ihres Besuchs unserer Webseite auf Ihrer Festplatte hinterlegt und abhängig von der Einstellung Ihres
+                Browser-Programms beim Beenden des Browsers wieder gelöscht werden. Diese Cookies rufen keine auf Ihrer
+                Festplatte über Sie gespeicherten Informationen ab und beeinträchtigen nicht Ihren PC oder ihre Dateien.
+                Die meisten Browser sind so eingestellt, dass sie Cookies automatisch akzeptieren. Sie können das
+                Speichern von Cookies jedoch deaktivieren oder ihren Browser so einstellen, dass er Sie auf die Sendung
+                von Cookies hinweist.</p>
+            <p>7. Änderungen dieser Datenschutzbestimmungen<br>Wir werden diese Richtlinien zum Schutz Ihrer
+                persönlichen Daten von Zeit zu Zeit aktualisieren. Sie sollten sich diese Richtlinien gelegentlich
+                ansehen, um auf dem Laufenden darüber zu bleiben, wie wir Ihre Daten schützen und die Inhalte unserer
+                Website stetig verbessern. Sollten wir wesentliche Änderungen bei der Sammlung, der Nutzung und/oder der
+                Weitergabe der uns von Ihnen zur Verfügung gestellten personenbezogenen Daten vornehmen, werden wir Sie
+                durch einen eindeutigen und gut sichtbaren Hinweis auf der Website darauf aufmerksam machen. Mit der
+                Nutzung der Webseite erklären Sie sich mit den Bedingungen dieser Richtlinien zum Schutz persönlicher
+                Daten einverstanden.</p>
+            <p>Bei Fragen zu diesen Datenschutzbestimmungen wenden Sie sich bitte über unsere Kontakt-Seite an uns.</p>
+        </article>
+
+        <!-- recht -->
+        <article id="recht">
+            <h2 class="major">Rechtliche hinweise</h2>
+
+            <p>
+                <strong>1. Haftungsbeschränkung</strong><br/>
+                Die Inhalte des Internetauftritts wurden mit größtmöglicher Sorgfalt und nach bestem Gewissen erstellt.
+                Dennoch übernimmt der Anbieter dieser Webseite keine Gewähr für die Aktualität, Vollständigkeit und
+                Richtigkeit der bereitgestellten Seiten und Inhalte.</p>
+            <p>Als Diensteanbieter ist der Anbieter dieser Webseite gemäß § 7 Abs. 1 TMG für eigene Inhalte und
+                bereitgestellte Informationen auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich; nach den
+                §§ 8 bis 10 TMG jedoch nicht verpflichtet, die übermittelten oder gespeicherten fremden Informationen zu
+                überwachen. Eine Entfernung oder Sperrung dieser Inhalte erfolgt umgehend ab dem Zeitpunkt der Kenntnis
+                einer konkreten Rechtsverletzung. Eine Haftung ist erst ab dem Zeitpunkt der Kenntniserlangung
+                möglich.</p>
+            <p><strong>2. Externe Links</strong><br/>
+                Die Webseite enthält sog. „externe Links“ (Verlinkungen) zu anderen Webseiten, auf deren Inhalt der
+                Anbieter der Webseite keinen Einfluss hat. Aus diesem Grund kann der Anbieter für diese Inhalte auch
+                keine Gewähr übernehmen.<br/>
+                Für die Inhalte und Richtigkeit der bereitgestellten Informationen ist der jeweilige Anbieter der
+                verlinkten Webseite verantwortlich. Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar.
+                Bei Bekanntwerden einer solchen Rechtsverletzung wird der Link umgehend entfernen. </p>
+            <p><strong>3. Urheberrecht/Leistungsschutzrecht</strong><br/>
+                Die auf dieser Webseite veröffentlichten Inhalte, Werke und bereitgestellten Informationen unterliegen
+                dem deutschen Urheberrecht und Leistungsschutzrecht. Jede Art der Vervielfältigung, Bearbeitung,
+                Verbreitung, Einspeicherung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedarf
+                der vorherigen schriftlichen Zustimmung des jeweiligen Rechteinhabers. Das unerlaubte Kopieren/Speichern
+                der bereitgestellten Informationen auf diesen Webseiten ist nicht gestattet und strafbar. </p>
+            <p><strong>4. Datenschutz</strong><br/>
+                Durch den Besuch des Internetauftritts können Informationen (Datum, Uhrzeit, aufgerufene Seite) über den
+                Zugriff auf dem Server gespeichert werden. Es werden keine personenbezogenenen (z. B. Name, Anschrift
+                oder E-Mail-Adresse) Daten, gespeichert.</p>
+            <p>Sofern personenbezogene Daten erhoben werden, erfolgt dies, sofern möglich, nur mit dem vorherigen
+                Einverständnis des Nutzers der Webseite. Eine Weitergabe der Daten an Dritte findet ohne ausdrückliche
+                Zustimmung des Nutzers nicht statt.</p>
+            <p>Der Anbieter weist darauf hin, dass die Übertragung von Daten im Internet (z. B. per E-Mail)
+                Sicherheitslücken aufweisen und ein lückenloser Schutz der Daten vor dem Zugriff Dritter nicht
+                gewährleistet werden kann. Der Anbieter übernimmt keine Haftung für die durch solche Sicherheitslücken
+                entstandenen Schäden. </p>
+            <p>Der Verwendung der Kontaktdaten durch Dritte zur gewerblichen Nutzung wird ausdrücklich widersprochen. Es
+                sei denn, der Anbieter hat zuvor seine schriftliche Einwilligung erteilt.<br/>
+                Der Anbieter behält sich rechtliche Schritte für den Fall der unverlangten Zusendung von
+                Werbeinformationen, z. B. durch Spam-Mails, vor.<br/>
+                <strong>Quelle</strong>: <a href="http://www.mustervorlage.net/">Mustervorlage.net</a>
+        </article>
+
+        <!-- recht -->
+        <article id="impress">
+            <h2 class="major">Impressum</h2>
+
+
+            <p>Mehdi Dridi<br/>
+                Aristotelessteig<br/>
+                10318 Berlin
+            </p>
+
+            <h2>Kontakt:</h2>
+            <p>Telefon: 015112098470<br/>
+                E-Mail:
+                <SCRIPT TYPE="text/javascript">
+                    emailE = ('dridignu@' + 'gmail.com')
+                    document.write('<A href="mailto:' + emailE + '">' + emailE + '</a>')</script>
+            </p>
+            Homepage: <a href="http://mehdidridi.de">http://mehdidridi.de </a>
+            </p>
+        </article>
+
+
+        <!-- recht -->
+        <article id="about">
+            <h2 class="major">About</h2>
+
+
+            <p>Encounter is a social app, it's main puropse is trying to connect the people in the real world using new
+                simple methods different from others.
+            </p>
+
+        </article>
+
+
     </div>
+
+
+    <div id="cookiedingsbums">
+        <div>
+            <span style="font-size: 16px">Auf einigen unserer Seiten verwenden wir sog. "Session-Cookies", um Ihnen die Nutzung unserer Webseiten zu erleichtern. </span>
+            <a href="http://xxx.euredomain.de/euredatenschutzseite" style="font-size: 16px">Hier erfahrt ihr alles zum
+                Datenschutz</a></div>
+        <a href="#" id="cookiedingsbumsCloser"
+           onclick="document.cookie = 'hidecookiedingsbums=1;path=/';jQuery('#cookiedingsbums').slideUp()"
+           class="button special">&#10006; Einverstanden</a>
+    </div>
+
+
 
     <!-- Footer -->
     <footer id="footer">
+
+
+       <!-- <ul class="icons">
+            <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+            <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+            <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+            <li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+        </ul>-->
         <p class="copyright">&copy; Encounter 2018.</p>
+        <div class="row-fluid">
+
+
+            <div class="span8">
+                <a style="font-size: 11px" href="#about">about</a>
+                <a style="font-size: 11px;" href="#impress">Impressum</a>
+                <a style="font-size: 11px" href="#schutz">Datenschutz</a>
+                <a style="font-size: 11px" href="#recht">Rechtliche Hinweise</a>
+                <a style="font-size: 11px" href="https://html5up.net" target="_blank">design by Html5up</a>
+            </div>
+
+        </div>
+
     </footer>
 
 </div>
@@ -407,18 +371,28 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 <script>
 
+    var fuckDis = document.cookie.indexOf('hidecookiedingsbums=1');
 
-    function uploaded(){
+    if (fuckDis != -1) {
+        jQuery('#cookiedingsbums').hide();
+    }
+    else {
+        jQuery('#cookiedingsbums').prependTo('cookiedingsbums');
+        jQuery('#cookiedingsbumsCloser').show();
+    }
+
+
+    function uploaded() {
 
         var x = document.getElementById("files");
         var txt = "";
-        var name="";
+        var name = "";
         if ('files' in x) {
             if (x.files.length == 0) {
                 txt = "Select one or more files.";
             } else {
                 for (var i = 0; i < x.files.length; i++) {
-                    txt += "<br><strong>" + (i+1) + ". file</strong><br>";
+                    txt += "<br><strong>" + (i + 1) + ". file</strong><br>";
                     var file = x.files[i];
                     if ('name' in file) {
                         txt += "name: " + file.name + "<br>";
@@ -435,31 +409,39 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
                 txt += "Select one or more files.";
             } else {
                 txt += "The files property is not supported by your browser!";
-                txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead.
+                txt += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead.
             }
         }
         document.getElementById("demo").innerHTML = name;
     }
 
 
-
     /**
      * validate the form inputs
      * @returns {boolean}
      */
-    function validateForm(){
+    function validateForm() {
 
         var verified = true;
         var fname = document.getElementById('fName').value;
         var lname = document.getElementById('lName').value;
 
-       if(/\d/.test(fname) ) {
 
-           document.getElementById('err1').innerHTML = 'Your first name should be characters !';
+        if (fuckDis == -1) {
+            verified = false;
+
+        } else {
+            verified = true;
+        }
+
+        alert(verified);
+        if (/\d/.test(fname)) {
+
+            document.getElementById('err1').innerHTML = 'Your first name should be characters !';
             verified = false;
         }
 
-        if(/\d/.test(lname) ) {
+        if (/\d/.test(lname)) {
             document.getElementById('err2').innerHTML = 'Your last name should be characters !';
             verified = false;
         }
@@ -469,7 +451,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
         var g2 = document.getElementById('female').checked;
 
 
-        if(g1==false && g2==false){
+        if (g1 == false && g2 == false) {
             document.getElementById('err3').innerHTML = 'Select gender';
             verified = false;
         }
@@ -477,22 +459,18 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
         var psw = document.getElementById('psw').value;
 
-       if(psw.length < 7){
-           document.getElementById('err4').innerHTML = 'password have to be more than 8 caracters long';
-           verified = false;
-       }
-
-
-        var psw = document.getElementById('city').value;
-
-        if(psw.length == 0 || /\d/.test(lname)){
-            document.getElementById('errc').innerHTML = 'fill your city correctly';
+        if (psw.length < 7) {
+            document.getElementById('err4').innerHTML = 'password have to be more than 8 caracters long';
             verified = false;
         }
 
 
+        var psw = document.getElementById('city').value;
 
-
+        if (psw.length == 0 || /\d/.test(lname)) {
+            document.getElementById('errc').innerHTML = 'fill your city correctly';
+            verified = false;
+        }
 
 
         return verified;

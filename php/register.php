@@ -93,7 +93,7 @@ if (isset($_POST['fName']) && isset($_POST['city']) && isset($_POST['lName']) &&
             }
         }
     } else {
-        $cc = 'Default.jpeg';
+        $filename = 'Default.jpeg';
     }
 
     //start
@@ -146,7 +146,7 @@ if (isset($_POST['fName']) && isset($_POST['city']) && isset($_POST['lName']) &&
     $uN = getToken(10);
 
 
-    $query = "INSERT INTO `users` (UserName, ImageName,FirstName, LastName, gender,city ,Email, Password) VALUES ('$cc', '$filename','$firstname', '$lastName', '$gender', '$city','$email', '$p')";
+    $query = "INSERT INTO `users` (UserName, ImageName,FirstName, LastName, gender,city ,Email, Password) VALUES ('$uN', '$filename','$firstname', '$lastName', '$gender', '$city','$email', '$p')";
     $result = mysqli_query($connection, $query);
 
 
@@ -154,7 +154,7 @@ if (isset($_POST['fName']) && isset($_POST['city']) && isset($_POST['lName']) &&
 
     session_start();
 
-    $_SESSION['username'] = $cc;
+    $_SESSION['username'] = $uN;
     header('Location: ../home/home.php');
 
 }
