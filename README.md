@@ -1,5 +1,18 @@
 # encounter
 
+Version: 1.0
+
+Simple but powerful social events scheduler website
+
+## Features ##
+
+* Event Planner
+* Events are secure and private between the group attenders
+* Instant messanging between the group attenders using node.js
+* notifications System for the User (when event attending requested or event request accepted)
+* Each user has his own Profile with short informations about him including profile picture 
+* Logout / Login system
+
 ## Licence ##
 
    Copyright 2018 [Mehdi Dridi](https://mehdi-dridi.de/ "Mehdi Dridi")
