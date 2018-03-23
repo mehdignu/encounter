@@ -6,8 +6,8 @@ Simple but powerful social events scheduler website
 
 ## Features ##
 
-* Event Planner
-* Events are secure and private between the group attenders
+* Create Events
+* Events location and messages between attenders are secure and private between the group attenders
 * Pagination of the Events
 * Instant messaging between the group attenders using node.js
 * notifications System for the User (when event attending requested or event request accepted)
