@@ -14,6 +14,15 @@ Simple but powerful social events scheduler website
 * Each user has his own Profile with short informations about him including profile picture 
 * Logout / Login system
 
+## Contribute
+
+To keep encounter growing and improving we need all help we can get. your help is welcome!
+
+## Security
+
+Found a security issue? Please disclose it responsibly to [dridignu@gmail.com](mailto:dridignu@gmail.com). 
+
+
 ## Licence ##
 
    Copyright 2018 [Mehdi Dridi](https://mehdi-dridi.de/ "Mehdi Dridi")
