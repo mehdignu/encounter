@@ -2,7 +2,7 @@
 
 Version: 1.0
 
-Simple but powerful social events scheduler website
+Simple but powerful social events scheduler website, Build from scratch using the awesome power of pure HTML, CSS, PHP, and JS, baby.
 
 ## Features ##
 
